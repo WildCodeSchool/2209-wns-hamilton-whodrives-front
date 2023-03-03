@@ -1,6 +1,8 @@
 name: jest-and-docker-ci
 
-on: push
+on:
+  push:
+    branches: ["docker-ci"]
 
 jobs:
   test-front:
@@ -13,7 +15,6 @@ jobs:
 
   docker:
     needs: test-front
-    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
@@ -29,5 +30,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          context: "{{defaultContext}}:front"
+          file: ./Dockerfile
           tags: whodrives/whodrives-front:latest
