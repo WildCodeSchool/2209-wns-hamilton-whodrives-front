@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Go to front
+      - name: Install front dependencies and run tests
         run: npm i
 
   docker:
