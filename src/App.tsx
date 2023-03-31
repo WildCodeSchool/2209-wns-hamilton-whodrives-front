@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> Alex le bosss ! .
+          Edit <code>src/App.tsx</code> C'est écrit dans le coran.
         </p>
         <a
           className="App-link"
