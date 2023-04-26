@@ -1,13 +1,14 @@
 import React from "react";
 
 import "./App.css";
-import Search from "./pages/auth/Search/Search";
+import SearchForm from "./pages/auth/Search/SearchForm";
+
 
 function App() {
  
   return (
     <div >
-<Search/>
+<SearchForm/>
     </div>
   );
 }

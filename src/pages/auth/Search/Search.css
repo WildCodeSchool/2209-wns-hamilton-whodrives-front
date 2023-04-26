@@ -1,5 +1,17 @@
 .search-background{
-   background-color: blueviolet ;
+background-image: url(/public/whodrives.gif);
+background-repeat: no-repeat;
+ background-size: cover;
    width: 100vw;
-   height: 50vh;
+   height:100vh;
+   z-index: -1;
+   position: absolute;
+}
+
+option:hover{
+    background-color: aqua;
+    cursor: pointer;
+}
+option{
+    background-color: white;
 }
