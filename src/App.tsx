@@ -1,10 +1,5 @@
-import React from 'react';
-import AddCarPictureForm from './component/fileUpload';
 function App() {
-  return <div className="w-screen h-screen bg-whodrivesGreen">
-    <AddCarPictureForm/>
-  </div>;
-
+  return <div className="w-screen h-screen bg-whodrivesGreen"></div>;
 }
 
 export default App;
