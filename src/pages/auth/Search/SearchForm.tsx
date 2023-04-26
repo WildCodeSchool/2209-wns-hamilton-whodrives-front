@@ -65,20 +65,12 @@ const SearchForm: React.FC = () => {
   console.log(form);
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        height: "7vh",
-        backgroundColor: "green",
-        display: "flex",
-        flexDirection: "row",
-      }}
-    >
-      <div style={{ display: "flex", flexDirection: "column" }}>
+    <div className="flex flex-row ">
+      <div className="flex flex-col h-10">
         <input
           type="text"
           onChange={handleChange}
-          placeholder="depart"
+          placeholder={form.départ}
           style={{ height: "100%", borderRight: "black solid" }}
         />
         {display &&
@@ -87,14 +79,16 @@ const SearchForm: React.FC = () => {
               key={el}
               value={el}
               onClick={(e: React.MouseEvent<HTMLOptionElement>) =>
-                setForm({ ...form, départ: e.currentTarget.value })
+                {setForm({ ...form, départ: e.currentTarget.value }),setDisplay(false)}
+                
+                
               }
             >
               {el}
             </option>
           ))}
       </div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="flex flex-col h-10">
         <input
           type="text"
           onChange={handleChange}
