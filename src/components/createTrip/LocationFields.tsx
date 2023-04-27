@@ -8,6 +8,16 @@ function LocationField() {
   const [heure, setHeure] = useState("");
   const [nombrePersonnes, setNombrePersonnes] = useState("");
 
+  const handleSuivantClick = () => {
+    const data = {
+      depart,
+      arrivee,
+      date,
+      heure,
+      nombrePersonnes,
+    }
+  };
+
   return (
     <div className="h-screen flex flex-col justify-center items-center ">
       <h2 className="text-lg font-semibold text-center mb-4">Je publie un trajet</h2>
