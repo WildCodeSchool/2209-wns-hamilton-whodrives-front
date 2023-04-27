@@ -8,7 +8,7 @@ import SearchTripPage from "./pages/searchTrip/searchTripPage";
 
 function App() {
   return (
-    <div className="w-screen h-screen">
+    <div className="">
       <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />

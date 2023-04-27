@@ -5,7 +5,7 @@ export default function HeaderComponent(): JSX.Element {
   const navigate = useNavigate();
 
   return (
-    <div className="w-screen h-20 bg-layoutBlue">
+    <div className="h-20 bg-layoutBlue">
       <div className="flex flex-row items-center justify-end h-full gap-20 header-text">
         <div
           className="flex flex-row gap-2 cursor-pointer"
