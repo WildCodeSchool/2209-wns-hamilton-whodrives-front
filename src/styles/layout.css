@@ -4,7 +4,7 @@
 
 @font-face {
     font-family: "pressStart2p";
-    src: url('../public/assets/fonts/PressStart2P.ttf');
+    src: url('../../public/assets/fonts/PressStart2P.ttf');
 }
 
 .header-text {
