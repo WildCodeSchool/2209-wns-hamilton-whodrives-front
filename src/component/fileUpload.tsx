@@ -15,29 +15,21 @@ const AddCarPictureForm: React.FC = () => {
   const [carId, setCarId] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
 
-  const [addCarPicture] = useMutation<{ addCarPicture: { success: boolean } }>(
-    ADD_CAR_PICTURE,
-    {
-      context: {
-        headers: {
-          'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryexampleboundary',
-        },
-      },
-    }
-  );
+  const [addCarPicture] = useMutation(ADD_CAR_PICTURE);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!file) return;
     try {
       const formData = new FormData();
-      formData.append('carId', carId);
-      formData.append('file', file, file.name);
+      formData.append("carId", carId);
+      formData.append("file", file);
+      // formData.append("file", file, file.name);
 
       await addCarPicture({
         variables: {
           carId,
-          file: formData.get('file')!,
+          file: formData.get("file")!,
         },
       });
       setCarId("");
