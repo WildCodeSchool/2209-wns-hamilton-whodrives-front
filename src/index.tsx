@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import LocationField from "./components/createTrip/LocationFields";
+import ConfirmPrice from "./components/createTrip/ConfirmPrice";
+import ReturnTrip from "./components/createTrip/ReturnTrip";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
@@ -16,7 +19,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <ReturnTrip/>
+      
     </ApolloProvider>
   </React.StrictMode>
 );
