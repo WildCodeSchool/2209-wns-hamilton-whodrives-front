@@ -1,14 +1,8 @@
 import React from "react";
-import { useEffect, useState} from "react";
-import "./Search.css";
+import { useEffect, useState } from "react";
 
-
-const SearchForm: React.FC = () => {
-  const today = new Date().toLocaleDateString("en-us", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
+const SearchTrip: React.FC = () => {
+  const today = new Date().toLocaleDateString("en-us");
 
   interface FormState {
     départ: string;
@@ -49,9 +43,8 @@ const SearchForm: React.FC = () => {
   useEffect(() => {
     setDisplay({ destination: false, depart: true });
     getcity(word.depart);
-    
   }, [word.depart]);
-  
+
   useEffect(() => {
     setDisplay({ destination: true, depart: false });
     getcity(word.destination);
@@ -68,56 +61,67 @@ const SearchForm: React.FC = () => {
   // console.log(data);
   // console.log(word);
   // console.log(form);
-
+//   shadow-[-0px_3px_0px_0px_#909090]
   return (
-    <div className="flex flex-row bg-white w-1/2 h-20 items-center p-1">
-      <div className="flex flex-col ">
-      <div className="flex flex-row items-center w-1/1 border-r-4 border-grey pl-1 ">
-        <img src="/assets/icons/map.png" alt="" className="bg-white w-auto h-7 mr-1"/>
-        <input
-        className=" h-12 "
-          type="text"
-          name="depart"
-          onChange={handleChange}
-          value={word.depart}
-          placeholder={form.départ}
-          
-        />
+    <div className="flex flex-row border-2 items-center p-2" >
+      <div className="flex flex-col border-r-4 border-whodrivesGrey w-30">
+        <div className=" flex flex-row h-20 ">
+          <img
+            src="/assets/icons/map.svg"
+            alt=""
+            className="m-1"
+          />
+          <input
+            className=""
+            type="text"
+            name="depart"
+            onChange={handleChange}
+            value={word.depart}
+            placeholder={form.départ}
+          />
         </div>
+        <div  className="z-10  border-2 h-1/1 absolute bg-white mt-20">
         {display.depart &&
+        
           data.map((el) => (
             <option
+             
               key={el}
               value={el}
               onClick={(e: React.MouseEvent<HTMLOptionElement>) => {
                 setForm({ ...form, départ: e.currentTarget.value });
-                setDisplay({...display, depart: false });
+                setDisplay({ ...display, depart: false });
               }}
             >
               {el}
             </option>
           ))}
+          </div>
       </div>
-      <div className="flex flex-col">
-        <div className="flex flex-row items-center border-r-4 border-grey pl-1 ">
-        <img src="/assets/icons/map.png" alt="" className="bg-white w-auto h-7 mr-1"/>
-        <input
-        className="h-12"
-          type="text"
-          name="destination"
-          onChange={handleChange}
-          value={word.destination}
-          placeholder="destination"
-        />
+      <div className="flex flex-col border-r-4 border-whodrivesGrey w-30">
+        <div className="flex flex-row h-20 ">
+          <img
+            src="/assets/icons/map.svg"
+            alt=""
+            className="m-1"
+          />
+          <input
+            className=""
+            type="text"
+            name="destination"
+            onChange={handleChange}
+            value={word.destination}
+            placeholder="destination"
+          />
         </div>
         {display.destination &&
           data.map((el) => (
             <option
               key={el}
               value={el}
-              onClick={(e:any) => {
+              onClick={(e: any) => {
                 setForm({ ...form, destination: e.currentTarget.value });
-                setDisplay({...display, destination: false });
+                setDisplay({ ...display, destination: false });
               }}
             >
               {el}
@@ -126,20 +130,29 @@ const SearchForm: React.FC = () => {
       </div>
 
       <input
-      className="border-r-4 border-grey pl-1"
+        className="h-20 border-r-4 border-whodrivesGrey ml-5 pr-5 w-30"
         type="date"
         value={form.date}
-        style={{ height: "100%"}}
+      
       />
-      <select name="1" placeholder="personne" style={{ height: "100%" }} className="w-1/1 border-r-4 border-grey pl-1">
+      <select
+        name="1"
+        placeholder="personne"
+        style={{ height: "100%" }}
+        className="h-20 border-r-4  ml-5 mr-5 w-10"
+      >
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
       </select>
-      <button style={{ height: "100%" }} className="w-1/1 border-r-4 border-grey pl-1">rechercher</button>
+      <button
+        className="h-20 w-30"
+      >
+        rechercher
+      </button>
     </div>
   );
 };
 
-export default SearchForm;
+export default SearchTrip;
