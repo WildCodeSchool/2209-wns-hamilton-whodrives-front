@@ -3,12 +3,12 @@ import { useMutation } from "@apollo/client";
 import { gql } from "@apollo/client/core";
 
 export const ADD_CAR_PICTURE = gql`
- mutation AddPicture($carId: ID!, $file: Upload!) {
-  addPicture(carId: $carId, file: $file) {
-    id
-    path
+  mutation AddPicture($carId: ID!, $file: Upload!) {
+    addPicture(carId: $carId, file: $file) {
+      id
+      path
+    }
   }
-}
 `;
 
 const AddCarPictureForm: React.FC = () => {
@@ -20,8 +20,7 @@ const AddCarPictureForm: React.FC = () => {
     {
       context: {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          'apollo-require-preflight': true,
+          'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryexampleboundary',
         },
       },
     }
@@ -32,8 +31,8 @@ const AddCarPictureForm: React.FC = () => {
     if (!file) return;
     try {
       const formData = new FormData();
-      formData.append('file', file);
       formData.append('carId', carId);
+      formData.append('file', file, file.name);
 
       await addCarPicture({
         variables: {
@@ -57,7 +56,7 @@ const AddCarPictureForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <form onSubmit={handleSubmit}>
       <label>
         Car ID:
         <input
