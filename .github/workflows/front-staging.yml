@@ -55,6 +55,7 @@ jobs:
         password: ${{ secrets.AWX_PASSWORD }}
         customHeaders: '{"Content-Type": "application/json"}'
         data: '{"key_1": "value_1", "key_2": "value_2"}'
+        
   # webhook:
   #   runs-on: ubuntu-latest
   #   needs: [build]
