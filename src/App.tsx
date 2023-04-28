@@ -6,6 +6,7 @@ import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/searchTripPage";
 
+
 function App() {
   return (
     <div className="w-screen h-screen">

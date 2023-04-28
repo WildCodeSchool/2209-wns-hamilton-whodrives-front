@@ -1,7 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import "../../styles/searchTrip.css";
+import { JsxElement } from "typescript";
 
-const SearchTrip: React.FC = () => {
+interface ISearchTrip {
+  onclick: React.MouseEventHandler<HTMLButtonElement> | undefined;
+}
+const SearchTrip = ({ onclick }: ISearchTrip) => {
   const today = new Date().toLocaleDateString("en-us");
 
   interface FormState {
@@ -61,16 +66,12 @@ const SearchTrip: React.FC = () => {
   // console.log(data);
   // console.log(word);
   // console.log(form);
-//   shadow-[-0px_3px_0px_0px_#909090]
+  //   shadow-[-0px_3px_0px_0px_#909090]
   return (
-    <div className="flex flex-row border-2 items-center p-2" >
+    <div className="flex flex-row border-2 items-center p-2 bb mt-24 mb-10">
       <div className="flex flex-col border-r-4 border-whodrivesGrey w-30">
         <div className=" flex flex-row h-20 ">
-          <img
-            src="/assets/icons/map.svg"
-            alt=""
-            className="m-1"
-          />
+          <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
           <input
             className=""
             type="text"
@@ -80,31 +81,25 @@ const SearchTrip: React.FC = () => {
             placeholder={form.départ}
           />
         </div>
-        <div  className="z-10  border-2 h-1/1 absolute bg-white mt-20">
-        {display.depart &&
-        
-          data.map((el) => (
-            <option
-             
-              key={el}
-              value={el}
-              onClick={(e: React.MouseEvent<HTMLOptionElement>) => {
-                setForm({ ...form, départ: e.currentTarget.value });
-                setDisplay({ ...display, depart: false });
-              }}
-            >
-              {el}
-            </option>
-          ))}
-          </div>
+        <div className="z-10  border-2 h-1/1 absolute bg-white mt-20">
+          {display.depart &&
+            data.map((el) => (
+              <option
+                key={el}
+                value={el}
+                onClick={(e: React.MouseEvent<HTMLOptionElement>) => {
+                  setForm({ ...form, départ: e.currentTarget.value });
+                  setDisplay({ ...display, depart: false });
+                }}
+              >
+                {el}
+              </option>
+            ))}
+        </div>
       </div>
       <div className="flex flex-col border-r-4 border-whodrivesGrey w-30">
         <div className="flex flex-row h-20 ">
-          <img
-            src="/assets/icons/map.svg"
-            alt=""
-            className="m-1"
-          />
+          <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
           <input
             className=""
             type="text"
@@ -133,7 +128,6 @@ const SearchTrip: React.FC = () => {
         className="h-20 border-r-4 border-whodrivesGrey ml-5 pr-5 w-30"
         type="date"
         value={form.date}
-      
       />
       <select
         name="1"
@@ -146,9 +140,7 @@ const SearchTrip: React.FC = () => {
         <option value="3">3</option>
         <option value="4">4</option>
       </select>
-      <button
-        className="h-20 w-30"
-      >
+      <button onClick={onclick} className="h-20 w-30">
         rechercher
       </button>
     </div>
