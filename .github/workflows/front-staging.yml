@@ -43,3 +43,14 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_FRONT_STAGING }}:latest
+      - name: Deploy Stage
+  webhook:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps: 
+      - uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://ops.hamilton4.wns.wilders.dev/hooks/update'
+          method: 'GET'
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: '{}'
