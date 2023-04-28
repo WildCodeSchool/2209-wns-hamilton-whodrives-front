@@ -1,6 +1,6 @@
 import "../../../styles/layout.css";
 import { useNavigate } from "react-router-dom";
-import HeaderProfileMenu from "./HeaderProfileMenu";
+import HeaderProfileMenu from "./headerProfileMenu";
 
 
 export default function HeaderComponent(): JSX.Element {
