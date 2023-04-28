@@ -1,14 +1,14 @@
 import "../../../styles/layout.css";
 import { useNavigate } from "react-router-dom";
-import HeaderProfileMenu from "./headerProfileMenu";
+import HeaderProfileMenu from "./HeaderProfileMenu";
 
 export default function HeaderComponent(): JSX.Element {
   const navigate = useNavigate();
 
   return (
     <div className="w-screen h-20 p-10 bg-layoutBlue">
-      <div className="flex flex-row items-center justify-end h-full gap-20 header-text">
-        <div className="flex flex-row w-auto gap-20 lg:mr-40">
+      <div className="flex-row items-center justify-end h-full gap-20 sm:flex">
+        <div className="flex-row hidden w-auto gap-20 text-xs sm:flex md:text-sm lg:text-base lg:mr-40 header-text sm:visible">
           <div
             className="flex flex-row gap-2 cursor-pointer"
             onClick={() => {
@@ -38,7 +38,9 @@ export default function HeaderComponent(): JSX.Element {
           </div>
         </div>
 
-        <HeaderProfileMenu />
+        <div>
+          <HeaderProfileMenu />
+        </div>
       </div>
     </div>
   );
