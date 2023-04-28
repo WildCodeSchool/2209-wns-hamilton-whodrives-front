@@ -6,6 +6,7 @@ import HeaderProfileMenu from "./HeaderProfileMenu";
 export default function HeaderComponent(): JSX.Element {
   const navigate = useNavigate();
 
+  
   return (
     <div className="w-screen h-20 p-10 bg-layoutBlue">
       <div className="flex-row items-center justify-end h-full gap-20 sm:flex">
