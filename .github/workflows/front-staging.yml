@@ -54,7 +54,7 @@ jobs:
     steps:
       - name: Send webhook request
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: fjogeleit/http-request-action@v1
+        uses: fjogeleit/http-request-action@v1
         with:
           url: 'https://ops.hamilton4.wns.wilders.dev/hooks/update'
           method: 'GET'
