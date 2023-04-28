@@ -5,6 +5,7 @@ import CreateTripPage from "./pages/createTrip/createTripPage";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/searchTripPage";
+import ConfirmTrip from "./components/createTrip/ConfirmTrip";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="create-trip" element={<CreateTripPage />} />
         <Route path="search-trip" element={<SearchTripPage />} />
         <Route path="auth" element={<AuthPage />} />
+        <Route path="confirm-trip" element={<ConfirmTrip/>} />
       </Routes>
     </div>
   );

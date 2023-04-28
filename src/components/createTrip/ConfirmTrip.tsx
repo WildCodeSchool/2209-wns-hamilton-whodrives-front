@@ -1,15 +1,20 @@
 import { useState } from "react";
+import { useLocation } from 'react-router-dom';
 
-function ConfirmPrice() {
+function ConfirmTrip(props : any) {
   const [prix, setPrix] = useState(50);
   const [commentaire, setCommentaire] = useState("");
 
+  const location = useLocation();
+  const data = location.state;
+
+
   const LocationField = {
-    depart: "Paris",
-    arrivee: "Marseille",
-    date: "25 avril 2023",
-    heure: "14h00",
-    nombrePersonnes: 3,
+    depart: data.depart,
+    arrivee: data.arrivee,
+    date: data.date,
+    heure: data.heuresss,
+    nombrePersonnes: data.nombrePersonnes,
   }
 
   const handlePriceChange = (event: any) => {
@@ -71,4 +76,4 @@ function ConfirmPrice() {
   );
 }
 
-export default ConfirmPrice;
+export default ConfirmTrip;
