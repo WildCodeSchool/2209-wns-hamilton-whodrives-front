@@ -1,10 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import HeaderComponent from "./components/layout/header";
+import LoginPage from "./pages/auth/LoginPage";
 import AuthPage from "./pages/auth/AuthPage";
 import CreateTripPage from "./pages/createTrip/createTripPage";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/searchTripPage";
+import RegisterForm from "./pages/auth/RegisterPage";
 
 function App() {
   return (
@@ -15,7 +17,9 @@ function App() {
         <Route path="profile" element={<ProfilePage />} />
         <Route path="create-trip" element={<CreateTripPage />} />
         <Route path="search-trip" element={<SearchTripPage />} />
-        <Route path="auth" element={<AuthPage />} />
+        <Route path="auth" element={<LoginPage />} />
+        <Route path="register" element={<RegisterForm />} />
+        <Route path="my-account" element={<AuthPage />} />
       </Routes>
     </div>
   );
