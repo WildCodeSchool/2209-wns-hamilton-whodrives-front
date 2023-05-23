@@ -10,5 +10,10 @@
 .header-text {
     color: white;
     font-family: "pressStart2p";
-    font-size: 1rem;
+}
+
+.header-profile-text {
+    color: #909090;
+    font-family: "pressStart2p";
+    font-size: 0.8rem;
 }

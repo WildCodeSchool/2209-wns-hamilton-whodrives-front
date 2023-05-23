@@ -4,7 +4,8 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import CreateTripPage from "./pages/createTrip/createTripPage";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
-import SearchTripPage from "./pages/searchTrip/searchTripPage";
+import SearchingTripPage from "./pages/searchTrip/SearchingTripPage";
+
 
 type Menu = {
   path: string;
@@ -48,7 +49,7 @@ const menuList: Menu[] = [
     path: "/search-trip",
     titleFr: "Rechercher un trajet",
     titleEn: "Search a trip",
-    Component: SearchTripPage,
+    Component: SearchingTripPage,
   },
 ];
 

@@ -5,6 +5,7 @@ name: Compile and push client image for staging
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   pull_request:
+#  push:
     branches: ["dev"]
     types: ["closed"]
 
@@ -43,3 +44,16 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_FRONT_STAGING }}:latest
+  deployment:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+    - name: Deploy Stage
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: 'https://ops.hamilton4.wns.wilders.dev/hooks/update'
+        method: 'GET'
+        customHeaders: '{"Content-Type": "application/json"}'
+        data: '{}'
+        
+
