@@ -98,6 +98,11 @@ export default function HeaderProfileMenu(): JSX.Element {
           onClick={handleClick}
         >
           <img
+            className="w-10"
+            src="/assets/icons/user-white.svg"
+            alt="user icon"
+          />
+          <img
             className="w-8"
             src={
               isOpen
