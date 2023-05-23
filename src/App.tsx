@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import HeaderComponent from "./components/layout/header";
+import HeaderComponent from "./components/layout/header/header";
 import LoginPage from "./pages/auth/LoginPage";
 import AuthPage from "./pages/auth/AuthPage";
 import CreateTripPage from "./pages/createTrip/createTripPage";
