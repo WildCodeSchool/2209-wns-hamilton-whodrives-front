@@ -7,6 +7,8 @@ import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/searchTripPage";
 import RegisterForm from "./pages/auth/RegisterPage";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
         <Route path="register" element={<RegisterForm />} />
         <Route path="my-account" element={<AuthPage />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

@@ -1,4 +1,23 @@
-input {
-    border: 19px solid #000000;
+@font-face {
+    font-family: "pressStart2p";
+    src: url('../../public/assets/fonts/PressStart2P.ttf');
 }
-  
+.boxRegister{
+    border: 3px solid #1195C3;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-inline: 20%;
+    margin: 3%;
+}
+
+
+.btnLogin{
+
+    color: white;
+    font-family: "pressStart2p";
+} 
+h1{
+    font-family: "pressStart2p";
+    color: #1195C3;
+    font-size: 2.5em;
+}

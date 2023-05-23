@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "pressStart2p";
+    src: url('../../public/assets/fonts/PressStart2P.ttf');
+}
+
+@font-face {
+    font-family: "roboto";
+    src: url('../../public/assets/fonts/Roboto.ttf');
+}
+
+.pressStart2p-text {
+    font-family: "pressStart2p";
+}
+
+.roboto-text {
+    font-family: "roboto";
+}

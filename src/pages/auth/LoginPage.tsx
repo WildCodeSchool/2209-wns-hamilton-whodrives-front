@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { gql } from '@apollo/client';
 import "../../styles/login.css";
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const LOGIN = gql`
   mutation LoginUser($email: String!, $password: String!) {
@@ -13,9 +18,16 @@ const LOGIN = gql`
   }
 `;
 
+// const sendForm = (e: any) => {
+//   const form = document.querySelector('form');
+//   e.preventDefault();
+//   form?.submit();
+//   console.log('Formulaire envoyé');
+// }
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const [loginUser, { loading, error }] = useMutation(LOGIN);
 
@@ -34,6 +46,10 @@ const LoginForm = () => {
             }
           }
         });
+        toast.success('Vous êtes connecté !', { autoClose: 5000 });
+        setTimeout(() => {
+          navigate('/'); // Redirection vers la page d'accueil après 5 secondes
+        }, 5000);
       } else {
         console.log('Échec de la connexion');
       }
@@ -41,12 +57,13 @@ const LoginForm = () => {
       console.log("Une erreur s'est produite lors de la connexion :", error);
     }
   };
+  
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-center items-center boxLogin">
-      <h2>Connexion</h2>
-      <form onSubmit={handleLogin} className="grid gap-4">
-        <div>
+    <div className="w-screen mt-20 flex flex-col justify-center items-center">
+      <h1>Connexion</h1>
+      <form onSubmit={handleLogin} className="grid gap-4 border-2 border-blue-500 p-48 mx-3 boxLogin w-10/12 m-5">
+        <div className="flex flex-col items-center"> {/* Ajout de la classe flex-col et items-center */}
           <label htmlFor="email" className="block">
             Email :
           </label>
@@ -55,10 +72,10 @@ const LoginForm = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border border-gray-300 p-2"
+            className="border border-gray-300 w-11/12"
           />
         </div>
-        <div>
+        <div className="flex flex-col items-center"> {/* Ajout de la classe flex-col et items-center */}
           <label htmlFor="password" className="block">
             Mot de passe :
           </label>
@@ -67,16 +84,17 @@ const LoginForm = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="border border-gray-300 p-2"
+            className="border border-gray-300  w-11/12"
           />
         </div>
-        <button type="submit" className="btn btn-blue" disabled={loading}>
-          Se connecter
-        </button>
         {error && <p>Une erreur s'est produite lors de la connexion.</p>}
       </form>
+      <button type="submit" className="bg-green-300 p-3 text-lg shadow-md border-2 border-black text-white font-pressStart2p btnLogin" onClick={handleLogin} disabled={loading}>
+        Connexion
+      </button>
     </div>
   );
 };
 
 export default LoginForm;
+
