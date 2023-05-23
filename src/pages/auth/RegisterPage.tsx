@@ -56,10 +56,8 @@ const RegisterForm = () => {
           lastname,
         },
       });
-      // L'utilisateur est inscrit avec succès, vous pouvez effectuer des actions supplémentaires ici
       console.log('Utilisateur inscrit avec succès :', data.createUser);
     } catch (error) {
-      // Une erreur s'est produite lors de l'inscription, vous pouvez la gérer ici
       console.log("Une erreur s'est produite lors de l'inscription :", error);
     }
   };
