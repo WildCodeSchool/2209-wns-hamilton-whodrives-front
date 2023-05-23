@@ -15,6 +15,9 @@ module.exports = {
         pressStart2p: ["/assets/fonts/PressStart2P-Regular.ttf"],
         roboto: ["/assets/fonts/Roboto-Regular.ttf"],
       },
+      fontSize: {
+        xxs: ".5rem",
+      },
     },
   },
   plugins: [],
