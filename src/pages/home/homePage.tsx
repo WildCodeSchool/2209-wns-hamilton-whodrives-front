@@ -1,9 +1,10 @@
 import HomeCardsComponent from "../../components/home/HomeCardsComponent";
+import HomeImageInputComponent from "../../components/home/HomeImageInput";
 
 export default function HomePage(): JSX.Element {
   return (
-    <div className="h-screen">
-      <div className="h-full bg-center bg-no-repeat bg-cover bg-whodrives-bg"></div>
+    <div className="min-h-screen">
+      <HomeImageInputComponent />
       <HomeCardsComponent />
     </div>
   );

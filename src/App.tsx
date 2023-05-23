@@ -12,7 +12,7 @@ import SearchTripPage from "./pages/searchTrip/searchTripPage";
 
 function App() {
   return (
-    <div className="">
+    <div>
       <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
