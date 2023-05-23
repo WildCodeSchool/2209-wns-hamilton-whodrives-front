@@ -18,6 +18,9 @@ module.exports = {
       backgroundImage: {
         "whodrives-bg": "url('/public/assets/images/whodrives.gif')",
       },
+      fontSize: {
+        xxs: ".5rem",
+      },
     },
   },
   plugins: [],
