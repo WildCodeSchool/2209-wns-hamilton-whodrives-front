@@ -41,8 +41,7 @@ const LoginForm = () => {
       const { success, token } = data.loginUser;
 
       if (success) {
-        console.log('Utilisateur connecté avec succès. Token :', token);
-        toast.success('Vous êtes connecté !', { autoClose: 5000 });
+        toast.success('Vous êtes connecté !', { autoClose: 2000 });
         localStorage.setItem('token', token);
         
 
@@ -50,11 +49,9 @@ const LoginForm = () => {
           navigate('/profile');
         }, 5000);
       } else {
-        console.log('Échec de la connexion');
         toast.error('Échec de la connexion. Veuillez vérifier vos informations.');
       }
     } catch (error) {
-      console.log("Une erreur s'est produite lors de la connexion :", error);
       toast.error("Une erreur s'est produite lors de la connexion. Veuillez réessayer.");
     }
   };

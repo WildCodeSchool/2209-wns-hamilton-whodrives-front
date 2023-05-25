@@ -8,7 +8,6 @@ interface User {
 interface AuthContextValue {
   user: User | null;
   isAuthenticated: boolean;
-  ////logout: () => void;
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
@@ -26,17 +25,12 @@ export const AuthProvider: React.FunctionComponent<{ children: ReactNode }> = ({
         }
     }, [token]);
 
-//   const logout = () => {
-//     setUser(null);
-//     setIsAuthenticated(false);
-//   };
+
 
   const authContextValue: AuthContextValue = {
     user,
     isAuthenticated,
-    // logout,
   };
-  console.log(isAuthenticated);
   return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
 };
 

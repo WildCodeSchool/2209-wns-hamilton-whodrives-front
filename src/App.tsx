@@ -10,7 +10,7 @@ import FaqPage from "./pages/footerPages/faq";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/searchTripPage";
-import RegisterForm from "./pages/auth/RegisterPage";
+import RegisterPage from "./pages/auth/RegisterPage";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -24,7 +24,7 @@ function App() {
         <Route path="create-trip" element={<CreateTripPage />} />
         <Route path="search-trip" element={<SearchTripPage />} />
         <Route path="auth" element={<LoginPage />} />
-        <Route path="register" element={<RegisterForm />} />
+        <Route path="register" element={<RegisterPage />} />
         <Route path="my-account" element={<AuthPage />} />
         <Route path="about-us" element={<AboutUsPage />} />
         <Route path="faq" element={<FaqPage />} />

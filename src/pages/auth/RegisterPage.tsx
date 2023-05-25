@@ -34,7 +34,7 @@ const REGISTER = gql`
   }
 `;
 
-const RegisterForm = () => {
+const RegisterPage = () => {
   const [step, setStep] = useState(1);
   const [username, setUsername] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -50,35 +50,31 @@ const RegisterForm = () => {
 
   const [createUser, { loading, error }] = useMutation(REGISTER);
   const handleNext = (e:any) => {
-    e.preventDefault(); // Empêcher la soumission automatique du formulaire
+    e.preventDefault(); 
     
     if (step === 1) {
       if (username && firstname && phone && lastname && email && dateOfBirth && city) {
         toast.success('sucess !', { autoClose: 3000 });
         setTimeout(() => {
-          setStep(2);// Redirection vers la page d'accueil après 5 secondes
+          setStep(2);
         }, 3000);
       } else {
-        console.log('Veuillez remplir tous les champs de la première étape.');
-        toast.error('Veuillez remplir tous les champs de la première étape', { autoClose: 3000 });
+        toast.error('Veuillez remplir tous les champs de la première étape', { autoClose: 2000 });
         
       }
     } else if (step === 2) {
       if (file && file.size > 0) {
-        toast.success('sucess !', { autoClose: 3000 });
+        toast.success('sucess !', { autoClose: 2000 });
         setTimeout(() => {
-          setStep(3);// Redirection vers la page d'accueil après 5 secondes
+          setStep(3);
         }, 3000);
       } else {
-        console.log('Veuillez sélectionner un fichier.');
-        toast.error('Veuillez sélectionner un fichier', { autoClose: 3000 });
+        toast.error('Veuillez sélectionner un fichier', { autoClose: 2000 });
       }
     } else if (step === 3) {
       if (password && confirmPassword) {
-        // Effectuer des actions spécifiques pour la step 3
       } else {
-        console.log('Veuillez saisir un mot de passe.');
-        toast.error('Veuillez saisir un mot de passe. !', { autoClose: 3000 });
+        toast.error('Veuillez saisir un mot de passe. !', { autoClose: 2000 });
       }
     }
   };
@@ -91,7 +87,7 @@ const RegisterForm = () => {
           username,
           password,
           email,
-          phone,  // Utiliser la valeur de la variable d'état pour phone
+          phone,  
           dateOfBirth,
           firstname,
           lastname,
@@ -99,11 +95,10 @@ const RegisterForm = () => {
       });
       toast.success('Vous êtes inscrit !', { autoClose: 3000 });
       setTimeout(() => {
-        navigate('/auth'); // Redirection vers la page d'accueil après 5 secondes
-      }, 3000);
-      console.log('Utilisateur inscrit avec succès :', data.createUser);
+        navigate('/auth');
+      }, 2000);
     } catch (error) {
-      console.log("Une erreur s'est produite lors de l'inscription :", error);
+      toast.error("Une erreur s'est produite lors de l'inscription  ", { autoClose: 2000 });
     }
   };
 
@@ -137,7 +132,7 @@ const RegisterForm = () => {
               />
               <input
                 type="text"
-                placeholder="Téléphone"  // Modifier le libellé du champ
+                placeholder="Téléphone" 
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 className="w-full mb-2 px-4 py-2  border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
@@ -242,4 +237,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default RegisterPage;

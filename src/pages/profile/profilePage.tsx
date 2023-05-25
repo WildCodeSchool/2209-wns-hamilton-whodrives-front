@@ -1,5 +1,5 @@
-import ProfileComponent from "../../components/profile/mainCard";
+import ProfileMainCardComponent from "../../components/profile/ProfileMainCardComponent";
 
 export default function ProfilePage(): JSX.Element {
-  return <div><ProfileComponent/></div>;
+  return <div><ProfileMainCardComponent/></div>;
 }

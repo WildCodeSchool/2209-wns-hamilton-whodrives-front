@@ -138,7 +138,11 @@ export default function HeaderProfileMenu(): JSX.Element {
               </MenuItem>
             );
           })}
-          <MenuItem onClick={logout}>Déconnexion</MenuItem>
+          <MenuItem>
+          <a href="#"  onClick={logout}  className="header-profile-text hover:text-validBlue"> 
+          Déconnexion
+          </a>
+         </MenuItem>
         </Menu>
       </div>
     </div>
