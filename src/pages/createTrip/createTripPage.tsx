@@ -12,6 +12,7 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import PublishTrip from "../../components/createTrip/PublishTrip";
+import ConfirmReturnTrip from "../../components/createTrip/ConfirmReturnTrip";
 
 // recuperer les donner du formulaire et les envoyer a la page suivante
 
@@ -66,10 +67,14 @@ function CreateTripPage(): JSX.Element {
     handleNextStep();
   };
 
-  const handleConfirmreturnTripData = (data: TripData) => {
+  const handlReturnTripData = (data: TripData) => {
     console.log("trajet retour", data);
     setReturnTrip({...returnTrip, ...data})
-    const Tableau = [trip, returnTrip];
+    handleNextStep();
+  };
+
+  const handleConfirmreturnTripData = (data: TripData) => {
+    setReturnTrip((returnTrip) => ({...returnTrip, ...data}))
     handleNextStep();
   };
 
@@ -80,6 +85,21 @@ function CreateTripPage(): JSX.Element {
 
   const BackToFirstStage = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  }
+
+  const setSkipReturnTrip = () => {
+    //effacer le return trip
+    setReturnTrip({
+      departure:'',
+      arrival:'',
+      date:'',
+      time:'',
+      passengers:'',
+      price:'',
+      description:'',
+    })
+    
+    setActiveStep((prevActiveStep) => prevActiveStep + 2);
   }
 
  
@@ -93,10 +113,11 @@ function CreateTripPage(): JSX.Element {
           // envoyer trip au composant ConfirmTrip
           return <ConfirmTrip trip={trip} handleConfirmTripData={handleConfirmTripData} BackToFirstStage={BackToFirstStage}c/>;
         case 2:
-          return <ReturnTrip trip={trip} setNexStep={handleNextStep} handleConfirmreturnTripData={handleConfirmreturnTripData} />;
+          return <ReturnTrip trip={trip} setSkipReturnTrip={setSkipReturnTrip} handlReturnTripData={handlReturnTripData} />;
         case 3:
+          return <ConfirmReturnTrip returnTrip={returnTrip} handleConfirmreturnTripData={handleConfirmreturnTripData} BackToFirstStage={BackToFirstStage} />;
+        case 4:
           return <PublishTrip returnTrip={returnTrip} trip={trip}  />;
-
         default:
           return 'Unknown step';
       } 

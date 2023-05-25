@@ -25,6 +25,8 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
     }
   }
 
+
+
   const [departureOptions, setDepartureOptions] = useState<string[]>([]);
   const [arrivalOptions, setArrivalOptions] = useState<string[]>([]);
 
@@ -144,7 +146,6 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             )}
           </div>
         </div>
-
         <div className="flex flex-col sm:flex-row sm:space-x-4">
           <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
             <label className="text-center" htmlFor="date">Date</label>
@@ -152,7 +153,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
               type="date"
               id="date"
               //afficher la date de aujourdui par defaut
-              value={date || trip.date }
+              value={date || trip.date}
               onChange={(e) => setDate(e.target.value)}
               className="border border-gray-300 p-2"
             />
@@ -168,7 +169,6 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             />
           </div>
         </div>
-
         <div className="flex flex-col space-y-2 ">
           <label className="text-center" htmlFor="nombrePersonnes">Nombre de personnes</label>
           <input
@@ -183,14 +183,15 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
       <div className="flex justify-center">
         <button
           type="submit"
-          className="bg-blue-500 text-white py-2 px-4 mt-6"
+          className="bg-whodrivesGrey text-white py-2 px-4 mt-6 "
+          //le bouton est disabled si les champs ne sont pas remplis
+          disabled={!departure || !arrival || !date || !time || !passengers}
           onClick={() => handleLocationFieldData({ departure, arrival, date, time, passengers })}
         >
           Suivant
         </button>
       </div>
     </div>
-
   );
 }
 

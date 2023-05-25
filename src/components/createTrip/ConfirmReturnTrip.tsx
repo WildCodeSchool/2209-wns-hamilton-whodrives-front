@@ -1,32 +1,33 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate  } from 'react-router-dom';
 
-function ConfirmTrip({trip, handleConfirmTripData,BackToFirstStage}:any) {
+function ConfirmReturnTrip({returnTrip, handleConfirmreturnTripData,BackToFirstStage}:any) {
 
   useEffect(() => {
+    console.log(returnTrip)
+
     ifTripDataIsComplete();
     }, []);
-    
 
   function ifTripDataIsComplete() {
-    if (trip.price && trip.description) {
-      setPrice(trip.price);
-      setDescription(trip.description);
-    
+    if (returnTrip.price && returnTrip.description) {
+      setPrice(returnTrip.price);
+      setDescription(returnTrip.description);
     }
+
   } 
 
   const [price, setPrice] = useState<number>(50);
   const [description, setDescription] = useState<string>("")
 
   const LocationField = {
-    departure: trip.departure,
-    arrival: trip.arrival,
-    date: trip.date,
-    time: trip.time,
-    passengers: trip.passengers,
-    price: trip.price,
-    description: trip.description,
+    departure: returnTrip.departure,
+    arrival: returnTrip.arrival,
+    date: returnTrip.date,
+    time: returnTrip.time,
+    passengers: returnTrip.passengers,
+    price: returnTrip.price,
+    description: returnTrip.description,
     
   }
   const handlePriceChange = (event: any) => {
@@ -86,7 +87,7 @@ function ConfirmTrip({trip, handleConfirmTripData,BackToFirstStage}:any) {
           <button
           type="submit"
           className="bg-whodrivesGrey text-white py-2 px-4 rounded-md"
-          onClick={() => handleConfirmTripData({price, description})}>
+          onClick={() => handleConfirmreturnTripData({price, description})}>
             suivant
           </button>
         </div>
@@ -95,4 +96,4 @@ function ConfirmTrip({trip, handleConfirmTripData,BackToFirstStage}:any) {
   );
 }
 
-export default ConfirmTrip;
+export default ConfirmReturnTrip;
