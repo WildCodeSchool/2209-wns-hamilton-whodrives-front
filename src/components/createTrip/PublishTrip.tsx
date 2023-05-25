@@ -2,8 +2,22 @@ import { useState } from "react";
 import ConfirmTrip from "./ConfirmTrip";
 import  "../../styles/createTrip.css";
 import { useNavigate } from 'react-router-dom';
+import { gql } from "@apollo/client";
 
 function PublishTrip({trip, returnTrip}:any) {
+
+const CreateTrip = gql`
+  mutation CreateTrip($departurePlaces: String, $destination: String, $dateDeparture: Date, $arrivalDate: Date, $hourDeparture: Date) {
+    createTrip(departure_places: $departurePlaces, destination: $destination, date_departure: $dateDeparture, arrival_date: $arrivalDate, hour_departure: $hourDeparture) {
+      arrival_date
+      date_departure
+      departure_places
+      destination
+      hour_departure
+      id
+    }
+  }
+`;
 
   const locationField = {
     departure: trip.departure,
