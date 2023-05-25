@@ -12,6 +12,7 @@ import {
 } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 import { formDataAppendFile } from "apollo-upload-client";
+import { AuthProvider } from "./context/AuthContext";
 
 const uploadLink = createUploadLink({
   uri: "http://localhost:4000/graphql/",
@@ -31,7 +32,9 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <BrowserRouter>
+      <AuthProvider>
         <App />
+      </AuthProvider>
       </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>
