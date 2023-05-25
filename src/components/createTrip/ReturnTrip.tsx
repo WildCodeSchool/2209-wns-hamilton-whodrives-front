@@ -1,10 +1,32 @@
 import { useState } from "react";
 
-function ReturnTrip() {
+function ReturnTrip({trip, setNexStep, handleConfirmreturnTripData}:any) {
+  
   const [showReturn, setShowReturn] = useState(false);
   const [date, setDate] = useState("");
-  const [heure, setHeure] = useState("");
-  const [nombrePersonnes, setNombrePersonnes] = useState("");
+  const [time, setTime] = useState("");
+  const [passengers, setPassengers ] = useState("");
+  const [price, setPrice] = useState("");
+
+  const locationField = {
+    departure: trip.departure,
+    arrival: trip.arrival,
+  }
+
+  const returnTrip = {
+    date: date,
+    heure: time,
+    passengers: passengers,
+    price: price,
+    departure: trip.arrival, // on inverse le départ et l'arrivée pour le trajet retour
+    arrival: trip.departure,
+    description : trip.description,
+  }
+
+  const handlePriceChange = (e: any) => {
+    setPrice(e.target.value);
+  };
+
 
   return (
     <div className="h-screen flex flex-col justify-center items-center">
@@ -12,9 +34,9 @@ function ReturnTrip() {
       <h2 className="text-lg font-semibold mb-4">Voulez-vous préparer un trajet retour ?</h2>
       {showReturn ? (
         <div className="mb-4">
-          <span className="font-semibold">Marseille</span>
+          <span className="font-semibold">{locationField.arrival}</span>
           <span>&rarr;</span>
-          <span className="font-semibold">Paris</span>
+          <span className="font-semibold">{locationField.departure}</span>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
             <div className="flex flex-col space-y-2 md:w-1/2">
               <label htmlFor="date">Date</label>
@@ -31,8 +53,8 @@ function ReturnTrip() {
               <input
                 type="time"
                 id="heure"
-                value={heure}
-                onChange={(e) => setHeure(e.target.value)}
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
                 className="border border-gray-300 rounded-md p-2"
               />
             </div>
@@ -42,14 +64,32 @@ function ReturnTrip() {
             <input
               type="number"
               id="nombrePersonnes"
-              value={nombrePersonnes}
-              onChange={(e) => setNombrePersonnes(e.target.value)}
+              value={passengers}
+              onChange={(e) => setPassengers(e.target.value)}
               className="border border-gray-300 rounded-md p-2 w-1/6 mx-auto"
             />
           </div>
+          <div className="flex flex-col space-y-2">
+            <label htmlFor="price">Prix</label>
+            <input
+              type="number"
+              id="price"
+              value={price}
+              onChange={handlePriceChange}
+              className="border border-gray-300 rounded-md p-2 w-1/6 mx-auto"
+            />
+          </div>
+
           <div className="text-center">
-            <button className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4">
+            <button 
+            onClick={() => handleConfirmreturnTripData({departure: trip.arrival, arrival: trip.departure, price : price, date: date, time: time, passengers: passengers, description: trip.description})}
+            className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4">
               Publier
+            </button>
+            <button 
+            onClick={() => setNexStep()}
+            className="bg-gray-200 text-gray-500 py-2 px-4 rounded-md mt-4 ml-4">
+              Annuler
             </button>
           </div>
         </div>
@@ -64,7 +104,7 @@ function ReturnTrip() {
         </button>
         <button
           className="bg-gray-200 text-gray-500 py-2 px-4 rounded-md w-full md:w-auto"
-          onClick={() => setShowReturn(false)}
+          onClick={() => setNexStep()}
         >
           Non
         </button>
