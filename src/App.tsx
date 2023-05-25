@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import FooterComponent from "./components/layout/footer";
 import HeaderComponent from "./components/layout/header/header";
+import LoginPage from "./pages/auth/LoginPage";
 import AuthPage from "./pages/auth/AuthPage";
 import CreateTripPage from "./pages/createTrip/createTripPage";
 import AboutUsPage from "./pages/footerPages/aboutUs";
@@ -9,6 +10,9 @@ import FaqPage from "./pages/footerPages/faq";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/searchTripPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -19,11 +23,14 @@ function App() {
         <Route path="profile" element={<ProfilePage />} />
         <Route path="create-trip" element={<CreateTripPage />} />
         <Route path="search-trip" element={<SearchTripPage />} />
-        <Route path="auth" element={<AuthPage />} />
+        <Route path="auth" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
+        <Route path="my-account" element={<AuthPage />} />
         <Route path="about-us" element={<AboutUsPage />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="contact-us" element={<ContactUsPage />} />
       </Routes>
+      <ToastContainer />
       <FooterComponent />
     </div>
   );

@@ -3,14 +3,27 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  ApolloLink,
+} from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
+import { formDataAppendFile } from "apollo-upload-client";
+import { AuthProvider } from "./context/AuthContext";
 
-const client = new ApolloClient({
+const uploadLink = createUploadLink({
   uri: "http://localhost:4000/graphql/",
-  cache: new InMemoryCache(),
+  headers: { "Apollo-Require-Preflight": "true" },
+  formDataAppendFile,
 });
 
+const client = new ApolloClient({
+  link: ApolloLink.from([uploadLink]), //le tableau vous permettra d'injecter d'autres link comme pour l'authentification
+  cache: new InMemoryCache(),
+});
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -19,7 +32,9 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <BrowserRouter>
+      <AuthProvider>
         <App />
+      </AuthProvider>
       </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>

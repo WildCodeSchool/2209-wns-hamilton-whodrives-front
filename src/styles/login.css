@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "pressStart2p";
+    src: url('../../public/assets/fonts/PressStart2P.ttf');
+}
+
+.btnLogin{
+
+    color: white;
+    font-family: "pressStart2p";
+} 
+h1{
+    font-family: "pressStart2p";
+    color: #1195C3;
+    font-size: 2.5em;
+}
+.btnRegister{
+    color: #000000;
+    font-family: "pressStart2p";
+    padding: 1rem;
+    border: 1px solid #000000;
+    background-color: rgb(87, 87, 87);
+}
