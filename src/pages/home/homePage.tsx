@@ -1,11 +1,13 @@
-import HomeCardsComponent from "../../components/home/HomeCardsComponent";
-import HomeImageInputComponent from "../../components/home/HomeImageInput";
+import HomeBudgetFormComponent from "../../components/home/HomeBudgetForm";
+import HomeCardsComponent from "../../components/home/HomeCards";
+import HomeImageFormComponent from "../../components/home/HomeImageForm";
 
 export default function HomePage(): JSX.Element {
   return (
     <div className="min-h-screen">
-      <HomeImageInputComponent />
+      <HomeImageFormComponent />
       <HomeCardsComponent />
+      <HomeBudgetFormComponent />
     </div>
   );
 }
