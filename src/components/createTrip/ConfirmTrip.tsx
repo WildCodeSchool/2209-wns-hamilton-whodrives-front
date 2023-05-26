@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate  } from 'react-router-dom';
 
 function ConfirmTrip({trip, handleConfirmTripData,BackToFirstStage}:any) {
 
@@ -7,7 +6,6 @@ function ConfirmTrip({trip, handleConfirmTripData,BackToFirstStage}:any) {
     ifTripDataIsComplete();
     }, []);
     
-
   function ifTripDataIsComplete() {
     if (trip.price && trip.description) {
       setPrice(trip.price);

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ConfirmTrip from "./ConfirmTrip";
 import  "../../styles/createTrip.css";
 import { useNavigate } from 'react-router-dom';
 import { gql } from "@apollo/client";
@@ -50,10 +49,6 @@ const CreateTrip = gql`
   const navigate = useNavigate();
   const [createTrip] = useMutation(CreateTrip);
 
-  
-
-
-
   const handlePublishTrip = async () => {
 
     let date = locationField.date
@@ -64,7 +59,6 @@ const CreateTrip = gql`
     let newDate = new Date();
     newDate.setHours(+timeSplit[0] + 2, + timeSplit[1]);
     newDate.setFullYear(+dateSplit[0], +dateSplit[1] - 1, +dateSplit[2])
-    console.log(newDate.toISOString())
 
 
     try {
@@ -78,16 +72,12 @@ const CreateTrip = gql`
         },
       });
   
-      console.log("Annonce publiée avec succès ! ID :", data.createTrip.id);
-  
       // Naviguer vers une autre page après publication
       navigate("/nouvelle-page");
     } catch (error) {
       console.error("Erreur lors de la publication de l'annonce :", error);
     }
   };
-  
-
 
   return (
     <div className="flex flex-col items-center">

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate  } from 'react-router-dom';
 
 function ConfirmReturnTrip({returnTrip, handleConfirmreturnTripData,BackToFirstStage}:any) {
 
   useEffect(() => {
-    console.log(returnTrip)
 
     ifTripDataIsComplete();
     }, []);

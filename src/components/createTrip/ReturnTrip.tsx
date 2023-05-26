@@ -8,11 +8,8 @@ function ReturnTrip({trip, setSkipReturnTrip, handlReturnTripData}:any) {
   const [passengers, setPassengers] = useState(1);
   const [departure, setDeparture] = useState("");
   const [arrival, setArrival] = useState("");
-
   const [showDepartureOptions, setShowDepartureOptions] = useState(false);
   const [showArrivalOptions, setShowArrivalOptions] = useState(false);
-
-  
   const [departureOptions, setDepartureOptions] = useState<string[]>([]);
   const [arrivalOptions, setArrivalOptions] = useState<string[]>([]);
 
@@ -30,10 +27,6 @@ function ReturnTrip({trip, setSkipReturnTrip, handlReturnTripData}:any) {
     }
   }
 
-
-
-
-  
   const getCityOptions = async (word: string, isDeparture: boolean) => {
     try {
       const response = await fetch(
