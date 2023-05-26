@@ -12,7 +12,6 @@ export default function HomeBudgetFormComponent(): JSX.Element {
     budget: "",
     date: today,
   });
-  console.log(form);
 
   return (
     <div className="flex flex-col items-center w-3/5 gap-5 py-10 mx-auto bg-lightBlue my-14">
