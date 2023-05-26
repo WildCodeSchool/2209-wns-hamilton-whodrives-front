@@ -3,20 +3,21 @@ import ConfirmTrip from "./ConfirmTrip";
 import  "../../styles/createTrip.css";
 import { useNavigate } from 'react-router-dom';
 import { gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 function PublishTrip({trip, returnTrip}:any) {
 
 const CreateTrip = gql`
-  mutation CreateTrip($departurePlaces: String, $destination: String, $dateDeparture: Date, $arrivalDate: Date, $hourDeparture: Date) {
-    createTrip(departure_places: $departurePlaces, destination: $destination, date_departure: $dateDeparture, arrival_date: $arrivalDate, hour_departure: $hourDeparture) {
-      arrival_date
-      date_departure
-      departure_places
-      destination
-      hour_departure
-      id
-    }
+  mutation CreateTrip($departurePlaces: String, $destination: String, $dateDeparture: Timestamp, $arrivalDate: Timestamp, $hourDeparture: Timestamp) {
+  createTrip(departure_places: $departurePlaces, destination: $destination, date_departure: $dateDeparture, arrival_date: $arrivalDate, hour_departure: $hourDeparture) {
+    id
+    departure_places
+    destination
+    date_departure
+    arrival_date
+    hour_departure
   }
+}
 `;
 
   const locationField = {
@@ -47,11 +48,46 @@ const CreateTrip = gql`
 
   const [publishTrip, setPublishTrip] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [createTrip] = useMutation(CreateTrip);
 
-  const handlePublishTrip = () => {
-    setPublishTrip(true);
-    navigate("/home");
+  
+
+
+
+  const handlePublishTrip = async () => {
+
+    let date = locationField.date
+    let dateSplit = date.split("-");
+    let time = locationField.time
+    let timeSplit = time.split(":");
+    
+    let newDate = new Date();
+    newDate.setHours(+timeSplit[0] + 2, + timeSplit[1]);
+    newDate.setFullYear(+dateSplit[0], +dateSplit[1] - 1, +dateSplit[2])
+    console.log(newDate.toISOString())
+
+
+    try {
+      const { data } = await createTrip({
+        variables: {
+          departurePlaces: locationField.departure,
+          destination: locationField.arrival,
+          dateDeparture: newDate.getTime(),
+          arrivalDate: newDate.getTime(),
+          hourDeparture: newDate.getTime(),
+        },
+      });
+  
+      console.log("Annonce publiée avec succès ! ID :", data.createTrip.id);
+  
+      // Naviguer vers une autre page après publication
+      navigate("/nouvelle-page");
+    } catch (error) {
+      console.error("Erreur lors de la publication de l'annonce :", error);
+    }
   };
+  
+
 
   return (
     <div className="flex flex-col items-center">
