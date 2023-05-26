@@ -11,12 +11,13 @@ import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/searchTripPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import ConfirmTrip from "./components/createTrip/ConfirmTrip";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <div className="w-screen h-screen">
+    <div>
       <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -29,6 +30,8 @@ function App() {
         <Route path="about-us" element={<AboutUsPage />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="contact-us" element={<ContactUsPage />} />
+        <Route path="confirm-trip" element={<ConfirmTrip/>} />
+
       </Routes>
       <ToastContainer />
       <FooterComponent />
