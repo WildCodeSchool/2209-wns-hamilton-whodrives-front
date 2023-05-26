@@ -10,7 +10,7 @@ const REGISTER = gql`
     $username: String!
     $password: String!
     $email: String!
-    $phone: String!  # Modifier le type en String!
+    $phone: String!
     $dateOfBirth: Date!
     $firstname: String
     $lastname: String
@@ -49,22 +49,22 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const [createUser, { loading, error }] = useMutation(REGISTER);
-  const handleNext = (e:any) => {
-    e.preventDefault(); 
-    
+  
+  const handleNext = (e: any) => {
+    e.preventDefault();
+
     if (step === 1) {
       if (username && firstname && phone && lastname && email && dateOfBirth && city) {
-        toast.success('sucess !', { autoClose: 3000 });
+        toast.success('Success!', { autoClose: 3000 });
         setTimeout(() => {
           setStep(2);
         }, 3000);
       } else {
         toast.error('Veuillez remplir tous les champs de la première étape', { autoClose: 2000 });
-        
       }
     } else if (step === 2) {
       if (file && file.size > 0) {
-        toast.success('sucess !', { autoClose: 2000 });
+        toast.success('Success!', { autoClose: 2000 });
         setTimeout(() => {
           setStep(3);
         }, 3000);
@@ -72,33 +72,45 @@ const RegisterPage = () => {
         toast.error('Veuillez sélectionner un fichier', { autoClose: 2000 });
       }
     } else if (step === 3) {
-      if (password && confirmPassword) {
+      if (password !== '' && confirmPassword !== '' && password === confirmPassword) {
+        toast.success('Success!', { autoClose: 2000 });
+        handleRegister(e); 
       } else {
-        toast.error('Veuillez saisir un mot de passe. !', { autoClose: 2000 });
+        toast.error('Veuillez saisir un mot de passe et confirmer correctement!', { autoClose: 2000 });
       }
     }
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (password === '' || confirmPassword === '') {
+      toast.error('Veuillez saisir un mot de passe et le confirmer!', { autoClose: 2000 });
+      return; 
+    }
+
+    if (password !== confirmPassword) {
+      toast.error('Les mots de passe ne correspondent pas!', { autoClose: 2000 });
+      return; 
+    }
+
     try {
-      const { data } = await createUser({
+      await createUser({
         variables: {
           username,
           password,
           email,
-          phone,  
+          phone,
           dateOfBirth,
           firstname,
-          lastname,
+          lastname
         },
       });
-      toast.success('Vous êtes inscrit !', { autoClose: 3000 });
-      setTimeout(() => {
-        navigate('/auth');
-      }, 2000);
+
+      toast.success('Inscription réussie!', { autoClose: 2000 });
+      navigate('/auth');
     } catch (error) {
-      toast.error("Une erreur s'est produite lors de l'inscription  ", { autoClose: 2000 });
+      toast.error('Une erreur s\'est produite lors de l\'inscription!', { autoClose: 2000 });
     }
   };
 
@@ -132,7 +144,7 @@ const RegisterPage = () => {
               />
               <input
                 type="text"
-                placeholder="Téléphone" 
+                placeholder="Téléphone"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 className="w-full mb-2 px-4 py-2  border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
@@ -229,9 +241,9 @@ const RegisterPage = () => {
       {loading && <div>Loading...</div>}
       {error && (
         <>
-        <ToastContainer position="top-right" />
-        {toast.error("Une erreur s'est produite lors de l'inscription. Veuillez réessayer.")}
-      </>
+          <ToastContainer position="top-right" />
+          {toast.error("Une erreur s'est produite lors de l'inscription. Veuillez réessayer.")}
+        </>
       )}
     </div>
   );

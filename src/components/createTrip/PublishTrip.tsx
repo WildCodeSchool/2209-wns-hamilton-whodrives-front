@@ -7,14 +7,15 @@ import { useMutation } from "@apollo/client";
 function PublishTrip({trip, returnTrip}:any) {
 
 const CreateTrip = gql`
-  mutation CreateTrip($departurePlaces: String, $destination: String, $dateDeparture: Timestamp, $arrivalDate: Timestamp, $hourDeparture: Timestamp) {
-  createTrip(departure_places: $departurePlaces, destination: $destination, date_departure: $dateDeparture, arrival_date: $arrivalDate, hour_departure: $hourDeparture) {
+  mutation CreateTrip($departurePlaces: String, $destination: String, $dateDeparture: Timestamp, $arrivalDate: Timestamp, $price: Int, $description: String ) {
+  createTrip(departure_places: $departurePlaces, destination: $destination, date_departure: $dateDeparture, arrival_date: $arrivalDate, price: $price, description: $description) {
     id
     departure_places
     destination
     date_departure
     arrival_date
-    hour_departure
+    price
+    description
   }
 }
 `;
@@ -68,7 +69,8 @@ const CreateTrip = gql`
           destination: locationField.arrival,
           dateDeparture: newDate.getTime(),
           arrivalDate: newDate.getTime(),
-          hourDeparture: newDate.getTime(),
+          price: locationField.price,
+          description : locationField.description,
         },
       });
   
