@@ -5,9 +5,9 @@ interface ISearchTrip {
   onclick: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-export default function SearchTripComponent({ onclick }: ISearchTrip) {
+export default function SearchTripComponent({ onclick }: ISearchTrip,) {
   const today = new Date().toLocaleDateString("en-us");
-console.log(today,"today");
+
 
   interface FormState {
     departure: string;
@@ -65,6 +65,8 @@ console.log(today,"today");
   };
   console.log(display);
   console.log(form);
+  //submit form trip
+  
   
 
   return (
