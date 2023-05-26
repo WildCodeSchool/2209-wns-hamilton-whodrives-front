@@ -12,8 +12,11 @@ module.exports = {
         whodrivesGrey: "#909090",
       },
       fontFamily: {
-        pressStart2p: ["/assets/fonts/PressStart2P-Regular.ttf"],
-        roboto: ["/assets/fonts/Roboto-Regular.ttf"],
+        pressStart2p: ["/public/assets/fonts/PressStart2P-Regular.ttf"],
+        roboto: ["/public/assets/fonts/Roboto-Regular.ttf"],
+      },
+      backgroundImage: {
+        "whodrives-bg": "url('/public/assets/images/whodrives.gif')",
       },
       fontSize: {
         xxs: ".5rem",
