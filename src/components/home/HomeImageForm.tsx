@@ -1,5 +1,3 @@
-import SearchTripComponent from "../shared/SearchTrip";
-
 export default function HomeImageFormComponent(): JSX.Element {
   // const handleclick = () => {
   //   console.log("click");
