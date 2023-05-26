@@ -11,7 +11,7 @@ type MenuItems = {
 const logout = () => {
   localStorage.clear();
   window.location.href = "/";
-}
+};
 
 const menuItems: MenuItems[] = [
   { path: "/profile", name: "Mon compte" },
@@ -90,10 +90,13 @@ export default function HeaderProfileMenu(): JSX.Element {
             );
           })}
           <MenuItem>
-          <a href="#"  onClick={logout}  className="header-profile-text hover:text-validBlue"> 
-          Déconnexion
-          </a>
-         </MenuItem>
+            <p
+              onClick={logout}
+              className="header-profile-text hover:text-validBlue"
+            >
+              Déconnexion
+            </p>
+          </MenuItem>
         </Menu>
       </div>
 
@@ -130,7 +133,6 @@ export default function HeaderProfileMenu(): JSX.Element {
             "aria-labelledby": "basic-button",
           }}
         >
-          
           {responsiveMenuItems.map((item: MenuItems, index: number) => {
             return (
               <MenuItem key={index} onClick={handleClose}>
@@ -144,10 +146,13 @@ export default function HeaderProfileMenu(): JSX.Element {
             );
           })}
           <MenuItem>
-          <a href="#"  onClick={logout}  className="header-profile-text hover:text-validBlue"> 
-          Déconnexion
-          </a>
-         </MenuItem>
+            <p
+              onClick={logout}
+              className="header-profile-text hover:text-validBlue"
+            >
+              Déconnexion
+            </p>
+          </MenuItem>
         </Menu>
       </div>
     </div>
