@@ -7,7 +7,6 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [passengers, setPassengers] = useState(1);
-
   const [showDepartureOptions, setShowDepartureOptions] = useState(false);
   const [showArrivalOptions, setShowArrivalOptions] = useState(false);
 
@@ -24,9 +23,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
       setPassengers(trip.passengers);
     }
   }
-
-
-
+  
   const [departureOptions, setDepartureOptions] = useState<string[]>([]);
   const [arrivalOptions, setArrivalOptions] = useState<string[]>([]);
 

@@ -1,21 +1,17 @@
 import LocationField from "../../components/createTrip/LocationFields";
 import ConfirmTrip from "../../components/createTrip/ConfirmTrip";
 import ReturnTrip from "../../components/createTrip/ReturnTrip";
-import { Route, Routes } from "react-router-dom";
 import * as React from 'react';
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import PublishTrip from "../../components/createTrip/PublishTrip";
 import ConfirmReturnTrip from "../../components/createTrip/ConfirmReturnTrip";
 
 // recuperer les donner du formulaire et les envoyer a la page suivante
-
 
 interface TripData {
   departure: string;
@@ -54,9 +50,7 @@ function CreateTripPage(): JSX.Element {
       description:'',
     });
 
-
   const handleLocationFieldData = (data :TripData) => {
-    console.log("trajet aller", data);
 
     setTrip({...trip, ...data});
     handleNextStep();
@@ -68,7 +62,6 @@ function CreateTripPage(): JSX.Element {
   };
 
   const handlReturnTripData = (data: TripData) => {
-    console.log("trajet retour", data);
     setReturnTrip({...returnTrip, ...data})
     handleNextStep();
   };
@@ -101,8 +94,6 @@ function CreateTripPage(): JSX.Element {
     
     setActiveStep((prevActiveStep) => prevActiveStep + 2);
   }
-
- 
   
     function getStepContent(step: number) {
       switch (step) {
@@ -166,8 +157,6 @@ function CreateTripPage(): JSX.Element {
       setActiveStep(0);
     };
 
- 
-  
     return (
       <Box sx={{ width: '100%' }}>
         <Stepper activeStep={activeStep}>
@@ -187,10 +176,7 @@ function CreateTripPage(): JSX.Element {
             return (
               <Step key={label} {...stepProps}>
                 <StepLabel {...labelProps}>{label}</StepLabel>
-
               </Step>
-
-
             );
           })}
         </Stepper>
@@ -210,8 +196,6 @@ function CreateTripPage(): JSX.Element {
       </Box>
     );
   }
-
-  
   
   export default CreateTripPage;
 
