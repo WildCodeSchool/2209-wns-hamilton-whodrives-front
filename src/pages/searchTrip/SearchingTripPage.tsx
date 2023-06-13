@@ -47,8 +47,8 @@ function SearchingTripPage() {
   };
   return (
     <div className="flex h-screen items-center flex-col w-screen">
-      <h1 className="text-whodrivesPink mt-10">JE CHERCHE UN TRAJET</h1>
-      <Stepper activeStep={activeStep}>
+      <h1 className="text-whodrivesPink mt-10 mb-14">JE CHERCHE UN TRAJET</h1>
+      <Stepper activeStep={activeStep} className="mb-12">
         {steps.map((step) => (
           <Step key={step}>
             <StepLabel>{step}</StepLabel>
@@ -59,7 +59,7 @@ function SearchingTripPage() {
       {activeStep === 1 ? (
         <div className="step-1 flex flex-row">
           <FilterSearchComponent />
-          <div className="flex flex-col w-1/1">
+          <div className="flex flex-col w-1/1  h-5/6  overflow-auto pl-5 pr-5 pt-0">
           {tab.map((el) => (
               <SearchTripResult
                 date={el.date}

@@ -70,7 +70,7 @@ export default function SearchTripComponent({ onclick }: ISearchTrip,) {
   
 
   return (
-    <div className=" flex flex-row items-center justify-center align-middle bg-white mt-5  border-1">
+    <div className=" flex flex-row items-center justify-center align-middle bg-white mt-5  border-2 border-black-900 mb-12 ">
       <div className="flex flex-col border-r-4 border-whodrivesGrey">
         <div className="flex flex-row ">
           <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
@@ -146,7 +146,7 @@ export default function SearchTripComponent({ onclick }: ISearchTrip,) {
         name="passenger"
         placeholder="personne"
         style={{ height: "100%" }}
-        className="w-10 ml-5 mr-5 border-r-4"
+        className="w-10 ml-5  border-r-4"
         onChange={(e) => setForm({ ...form, passenger: e.target.value })}
       >
         <option value="1">1</option>
@@ -154,7 +154,7 @@ export default function SearchTripComponent({ onclick }: ISearchTrip,) {
         <option value="3">3</option>
         <option value="4">4</option>
       </select>
-      <button onClick={onclick} className="">
+      <button onClick={onclick} className=" bg-whodrivesGreen min-h-full p-2 pl-4 pr-4 text-white ">
         rechercher
       </button>
     </div>
