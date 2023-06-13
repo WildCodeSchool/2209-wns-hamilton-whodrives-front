@@ -13,7 +13,7 @@ function SearchTripResult({date,départ,arrivé,tarif,place,submitTrip}:PropsRes
    
   
   return (
-    <div className="flex flex-row w-1/4 border justify-between mt-10">
+    <div className="flex flex-row w-1/1 border justify-between mt-10 p-2 ">
       <ProfilSearchComponent />
       <CardSearchTripResult date={date} départ={départ} arrivé={arrivé} tarif={tarif} place={place} submitTrip={submitTrip}/>
     

@@ -22,7 +22,7 @@ function SearchingTripPage() {
       date: new Date(),
     },
     {
-      départ: "Roubaix",
+      départ: "Paris",
       arrivé: "Nante",
       tarif: 32,
       place: 4,
