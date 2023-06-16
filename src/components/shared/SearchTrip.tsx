@@ -1,12 +1,16 @@
+import { log } from "console";
 import React from "react";
 import { useEffect, useState } from "react";
 
 interface ISearchTrip {
   onclick: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  form:any | undefined,
+  setForm:any | undefined,
+  today:any
 }
 
-export default function SearchTripComponent({ onclick }: ISearchTrip,) {
-  const today = new Date().toLocaleDateString("en-us");
+export default function SearchTripComponent({ onclick,form,setForm,today }: ISearchTrip,) {
+ 
 
 
   interface FormState {
@@ -15,19 +19,20 @@ export default function SearchTripComponent({ onclick }: ISearchTrip,) {
     date: string;
     passenger: string;
   }
-  const [form, setForm] = useState<FormState>({
-    departure: "départ",
-    arrival: "destination",
-    date: today,
-    passenger: "",
-  });
+
+  interface DataState{
+ nom:string,
+ code:string
+  }
+  
 
   //State change word(city) to call API
   const [word, setWord] = useState({
     departure: "",
     arrival: "",
   });
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]
+    );
   const [display, setDisplay] = useState({
     departure: false,
     arrival: false,
@@ -36,14 +41,17 @@ export default function SearchTripComponent({ onclick }: ISearchTrip,) {
   const getcity = async (word: string) => {
     try {
       const response = await fetch(
-        `https://geo.api.gouv.fr/communes?nom=${word}&fields=population&limit=5`
+      `https://geo.api.gouv.fr/communes?nom=${word}&fields=code,nom,codeDepartement&limit=5`
+
       );
       const json = await response.json();
-      setData(json.map((e: any) => e.nom));
+      setData(json.map((e: any) => ({ code: e.codeDepartement, nom: e.nom })));
     } catch (error) {
       console.error(error);
     }
   };
+
+
 
   useEffect(() => {
     setDisplay({ arrival: false, departure: true });
@@ -70,7 +78,7 @@ export default function SearchTripComponent({ onclick }: ISearchTrip,) {
   
 
   return (
-    <div className=" flex flex-row items-center justify-center align-middle bg-white mt-5  border-2 border-black-900 mb-12 ">
+    <div className=" flex flex-row items-center justify-center align-middle bg-white mt-5  border-2 border-black mb-12 ">
       <div className="flex flex-col border-r-4 border-whodrivesGrey">
         <div className="flex flex-row ">
           <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
@@ -87,17 +95,20 @@ export default function SearchTripComponent({ onclick }: ISearchTrip,) {
           />
         </div>
         <div className="absolute z-10 mt-10 bg-white">
-           {  data.map((el, index) => (
-          display.departure &&
+           {  data.map((el:DataState, index) => (
+            
+          display.departure && 
               <option
                 key={index}
-                value={el}
+                value={el.nom}
                 onClick={(e: React.MouseEvent<HTMLOptionElement>) => {
                   setForm({ ...form, departure: e.currentTarget.value });
                   setDisplay({ ...display, departure: false });
                 }}
               >
-                {el}
+                
+                
+                {el.nom}  - {el.code}
               </option>
             ))}
         </div>
@@ -119,16 +130,16 @@ export default function SearchTripComponent({ onclick }: ISearchTrip,) {
         </div>
         <div className="absolute z-10 mt-10 bg-white ">
         {display.arrival &&
-          data.map((el, index) => (
+          data.map((el:DataState, index) => (
             <option
               key={index}
-              value={el}
+              value={el.nom}
               onClick={(e: any) => {
                 setForm({ ...form, arrival: e.currentTarget.value });
                 setDisplay({ ...display, arrival: false });
               }}
             >
-              {el}
+               {el.nom}  - {el.code}
             </option>
           ))}
           </div>
@@ -141,20 +152,25 @@ export default function SearchTripComponent({ onclick }: ISearchTrip,) {
         value={form.date}
         placeholder={today}
       />
-
-      <select
+<div className="flex flex-row ml-2 mr-2">
+<img src="/assets/icons/user-plus-grey.svg" alt="" />
+<select
         name="passenger"
         placeholder="personne"
         style={{ height: "100%" }}
-        className="w-10 ml-5  border-r-4"
+        className="w-10 ml-5  "
         onChange={(e) => setForm({ ...form, passenger: e.target.value })}
       >
+        
+        <option value="1">?</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
       </select>
-      <button onClick={onclick} className=" bg-whodrivesGreen min-h-full p-2 pl-4 pr-4 text-white ">
+</div>
+    
+      <button onClick={onclick} className=" bg-whodrivesGreen min-h-full p-2 pl-4 pr-4 text-white border-l-2 border-black ">
         rechercher
       </button>
     </div>
