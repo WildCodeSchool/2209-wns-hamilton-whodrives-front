@@ -1,6 +1,6 @@
-import { log } from "console";
 import React from "react";
 import { useEffect, useState } from "react";
+import "../../styles/global.css";
 
 interface ISearchTrip {
   onclick: React.MouseEventHandler<HTMLButtonElement> | undefined;
@@ -78,7 +78,7 @@ export default function SearchTripComponent({ onclick,form,setForm,today }: ISea
   
 
   return (
-    <div className=" flex flex-row items-center justify-center align-middle bg-white mt-5  border-2 border-black mb-12 ">
+    <div className=" flex flex-row items-center justify-center align-middle bg-white mt-5  border border-black mb-12 ">
       <div className="flex flex-col border-r-4 border-whodrivesGrey">
         <div className="flex flex-row ">
           <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
@@ -162,7 +162,7 @@ export default function SearchTripComponent({ onclick,form,setForm,today }: ISea
         onChange={(e) => setForm({ ...form, passenger: e.target.value })}
       >
         
-        <option value="1">?</option>
+        <option value="0"></option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -170,7 +170,7 @@ export default function SearchTripComponent({ onclick,form,setForm,today }: ISea
       </select>
 </div>
     
-      <button onClick={onclick} className=" bg-whodrivesGreen min-h-full p-2 pl-4 pr-4 text-white border-l-2 border-black ">
+      <button onClick={onclick} className=" bg-whodrivesGreen min-h-full p-2 pl-4 pr-4 text-white border-l-2 border-black searchTripButton ">
         rechercher
       </button>
     </div>
