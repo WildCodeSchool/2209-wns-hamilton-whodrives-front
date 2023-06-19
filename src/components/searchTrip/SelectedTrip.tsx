@@ -57,7 +57,15 @@ function SelectedTrip({
           <p className="ml-11">Prix du trajet par passager : {prix} €</p>
         </div>
       </div>
-      <button className="w-56 bg-whodrivesGreen pl-24 pr-24 pt-5 pb-5 align-middle flex justify-center border border-black text-white selectedTripButton shadow-md">
+      <button className="
+      w-56 bg-whodrivesGreen 
+      pl-24 pr-24 pt-5 pb-5 
+      align-middle flex justify-center 
+      border border-black
+       text-white 
+       selectedTripButton 
+       shadow-md
+       ">
         REJOINDRE
       </button>
     </div>

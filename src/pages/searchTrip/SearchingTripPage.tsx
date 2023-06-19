@@ -53,28 +53,28 @@ function SearchingTripPage() {
   const [activeStep, setActiveStep] = useState(0);
 
   //event to retrieve trips
-//   const handleclick = () => {
-//     if (form.departure === "départ") {
-//       setErrorMessage("merci de selectionner une ville de départ");
-//       setErrorForm(true);
-//     } else if (form.arrival === "destination") {
-//       setErrorMessage("merci de selectionner une ville d'arrivée");
-//       setErrorForm(true);
-//     } else if (form.date === today) {
-//       setErrorMessage("merci de selectionner une date de départ");
-//       setErrorForm(true);
-//     } else if (form.passenger === "") {
-//       setErrorMessage("merci de selectionner un nombre de passager");
-//       setErrorForm(true);
-//     } else {
-//       setErrorForm(false);
-//       setActiveStep(1);
-//       console.warn("formulaire envoyé");
-//     }
-//   };
-const handleclick = ()=>{
-    setActiveStep(1);
-}
+  const handleclick = () => {
+    if (form.departure === "départ") {
+      setErrorMessage("merci de selectionner une ville de départ");
+      setErrorForm(true);
+    } else if (form.arrival === "destination") {
+      setErrorMessage("merci de selectionner une ville d'arrivée");
+      setErrorForm(true);
+    } else if (form.date === today) {
+      setErrorMessage("merci de selectionner une date de départ");
+      setErrorForm(true);
+    } else if (form.passenger === "") {
+      setErrorMessage("merci de selectionner un nombre de passager");
+      setErrorForm(true);
+    } else {
+      setErrorForm(false);
+      setActiveStep(1);
+      console.warn("formulaire envoyé");
+    }
+  };
+// const handleclick = ()=>{
+//     setActiveStep(1);
+// }
   //event to choose one trip
   const submitTrip = () => {
     setActiveStep(2);

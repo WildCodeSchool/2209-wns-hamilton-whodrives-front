@@ -78,7 +78,7 @@ export default function SearchTripComponent({ onclick,form,setForm,today }: ISea
   
 
   return (
-    <div className=" flex flex-row items-center justify-center align-middle bg-white mt-5  border border-black mb-12 ">
+    <div className=" flex flex-row items-center justify-center align-middle bg-white mt-5  border border-black mb-12   ">
       <div className="flex flex-col border-r-4 border-whodrivesGrey">
         <div className="flex flex-row ">
           <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
@@ -152,7 +152,7 @@ export default function SearchTripComponent({ onclick,form,setForm,today }: ISea
         value={form.date}
         placeholder={today}
       />
-<div className="flex flex-row ml-2 mr-2">
+<div className="flex flex-row ml-2 mr-2 sm:w-1/1">
 <img src="/assets/icons/user-plus-grey.svg" alt="" />
 <select
         name="passenger"
@@ -170,7 +170,7 @@ export default function SearchTripComponent({ onclick,form,setForm,today }: ISea
       </select>
 </div>
     
-      <button onClick={onclick} className=" bg-whodrivesGreen min-h-full p-2 pl-4 pr-4 text-white border-l-2 border-black searchTripButton ">
+      <button onClick={onclick} className=" bg-whodrivesGreen min-h-full p-2 pl-4 pr-4 text-white border-l-2 border-black searchTripButton sm:w-1/1 ">
         rechercher
       </button>
     </div>
