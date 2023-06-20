@@ -2,16 +2,23 @@ import "../../../styles/layout.css";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 
 type MenuItems = {
   path: string;
   name: string;
 };
+
 const logout = () => {
   localStorage.clear();
   window.location.href = "/";
 };
+
+const disconnectedMenuItems: MenuItems[] = [
+  { path: "/register", name: "Inscription" },
+  { path: "/auth", name: "Connexion" },
+];
 
 const menuItems: MenuItems[] = [
   { path: "/profile", name: "Mon compte" },
@@ -28,7 +35,13 @@ const responsiveMenuItems: MenuItems[] = headerLinks
   .concat(menuItems)
   .map((obj) => ({ ...obj }));
 
+const responsiveDisconnectedMenuItems: MenuItems[] = headerLinks
+  .concat(disconnectedMenuItems)
+  .map((obj) => ({ ...obj }));
+
 export default function HeaderProfileMenu(): JSX.Element {
+  const authContext = useContext(AuthContext);
+  const isAuthenticated = authContext?.isAuthenticated;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -45,6 +58,7 @@ export default function HeaderProfileMenu(): JSX.Element {
 
   return (
     <div>
+      {/* Menu desktop */}
       <div className="hidden sm:block">
         <button
           className="flex flex-row"
@@ -68,38 +82,65 @@ export default function HeaderProfileMenu(): JSX.Element {
             alt="chevron down icon"
           />
         </button>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          {menuItems.map((item: MenuItems, index: number) => {
-            return (
-              <MenuItem key={index} onClick={handleClose}>
-                <a
-                  className="header-profile-text hover:text-validBlue"
-                  href={item.path}
-                >
-                  {item.name}
-                </a>
-              </MenuItem>
-            );
-          })}
-          <MenuItem>
-            <p
-              onClick={logout}
-              className="header-profile-text hover:text-validBlue"
-            >
-              Déconnexion
-            </p>
-          </MenuItem>
-        </Menu>
+
+        {isAuthenticated ? (
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            {menuItems.map((item: MenuItems, index: number) => {
+              return (
+                <MenuItem key={index} onClick={handleClose}>
+                  <a
+                    className="header-profile-text hover:text-validBlue"
+                    href={item.path}
+                  >
+                    {item.name}
+                  </a>
+                </MenuItem>
+              );
+            })}
+            <MenuItem>
+              <p
+                onClick={logout}
+                className="header-profile-text hover:text-validBlue"
+              >
+                Déconnexion
+              </p>
+            </MenuItem>
+          </Menu>
+        ) : (
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            {disconnectedMenuItems.map((item: MenuItems, index: number) => {
+              return (
+                <MenuItem key={index} onClick={handleClose}>
+                  <a
+                    className="header-profile-text hover:text-validBlue"
+                    href={item.path}
+                  >
+                    {item.name}
+                  </a>
+                </MenuItem>
+              );
+            })}
+          </Menu>
+        )}
       </div>
 
+      {/* Menu mobile */}
       <div className="flex flex-row justify-end h-full sm:hidden">
         <button
           className="flex flex-row"
@@ -123,37 +164,65 @@ export default function HeaderProfileMenu(): JSX.Element {
             alt="chevron down icon"
           />
         </button>
-        <Menu
-          className="sm:hidden"
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          {responsiveMenuItems.map((item: MenuItems, index: number) => {
-            return (
-              <MenuItem key={index} onClick={handleClose}>
-                <a
-                  className="header-profile-text hover:text-validBlue"
-                  href={item.path}
-                >
-                  {item.name}
-                </a>
-              </MenuItem>
-            );
-          })}
-          <MenuItem>
-            <p
-              onClick={logout}
-              className="header-profile-text hover:text-validBlue"
-            >
-              Déconnexion
-            </p>
-          </MenuItem>
-        </Menu>
+        {isAuthenticated ? (
+          <Menu
+            className="sm:hidden"
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            {responsiveMenuItems.map((item: MenuItems, index: number) => {
+              return (
+                <MenuItem key={index} onClick={handleClose}>
+                  <a
+                    className="header-profile-text hover:text-validBlue"
+                    href={item.path}
+                  >
+                    {item.name}
+                  </a>
+                </MenuItem>
+              );
+            })}
+            <MenuItem>
+              <p
+                onClick={logout}
+                className="header-profile-text hover:text-validBlue"
+              >
+                Déconnexion
+              </p>
+            </MenuItem>
+          </Menu>
+        ) : (
+          <Menu
+            className="sm:hidden"
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            {responsiveDisconnectedMenuItems.map(
+              (item: MenuItems, index: number) => {
+                return (
+                  <MenuItem key={index} onClick={handleClose}>
+                    <a
+                      className="header-profile-text hover:text-validBlue"
+                      href={item.path}
+                    >
+                      {item.name}
+                    </a>
+                  </MenuItem>
+                );
+              }
+            )}
+          </Menu>
+        )}
       </div>
     </div>
   );
