@@ -10,11 +10,7 @@ const REGISTER = gql`
     $username: String!
     $password: String!
     $email: String!
-<<<<<<< HEAD
-    $phone: String!
-=======
     $phone: String! # Modifier le type en String!
->>>>>>> a346440dea6c17dc3fa9cebc7f74f0e0863cd349
     $dateOfBirth: Date!
     $firstname: String
     $lastname: String
