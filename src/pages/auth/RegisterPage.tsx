@@ -55,7 +55,7 @@ const RegisterPage = () => {
 
     if (step === 1) {
       if (username && firstname && phone && lastname && email && dateOfBirth && city) {
-        toast.success('Success!', { autoClose: 3000 });
+        toast.success( '1er etape terminée !', { autoClose: 3000 });
         setTimeout(() => {
           setStep(2);
         }, 3000);
@@ -64,7 +64,7 @@ const RegisterPage = () => {
       }
     } else if (step === 2) {
       if (file && file.size > 0) {
-        toast.success('Success!', { autoClose: 2000 });
+        toast.success('2eme etape terminée !', { autoClose: 2000 });
         setTimeout(() => {
           setStep(3);
         }, 3000);
@@ -73,7 +73,7 @@ const RegisterPage = () => {
       }
     } else if (step === 3) {
       if (password !== '' && confirmPassword !== '' && password === confirmPassword) {
-        toast.success('Success!', { autoClose: 2000 });
+        toast.success('3eme etape terminée !', { autoClose: 2000 });
         handleRegister(e); 
       } else {
         toast.error("Veuillez saisir un mot de passe. !", { autoClose: 2000 });
