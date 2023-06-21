@@ -27,6 +27,7 @@ const menuItems: MenuItems[] = [
 ];
 
 const headerLinks: MenuItems[] = [
+  { path: "/", name: "Accueil" },
   { path: "/search-trip", name: "Rechercher" },
   { path: "/create-trip", name: "Publier un trajet" },
 ];
