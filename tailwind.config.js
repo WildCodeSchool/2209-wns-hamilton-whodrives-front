@@ -21,6 +21,13 @@ module.exports = {
       fontSize: {
         xxs: ".5rem",
       },
+      height: {
+        header: "5rem",
+        body: 'calc(100vh - theme("height.header"))',
+      },
+      minHeight: {
+        body: 'calc(100vh - theme("height.header"))',
+      },
     },
   },
   plugins: [],

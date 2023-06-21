@@ -118,10 +118,10 @@ const RegisterPage = () => {
       return (
         <div className="flex flex-col items-center justify-center">
           <div>
-            <div className="p-16 mt-20 border-2 border-blue-500 ">
-              <h2 className="mb-4 text-2xl font-bold">
+            <div className="w-5/6 p-8 mx-auto my-4 border-2 border-blue-500 sm:w-2/4">
+              <h3 className="mb-4 text-2xl">
                 Étape 1: Informations personnelles
-              </h2>
+              </h3>
               <input
                 type="text"
                 placeholder="Username"
@@ -176,7 +176,7 @@ const RegisterPage = () => {
           <button
             type="button"
             onClick={handleNext}
-            className="py-2 mt-4 mb-5 text-white bg-blue-500  btnRegister"
+            className="py-2 mt-4 mb-5 text-white bg-blue-500 btnRegister"
           >
             Suivant
           </button>
@@ -198,7 +198,7 @@ const RegisterPage = () => {
           <button
             type="button"
             onClick={handleNext}
-            className="py-2 m-5 mt-4 text-white bg-blue-500  btnRegister"
+            className="py-2 m-5 mt-4 text-white bg-blue-500 btnRegister"
           >
             Suivant
           </button>
@@ -227,7 +227,7 @@ const RegisterPage = () => {
           <button
             type="submit"
             onClick={handleRegister}
-            className="py-2 m-5 mt-4 text-white bg-blue-500  btnRegister"
+            className="py-2 m-5 mt-4 text-white bg-blue-500 btnRegister"
           >
             S'inscrire
           </button>
@@ -237,7 +237,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="w-full min-h-[calc(100vh-10rem)]">
       <form onSubmit={handleRegister}>{renderStep()}</form>
       {loading && <div>Loading...</div>}
       {error && (

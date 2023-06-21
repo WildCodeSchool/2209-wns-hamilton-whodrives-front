@@ -8,14 +8,14 @@ export default function HomePage(): JSX.Element {
   const authContext = useContext(AuthContext);
   const isAuthenticated = authContext?.isAuthenticated;
   return (
-    <div className="min-h-screen">
-      <div>
+    <div className="w-full min-h-screen">
+      {/* <div>
         {isAuthenticated ? (
           <h1>User connected</h1>
         ) : (
           <h1>User not connected</h1>
         )}
-      </div>
+      </div> */}
       <HomeImageFormComponent />
       <HomeCardsComponent />
       <HomeBudgetFormComponent />
