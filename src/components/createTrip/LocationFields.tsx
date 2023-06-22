@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "../../styles/createTrip.css";
 
 function LocationFields({ handleLocationFieldData, trip }: any) {
   const [departure, setDeparture] = useState("");
@@ -15,7 +14,13 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
   }, []);
 
   function ifTripDataIsComplete() {
-    if (trip.departure && trip.arrival && trip.date && trip.time && trip.passengers) {
+    if (
+      trip.departure &&
+      trip.arrival &&
+      trip.date &&
+      trip.time &&
+      trip.passengers
+    ) {
       setDeparture(trip.departure);
       setArrival(trip.arrival);
       setDate(trip.date);
@@ -23,7 +28,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
       setPassengers(trip.passengers);
     }
   }
-  
+
   const [departureOptions, setDepartureOptions] = useState<string[]>([]);
   const [arrivalOptions, setArrivalOptions] = useState<string[]>([]);
 
@@ -80,13 +85,14 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
   const handleArrivalOptionClick = (option: string) => {
     setArrival(option);
     setShowArrivalOptions(false);
-
   };
 
   return (
     <div className="h-screen flex flex-col justify-center items-center my-custom-class">
-      <h2 className="text-lg font-semibold text-center mb-4 " >Je publie un trajet</h2>
-      <div className="bg-lightBlue p-8 mx-auto w-full sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5" >
+      <h2 className="text-lg font-semibold text-center mb-4 ">
+        Je publie un trajet
+      </h2>
+      <div className="bg-lightBlue p-8 mx-auto w-full sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
         <div className="flex flex-col space-y-2">
           <label className="text-center" htmlFor="depart">
             Départ
@@ -145,7 +151,9 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
         </div>
         <div className="flex flex-col sm:flex-row sm:space-x-4">
           <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
-            <label className="text-center" htmlFor="date">Date</label>
+            <label className="text-center" htmlFor="date">
+              Date
+            </label>
             <input
               type="date"
               id="date"
@@ -156,7 +164,9 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             />
           </div>
           <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
-            <label className="text-center" htmlFor="heure">Heure</label>
+            <label className="text-center" htmlFor="heure">
+              Heure
+            </label>
             <input
               type="time"
               id="heure"
@@ -167,7 +177,9 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
           </div>
         </div>
         <div className="flex flex-col space-y-2 ">
-          <label className="text-center" htmlFor="nombrePersonnes">Nombre de personnes</label>
+          <label className="text-center" htmlFor="nombrePersonnes">
+            Nombre de personnes
+          </label>
           <input
             type="number"
             id="nombrePersonnes"
@@ -183,7 +195,15 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
           className="bg-whodrivesGrey text-white py-2 px-4 mt-6 "
           //le bouton est disabled si les champs ne sont pas remplis
           disabled={!departure || !arrival || !date || !time || !passengers}
-          onClick={() => handleLocationFieldData({ departure, arrival, date, time, passengers })}
+          onClick={() =>
+            handleLocationFieldData({
+              departure,
+              arrival,
+              date,
+              time,
+              passengers,
+            })
+          }
         >
           Suivant
         </button>

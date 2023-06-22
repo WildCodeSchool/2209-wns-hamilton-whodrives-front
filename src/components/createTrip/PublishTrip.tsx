@@ -1,23 +1,33 @@
 import { useState } from "react";
-import  "../../styles/createTrip.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 
-function PublishTrip({trip, returnTrip}:any) {
-
-const CreateTrip = gql`
-  mutation CreateTrip($departurePlaces: String, $destination: String, $dateDeparture: Timestamp, $arrivalDate: Timestamp, $hourDeparture: Timestamp) {
-  createTrip(departure_places: $departurePlaces, destination: $destination, date_departure: $dateDeparture, arrival_date: $arrivalDate, hour_departure: $hourDeparture) {
-    id
-    departure_places
-    destination
-    date_departure
-    arrival_date
-    hour_departure
-  }
-}
-`;
+function PublishTrip({ trip, returnTrip }: any) {
+  const CreateTrip = gql`
+    mutation CreateTrip(
+      $departurePlaces: String
+      $destination: String
+      $dateDeparture: Timestamp
+      $arrivalDate: Timestamp
+      $hourDeparture: Timestamp
+    ) {
+      createTrip(
+        departure_places: $departurePlaces
+        destination: $destination
+        date_departure: $dateDeparture
+        arrival_date: $arrivalDate
+        hour_departure: $hourDeparture
+      ) {
+        id
+        departure_places
+        destination
+        date_departure
+        arrival_date
+        hour_departure
+      }
+    }
+  `;
 
   const locationField = {
     departure: trip.departure,
@@ -50,16 +60,14 @@ const CreateTrip = gql`
   const [createTrip] = useMutation(CreateTrip);
 
   const handlePublishTrip = async () => {
-
-    let date = locationField.date
+    let date = locationField.date;
     let dateSplit = date.split("-");
-    let time = locationField.time
+    let time = locationField.time;
     let timeSplit = time.split(":");
-    
-    let newDate = new Date();
-    newDate.setHours(+timeSplit[0] + 2, + timeSplit[1]);
-    newDate.setFullYear(+dateSplit[0], +dateSplit[1] - 1, +dateSplit[2])
 
+    let newDate = new Date();
+    newDate.setHours(+timeSplit[0] + 2, +timeSplit[1]);
+    newDate.setFullYear(+dateSplit[0], +dateSplit[1] - 1, +dateSplit[2]);
 
     try {
       const { data } = await createTrip({
@@ -71,7 +79,7 @@ const CreateTrip = gql`
           hourDeparture: newDate.getTime(),
         },
       });
-  
+
       // Naviguer vers une autre page après publication
       navigate("/nouvelle-page");
     } catch (error) {
@@ -82,7 +90,9 @@ const CreateTrip = gql`
   return (
     <div className="flex flex-col items-center">
       <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-xl mb-4">
-        <h1 className="text-2xl font-semibold mb-4">Récapitulatif de votre annonce</h1>
+        <h1 className="text-2xl font-semibold mb-4">
+          Récapitulatif de votre annonce
+        </h1>
         <div className="space-y-4">
           {trips.map((locationField, index) => (
             <div key={index} className="bg-gray-100 p-4 rounded-lg">
@@ -129,7 +139,6 @@ const CreateTrip = gql`
       </button>
     </div>
   );
-  
 }
 
 export default PublishTrip;

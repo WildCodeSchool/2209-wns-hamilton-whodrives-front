@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import "../../styles/createTrip.css";
-function ReturnTrip({trip, setSkipReturnTrip, handlReturnTripData}:any) {
-  
+function ReturnTrip({ trip, setSkipReturnTrip, handlReturnTripData }: any) {
   const [showReturn, setShowReturn] = useState(false);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -18,7 +16,13 @@ function ReturnTrip({trip, setSkipReturnTrip, handlReturnTripData}:any) {
   }, []);
 
   function ifTripDataIsComplete() {
-    if (trip.departure && trip.arrival && trip.date && trip.time && trip.passengers) {
+    if (
+      trip.departure &&
+      trip.arrival &&
+      trip.date &&
+      trip.time &&
+      trip.passengers
+    ) {
       setDeparture(trip.arrival);
       setArrival(trip.departure);
       setDate(trip.date);
@@ -80,139 +84,153 @@ function ReturnTrip({trip, setSkipReturnTrip, handlReturnTripData}:any) {
   const handleArrivalOptionClick = (option: string) => {
     setArrival(option);
     setShowArrivalOptions(false);
-
   };
-
 
   return (
     <div className="h-screen flex flex-col justify-center items-center">
-    <div className="mx-auto w-4/5 md:w-1/1 lg:w-1/1 text-center">
-      <h2 className="text-lg font-semibold mb-4">Voulez-vous préparer un trajet retour ?</h2>
-      {showReturn ? (
-         <div className="h-screen flex flex-col justify-center items-center my-custom-class">
-      <h2 className="text-lg font-semibold text-center mb-4 " >Mon trajet retour</h2>
-      <div className="bg-lightBlue p-8 mx-auto w-full sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5" >
-        <div className="flex flex-col space-y-2">
-          <label className="text-center" htmlFor="depart">
-            Départ
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              id="depart"
-              value={departure}
-              onChange={handleDepartureChange}
-              className="w-full border border-gray-300 p-2"
-            />
-            {showDepartureOptions && departureOptions.length > 0 && (
-              <ul className="absolute z-10 bg-white border border-gray-300 p-4 mt-2 w-full">
-                {departureOptions.map((option, index) => (
-                  <li key={index}>
-                    <button
-                      className="text-left w-full"
-                      onClick={() => handleDepartureOptionClick(option)}
-                    >
-                      {option}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
+      <div className="mx-auto w-4/5 md:w-1/1 lg:w-1/1 text-center">
+        <h2 className="text-lg font-semibold mb-4">
+          Voulez-vous préparer un trajet retour ?
+        </h2>
+        {showReturn ? (
+          <div className="h-screen flex flex-col justify-center items-center my-custom-class">
+            <h2 className="text-lg font-semibold text-center mb-4 ">
+              Mon trajet retour
+            </h2>
+            <div className="bg-lightBlue p-8 mx-auto w-full sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
+              <div className="flex flex-col space-y-2">
+                <label className="text-center" htmlFor="depart">
+                  Départ
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="depart"
+                    value={departure}
+                    onChange={handleDepartureChange}
+                    className="w-full border border-gray-300 p-2"
+                  />
+                  {showDepartureOptions && departureOptions.length > 0 && (
+                    <ul className="absolute z-10 bg-white border border-gray-300 p-4 mt-2 w-full">
+                      {departureOptions.map((option, index) => (
+                        <li key={index}>
+                          <button
+                            className="text-left w-full"
+                            onClick={() => handleDepartureOptionClick(option)}
+                          >
+                            {option}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col space-y-2">
+                <label className="text-center" htmlFor="arrivee">
+                  Arrivée
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="arrivee"
+                    value={arrival}
+                    onChange={handleArrivalChange}
+                    className="w-full border border-gray-300 p-2"
+                  />
+                  {showArrivalOptions && arrivalOptions.length > 0 && (
+                    <ul className="absolute z-10 bg-white border border-gray-300 p-4 mt-2 w-full">
+                      {arrivalOptions.map((option, index) => (
+                        <li key={index}>
+                          <button
+                            className="text-left w-full"
+                            onClick={() => handleArrivalOptionClick(option)}
+                          >
+                            {option}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:space-x-4">
+                <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
+                  <label className="text-center" htmlFor="date">
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    //afficher la date de aujourdui par defaut
+                    value={date || trip.date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="border border-gray-300 p-2"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
+                  <label className="text-center" htmlFor="heure">
+                    Heure
+                  </label>
+                  <input
+                    type="time"
+                    id="heure"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                    className="border border-gray-300 p-2"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-2 ">
+                <label className="text-center" htmlFor="nombrePersonnes">
+                  Nombre de personnes
+                </label>
+                <input
+                  type="number"
+                  id="nombrePersonnes"
+                  value={passengers || trip.passengers}
+                  onChange={(e) => setPassengers(parseInt(e.target.value))}
+                  className="w-1/6 border border-gray-300 p-2 justify-center mx-auto"
+                />
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-whodrivesGrey text-white py-2 px-4 mt-6 "
+                //le bouton est disabled si les champs ne sont pas remplis
+                onClick={() =>
+                  handlReturnTripData({
+                    departure,
+                    arrival,
+                    date,
+                    time,
+                    passengers,
+                  })
+                }
+              >
+                Suivant
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col space-y-2">
-          <label className="text-center" htmlFor="arrivee">
-            Arrivée
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              id="arrivee"
-              value={arrival}
-              onChange={handleArrivalChange}
-              className="w-full border border-gray-300 p-2"
-            />
-            {showArrivalOptions && arrivalOptions.length > 0 && (
-              <ul className="absolute z-10 bg-white border border-gray-300 p-4 mt-2 w-full">
-                {arrivalOptions.map((option, index) => (
-                  <li key={index}>
-                    <button
-                      className="text-left w-full"
-                      onClick={() => handleArrivalOptionClick(option)}
-                    >
-                      {option}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
+        ) : (
+          <div className="mx-auto  md:flex-row space-y-2 md:space-y-0 space-x-0 md:space-x-4 mx-auto">
+            <button
+              className="bg-whodrivesGrey text-white py-2 px-4 rounded-md mb-4 md:mb-0 w-full md:w-auto"
+              onClick={() => setShowReturn(true)}
+            >
+              Oui
+            </button>
+            <button
+              className="bg-whodrivesGrey text-white py-2 px-4 rounded-md w-full md:w-auto"
+              onClick={() => setSkipReturnTrip()}
+            >
+              Non
+            </button>
           </div>
-        </div>
-        <div className="flex flex-col sm:flex-row sm:space-x-4">
-          <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
-            <label className="text-center" htmlFor="date">Date</label>
-            <input
-              type="date"
-              id="date"
-              //afficher la date de aujourdui par defaut
-              value={date  || trip.date}
-              onChange={(e) => setDate(e.target.value)}
-              className="border border-gray-300 p-2"
-            />
-          </div>
-          <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
-            <label className="text-center" htmlFor="heure">Heure</label>
-            <input
-              type="time"
-              id="heure"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="border border-gray-300 p-2"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col space-y-2 ">
-          <label className="text-center" htmlFor="nombrePersonnes">Nombre de personnes</label>
-          <input
-            type="number"
-            id="nombrePersonnes"
-            value={passengers || trip.passengers}
-            onChange={(e) => setPassengers(parseInt(e.target.value))}
-            className="w-1/6 border border-gray-300 p-2 justify-center mx-auto"
-          />
-        </div>
-      </div>
-      <div className="flex justify-center">
-        <button
-          type="submit"
-          className="bg-whodrivesGrey text-white py-2 px-4 mt-6 "
-          //le bouton est disabled si les champs ne sont pas remplis
-          onClick={() => handlReturnTripData({ departure, arrival, date, time, passengers })}
-        >
-          Suivant
-        </button>
+        )}
       </div>
     </div>
-  
-      ) : (
-        <div className="mx-auto  md:flex-row space-y-2 md:space-y-0 space-x-0 md:space-x-4 mx-auto">
-        <button
-          className="bg-whodrivesGrey text-white py-2 px-4 rounded-md mb-4 md:mb-0 w-full md:w-auto"
-          onClick={() => setShowReturn(true)}
-        >
-          Oui
-        </button>
-        <button
-          className="bg-whodrivesGrey text-white py-2 px-4 rounded-md w-full md:w-auto"
-          onClick={() => setSkipReturnTrip()}
-        >
-          Non
-        </button>
-      </div>
-      )}
-    </div>
-  </div>
-  
   );
 }
 
