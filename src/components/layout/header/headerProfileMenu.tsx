@@ -68,11 +68,19 @@ export default function HeaderProfileMenu(): JSX.Element {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          <img
-            className="w-10"
-            src="/assets/icons/user-white.svg"
-            alt="user icon"
-          />
+          {isAuthenticated ? (
+            <img
+              className="w-10"
+              src="/assets/icons/user-green.svg"
+              alt="user icon"
+            />
+          ) : (
+            <img
+              className="w-10"
+              src="/assets/icons/user-white.svg"
+              alt="user icon"
+            />
+          )}
           <img
             className="w-8"
             src={
