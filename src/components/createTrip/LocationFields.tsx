@@ -88,11 +88,8 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center my-custom-class">
-      <h2 className="text-lg font-semibold text-center mb-4 ">
-        Je publie un trajet
-      </h2>
-      <div className="bg-lightBlue p-8 mx-auto w-full sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
+    <div className="flex flex-col items-center justify-center my-custom-class">
+      <div className="w-full p-8 mx-auto bg-lightBlue sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
         <div className="flex flex-col space-y-2">
           <label className="text-center" htmlFor="depart">
             Départ
@@ -103,14 +100,14 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
               id="depart"
               value={departure}
               onChange={handleDepartureChange}
-              className="w-full border border-gray-300 p-2"
+              className="w-full p-2 border border-gray-300"
             />
             {showDepartureOptions && departureOptions.length > 0 && (
-              <ul className="absolute z-10 bg-white border border-gray-300 p-4 mt-2 w-full">
+              <ul className="absolute z-10 w-full p-4 mt-2 bg-white border border-gray-300">
                 {departureOptions.map((option, index) => (
                   <li key={index}>
                     <button
-                      className="text-left w-full"
+                      className="w-full text-left"
                       onClick={() => handleDepartureOptionClick(option)}
                     >
                       {option}
@@ -131,14 +128,14 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
               id="arrivee"
               value={arrival}
               onChange={handleArrivalChange}
-              className="w-full border border-gray-300 p-2"
+              className="w-full p-2 border border-gray-300"
             />
             {showArrivalOptions && arrivalOptions.length > 0 && (
-              <ul className="absolute z-10 bg-white border border-gray-300 p-4 mt-2 w-full">
+              <ul className="absolute z-10 w-full p-4 mt-2 bg-white border border-gray-300">
                 {arrivalOptions.map((option, index) => (
                   <li key={index}>
                     <button
-                      className="text-left w-full"
+                      className="w-full text-left"
                       onClick={() => handleArrivalOptionClick(option)}
                     >
                       {option}
@@ -160,7 +157,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
               //afficher la date de aujourdui par defaut
               value={date || trip.date}
               onChange={(e) => setDate(e.target.value)}
-              className="border border-gray-300 p-2"
+              className="p-2 border border-gray-300"
             />
           </div>
           <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
@@ -172,7 +169,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
               id="heure"
               value={time}
               onChange={(e) => setTime(e.target.value)}
-              className="border border-gray-300 p-2"
+              className="p-2 border border-gray-300"
             />
           </div>
         </div>
@@ -185,14 +182,14 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             id="nombrePersonnes"
             value={passengers || trip.passengers}
             onChange={(e) => setPassengers(parseInt(e.target.value))}
-            className="w-1/6 border border-gray-300 p-2 justify-center mx-auto"
+            className="justify-center w-1/6 p-2 mx-auto border border-gray-300"
           />
         </div>
       </div>
       <div className="flex justify-center">
         <button
           type="submit"
-          className="bg-whodrivesGrey text-white py-2 px-4 mt-6 "
+          className="px-4 py-2 mt-6 text-white bg-whodrivesGrey "
           //le bouton est disabled si les champs ne sont pas remplis
           disabled={!departure || !arrival || !date || !time || !passengers}
           onClick={() =>

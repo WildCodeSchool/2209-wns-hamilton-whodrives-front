@@ -25,11 +25,11 @@ interface TripData {
 
 function CreateTripPage(): JSX.Element {
   const steps = [
-    "création de trajet",
-    "confirmation du trajet",
-    "trajet retour",
-    "confirmation du trajet retour&",
-    "publication du trajet",
+    "Création de trajet",
+    "Confirmation du trajet",
+    "Trajet retour",
+    "Confirmation du trajet retour",
+    "Publication du trajet",
   ];
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -189,7 +189,7 @@ function CreateTripPage(): JSX.Element {
         Je publie un trajet
       </h2>
       <Box sx={{ width: "100%" }}>
-        <Stepper activeStep={activeStep}>
+        <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map((label, index) => {
             const stepProps: { completed?: boolean } = {};
             const labelProps: {
@@ -197,7 +197,7 @@ function CreateTripPage(): JSX.Element {
             } = {};
             if (isStepOptional(index)) {
               labelProps.optional = (
-                <Typography variant="caption">Optional</Typography>
+                <Typography variant="caption">Optionnel</Typography>
               );
             }
             if (isStepSkipped(index)) {
