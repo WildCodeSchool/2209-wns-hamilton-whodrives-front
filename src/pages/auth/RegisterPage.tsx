@@ -49,22 +49,31 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const [createUser, { loading, error }] = useMutation(REGISTER);
-  
   const handleNext = (e: any) => {
     e.preventDefault();
 
     if (step === 1) {
-      if (username && firstname && phone && lastname && email && dateOfBirth && city) {
-        toast.success( '1er etape terminée !', { autoClose: 3000 });
+      if (
+        username &&
+        firstname &&
+        phone &&
+        lastname &&
+        email &&
+        dateOfBirth &&
+        city
+      ) {
+        toast.success("sucess !", { autoClose: 3000 });
         setTimeout(() => {
           setStep(2);
         }, 3000);
       } else {
-        toast.error('Veuillez remplir tous les champs de la première étape', { autoClose: 2000 });
+        toast.error("Veuillez remplir tous les champs de la première étape", {
+          autoClose: 2000,
+        });
       }
     } else if (step === 2) {
       if (file && file.size > 0) {
-        toast.success('2eme etape terminée !', { autoClose: 2000 });
+        toast.success("sucess !", { autoClose: 2000 });
         setTimeout(() => {
           setStep(3);
         }, 3000);
@@ -72,9 +81,7 @@ const RegisterPage = () => {
         toast.error("Veuillez sélectionner un fichier", { autoClose: 2000 });
       }
     } else if (step === 3) {
-      if (password !== '' && confirmPassword !== '' && password === confirmPassword) {
-        toast.success('3eme etape terminée !', { autoClose: 2000 });
-        handleRegister(e); 
+      if (password && confirmPassword) {
       } else {
         toast.error("Veuillez saisir un mot de passe. !", { autoClose: 2000 });
       }
@@ -83,19 +90,8 @@ const RegisterPage = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (password === '' || confirmPassword === '') {
-      toast.error('Veuillez saisir un mot de passe et le confirmer!', { autoClose: 2000 });
-      return; 
-    }
-
-    if (password !== confirmPassword) {
-      toast.error('Les mots de passe ne correspondent pas!', { autoClose: 2000 });
-      return; 
-    }
-
     try {
-      await createUser({
+      const { data } = await createUser({
         variables: {
           username,
           password,
@@ -103,7 +99,7 @@ const RegisterPage = () => {
           phone,
           dateOfBirth,
           firstname,
-          lastname
+          lastname,
         },
       });
       toast.success("Vous êtes inscrit !", { autoClose: 3000 });

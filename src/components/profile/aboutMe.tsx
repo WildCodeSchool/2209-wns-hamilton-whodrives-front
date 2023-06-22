@@ -3,53 +3,18 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 
 const GET_USER_LOGGED = gql`
-  query getUserLogged {
+  query UserLogged {
     userLogged {
+      id
+      email
       username
-      password
       firstname
       lastname
       date_of_birth
-      email
       phone
-      userInfo {
-        id
-        city
-        country
-        age
-        address
-        about {
-          id
-          animal
-          description
-          smoke
-          chatOption {
-            id
-            content
-          }
-          musicOption {
-            id
-            content
-          }
-        }
-        profilPictureId
-      }
-      cars {
-        carPictures {
-          path
-          id
-        }
-        id
-        model {
-          id
-          name
-        }
-        seat
-      }
     }
   }
 `;
-
 const AboutMeComponent = () => {
   const token = localStorage.getItem('token');
 
