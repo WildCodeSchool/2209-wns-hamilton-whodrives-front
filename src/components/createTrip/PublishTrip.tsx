@@ -10,25 +10,27 @@ function PublishTrip({ trip, returnTrip }: any) {
       $destination: String
       $dateDeparture: Timestamp
       $arrivalDate: Timestamp
-      $hourDeparture: Timestamp
+      $price: Int
+      $description: String
     ) {
       createTrip(
         departure_places: $departurePlaces
         destination: $destination
         date_departure: $dateDeparture
         arrival_date: $arrivalDate
-        hour_departure: $hourDeparture
+        price: $price
+        description: $description
       ) {
         id
         departure_places
         destination
         date_departure
         arrival_date
-        hour_departure
+        price
+        description
       }
     }
   `;
-
   const locationField = {
     departure: trip.departure,
     arrival: trip.arrival,
@@ -38,7 +40,6 @@ function PublishTrip({ trip, returnTrip }: any) {
     price: trip.price,
     description: trip.description,
   };
-
   const returnLocationField = {
     departure: returnTrip.departure,
     arrival: returnTrip.arrival,
@@ -48,17 +49,13 @@ function PublishTrip({ trip, returnTrip }: any) {
     price: returnTrip.price,
     description: returnTrip.description,
   };
-
   const trips = [locationField];
-
   if (returnLocationField.departure && returnLocationField.arrival) {
     trips.push(returnLocationField);
   }
-
   const [publishTrip, setPublishTrip] = useState<boolean>(false);
   const navigate = useNavigate();
   const [createTrip] = useMutation(CreateTrip);
-
   const handlePublishTrip = async () => {
     let date = locationField.date;
     let dateSplit = date.split("-");
@@ -68,7 +65,6 @@ function PublishTrip({ trip, returnTrip }: any) {
     let newDate = new Date();
     newDate.setHours(+timeSplit[0] + 2, +timeSplit[1]);
     newDate.setFullYear(+dateSplit[0], +dateSplit[1] - 1, +dateSplit[2]);
-
     try {
       const { data } = await createTrip({
         variables: {
@@ -76,7 +72,8 @@ function PublishTrip({ trip, returnTrip }: any) {
           destination: locationField.arrival,
           dateDeparture: newDate.getTime(),
           arrivalDate: newDate.getTime(),
-          hourDeparture: newDate.getTime(),
+          price: locationField.price,
+          description: locationField.description,
         },
       });
 
@@ -86,7 +83,6 @@ function PublishTrip({ trip, returnTrip }: any) {
       console.error("Erreur lors de la publication de l'annonce :", error);
     }
   };
-
   return (
     <div className="flex flex-col items-center">
       <div className="w-full max-w-xl p-4 mb-4 bg-white rounded-lg shadow-md">
@@ -140,5 +136,4 @@ function PublishTrip({ trip, returnTrip }: any) {
     </div>
   );
 }
-
 export default PublishTrip;
