@@ -63,6 +63,7 @@ const CreateTrip = gql`
 
 
     try {
+      // Créer un trajet avec les données du formulaire
       const { data } = await createTrip({
         variables: {
           departurePlaces: locationField.departure,
