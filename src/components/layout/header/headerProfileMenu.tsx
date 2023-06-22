@@ -16,7 +16,6 @@ const logout = () => {
 const menuItems: MenuItems[] = [
   { path: "/profile", name: "Mon compte" },
   { path: "/profile/dashboard", name: "Mon tableau de bord" },
-  { path: "/profile/messages", name: "Mes messages" },
 ];
 
 const headerLinks: MenuItems[] = [
