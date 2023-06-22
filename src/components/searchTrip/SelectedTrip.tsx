@@ -43,7 +43,7 @@ function SelectedTrip({
         </div>
         <div className="w-1/2">
           <div className="flex flex-row justify-between mb-10">
-            <ProfilSearchComponent />
+            <ProfilSearchComponent nameProfil="antoine"/>
             <button>Voir le profil</button>
           </div>
           <div className="ml-11 mb-10">

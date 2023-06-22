@@ -71,8 +71,7 @@ export default function SearchTripComponent({ onclick,form,setForm,today }: ISea
     } = e;
     setWord({ ...word, [name]: value });
   };
-  console.log(display);
-  console.log(form);
+
   //submit form trip
   
   

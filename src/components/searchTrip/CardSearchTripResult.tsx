@@ -1,10 +1,12 @@
 import ProfilSearchComponent from "../shared/ProfilSearchComponent";
 interface PropsResult {
-  date: Date;
+  date: any;
   départ: string;
   arrivé: string;
   tarif: number;
   place: number;
+  value : any,
+  hoverSetId :any,
   submitTrip: any;
 }
 function CardSearchTripResult({
@@ -14,11 +16,13 @@ function CardSearchTripResult({
   tarif,
   place,
   submitTrip,
+  hoverSetId,
+  value
 }: PropsResult) {
   return (
     <>
       <div className="w-1/1 flex flex-col pl-2 pr-2 justify-between mr-8 ">
-        <p>{date.toLocaleDateString("fr-FR")}</p>
+        <p>{date}</p>
         <div className="flex flex-row">
           <div className="flex flex-col">
             <p>{départ}</p>
@@ -40,7 +44,7 @@ function CardSearchTripResult({
 
       <div className="flex flex-col w-1/1 mr-10">
         <p className="text-#1195C3">Place Disponibles : {place}</p>
-        <button onClick={submitTrip} className="border border-black">
+        <button onClick={submitTrip} onMouseEnter={hoverSetId} className="border border-black" value={value}>
           j'y vais
         </button>
       </div>
