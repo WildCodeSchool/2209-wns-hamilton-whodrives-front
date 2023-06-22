@@ -89,14 +89,14 @@ function PublishTrip({ trip, returnTrip }: any) {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-xl mb-4">
-        <h1 className="text-2xl font-semibold mb-4">
+      <div className="w-full max-w-xl p-4 mb-4 bg-white rounded-lg shadow-md">
+        <h1 className="mb-4 text-2xl font-semibold">
           Récapitulatif de votre annonce
         </h1>
         <div className="space-y-4">
           {trips.map((locationField, index) => (
-            <div key={index} className="bg-gray-100 p-4 rounded-lg">
-              <h2 className="text-lg font-semibold mb-2">Trajet {index + 1}</h2>
+            <div key={index} className="p-4 bg-gray-100 rounded-lg">
+              <h2 className="mb-2 text-lg font-semibold">Trajet {index + 1}</h2>
               <div className="flex items-center mb-2">
                 <span className="text-gray-500">Départ :</span>
                 <span className="ml-2">{locationField.departure}</span>
@@ -132,7 +132,7 @@ function PublishTrip({ trip, returnTrip }: any) {
         </div>
       </div>
       <button
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline"
         onClick={handlePublishTrip}
       >
         Publier l'annonce
