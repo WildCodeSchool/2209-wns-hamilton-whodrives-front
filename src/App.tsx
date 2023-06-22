@@ -17,7 +17,7 @@ import "../src/styles/global.css";
 
 function App() {
   return (
-    <div className="w-full min-h-screen">
+    <div>
       <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
