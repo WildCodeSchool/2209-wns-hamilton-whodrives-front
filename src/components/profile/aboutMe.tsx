@@ -37,17 +37,60 @@ const AboutMeComponent = () => {
   const user = data.userLogged;
 
   return (
-    <div>
-      <h1>Informations de l'utilisateur</h1>
-      <p>Email : {user.email}</p>
-      <p>username : {user.username}</p>
-      <p>firstname : {user.firstname}</p>
-      <p>lastname : {user.lastname}</p>
-      <p>date_of_birth : {user.date_of_birth}</p>
-      <p>phone : {user.phone}</p>
+    <div className="flex border-2 border-blue-500 p-8 m-20">
+      <div className="w-1/3 mr-5">
+        <img src="/assets/images/dot-megachx.jpg" alt="" className="w-64" />
+        <p>{user.username}</p>
+      </div>
+      <div className="w-2/3">
+        <h3 className="bg-blue-700 text-white">A propos de moi</h3>
+        {user.userInfo ? (
+          <p>
+            Salut, je m’appelle<span className="text-validBlue"> {user.lastname}</span> j'ai {user.userInfo.age ? <span className="text-validBlue">{user.userInfo.age} ans</span> : null} et j’habite à
+            <span className="text-validBlue"> {user.userInfo.city}</span>.
+          </p>
+        ) : null}
+        {user.userInfo && (
+          <div className="Description mt-2">
+            <h4>Description</h4>
+            <p className="ml-3">{user.userInfo.about.description}</p>
+          </div>
+        )}
+        <h4>Préférences</h4>
+        {user.userInfo && (
+          <div className="flex">
+            <div className="flex mr-5">
+              <img src="/assets/icons/chat-black.svg" alt="" />
+              <p>{user.userInfo.about.chatOption.content}</p>
+            </div>
+            <div className="flex">
+              <img src="/assets/icons/music-black.svg" alt="" />
+              <p>{user.userInfo.about.musicOption.content}</p>
+            </div>
+          </div>
+        )}
+        {user.userInfo && (
+          <div className="flex">
+            <div>{user.userInfo.about.animal ? <img src="/assets/icons/animal-blue.svg" alt="" /> : <img src="/assets/icons/animal-grey.svg" alt="" />}</div>
+            <div className="ml-5">
+              {user.userInfo.about.smoke ? <img src="/assets/icons/wind-blue.svg" alt="" /> : <img src="/assets/icons/wind-grey.svg" alt="" />}
+            </div>
+          </div>
+        )}
+
+        <h3 className="bg-blue-700 text-white">Ma Voiture</h3>
+        {user.cars.map((car: any) => (
+          <div className="Cars flex" key={car.id}>
+            <img src="/assets/images/yellow-car.png" alt="" className="w-64" />
+            <p>
+              Ma voiture est une <span className="text-validBlue">{car.model.name}</span> qui possède{' '}
+              <span className="text-validBlue">{car.seat}</span> places.
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default AboutMeComponent;
-
