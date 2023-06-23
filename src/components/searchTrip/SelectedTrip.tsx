@@ -8,7 +8,8 @@ interface PropsSelectedTrip {
   place: number;
   prix: number;
   date: any;
-  onClick: any;
+  stepBack: any;
+  joinTrip:any
 }
 function SelectedTrip({
   départ,
@@ -16,13 +17,14 @@ function SelectedTrip({
   place,
   prix,
   date,
-  onClick,
+  stepBack,
+  joinTrip
 }: PropsSelectedTrip) {
   return (
     <div className="w-screen h-1/1  font-bold flex justify-center flex-col items-center">
       <div
         className="flex flex-row hover:cursor-pointer mb-5 "
-        onClick={onClick}
+        onClick={stepBack}
       >
         <img src="/assets/icons/chevron-left.svg" alt="" />
         <p className="text-whodrivesGrey">Revenir à la liste des trajets </p>
@@ -65,7 +67,7 @@ function SelectedTrip({
        text-white 
        selectedTripButton 
        shadow-md
-       ">
+       " onClick={joinTrip}>
         REJOINDRE
       </button>
     </div>

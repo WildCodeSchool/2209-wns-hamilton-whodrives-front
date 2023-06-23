@@ -7,6 +7,7 @@ import FilterSearchComponent from "../../components/searchTrip/FilterSearchCompo
 import SelectedTrip from "../../components/searchTrip/SelectedTrip";
 import { useQuery, gql } from "@apollo/client";
 import moment from "moment";
+import CongratulationPage from "../../components/shared/CongratulationPage";
 
 interface FormState {
   departure: string;
@@ -113,6 +114,7 @@ function SearchingTripPage() {
     "RECHERCHER VOTRE TRAJET",
     "SELECTIONNER UN TRAJET",
     "VALIDER VOTRE PROJET",
+    "FELICITATION"
   ];
   const [activeStep, setActiveStep] = useState(0);
   const [resultat, setResultat] = useState([]);
@@ -140,7 +142,7 @@ function SearchingTripPage() {
     //   console.log(data.getTripSearch, "boomm",error,loading);
     // }
     setActiveStep(1);
-    setResultat(data.getTripSearch);
+    setResultat(data?.getTripSearch);
   };
 
   // const handleclick = ()=>{
@@ -161,17 +163,20 @@ function SearchingTripPage() {
   const stepBack = () => {
     setActiveStep(1);
   };
+  const joinTrip =()=>{
+    setActiveStep(3);
+  }
   return (
     <div className="flex h-screen items-center flex-col w-screen">
       <h1 className="text-whodrivesPink mt-10 mb-8">JE CHERCHE UN TRAJET</h1>
-      <Stepper activeStep={activeStep} className="mb-12">
+      {activeStep !== 3 ? (<Stepper activeStep={activeStep} className="mb-12">
         {steps.map((step) => (
           <Step key={step}>
             <StepLabel>{step}</StepLabel>
           </Step>
         ))}
-      </Stepper>
-      {activeStep !== 2 ? (
+      </Stepper>):null}
+      {activeStep !== 2 && activeStep !== 3   ? (
         <SearchTrip
           onclick={handleclick}
           form={form}
@@ -209,10 +214,16 @@ function SearchingTripPage() {
             place={tab[1].place}
             prix={dataTripId.getTrip.price}
             date={moment(dataTripId.getTrip.date_departure).format("DD/MM/YYYY")}
-            onClick={stepBack}
+            stepBack={stepBack}
+            joinTrip={joinTrip}
           />
         </div>
       ) : null}
+      {
+        activeStep === 3 ?(
+            <CongratulationPage/>
+        ):null
+      }
     </div>
   );
 }
