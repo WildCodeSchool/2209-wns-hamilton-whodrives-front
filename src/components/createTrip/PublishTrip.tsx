@@ -57,6 +57,7 @@ function PublishTrip({ trip, returnTrip }: any) {
   const navigate = useNavigate();
   const [createTrip] = useMutation(CreateTrip);
   const handlePublishTrip = async () => {
+    const token = localStorage.getItem("token");
     let date = locationField.date;
     let dateSplit = date.split("-");
     let time = locationField.time;
@@ -74,6 +75,11 @@ function PublishTrip({ trip, returnTrip }: any) {
           arrivalDate: newDate.getTime(),
           price: locationField.price,
           description: locationField.description,
+        },
+        context: {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
       });
 
