@@ -1,10 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthContext } from "../../context/AuthContext";
 import "../../styles/login.css";
 import useAuth from "../../hooks/useAuth";
 
@@ -25,8 +24,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // const isAuthenticated = authContext?.isAuthenticated ?? false;
-
   const [loginUser, { loading, error }] = useMutation(LOGIN);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -40,11 +37,10 @@ const LoginForm = () => {
     try {
       const { data } = await loginUser({ variables: { email, password } });
       const { success, token, email: emailUser, username } = data.loginUser;
-      console.log("data", data);
+
       if (success) {
         toast.success("Vous êtes connecté !", { autoClose: 2000 });
         await setUserInfos({ token, username, email: emailUser });
-        console.log(userInfos);
         setTimeout(() => {
           navigate("/profile", { replace: true });
         }, 5000);
@@ -60,9 +56,6 @@ const LoginForm = () => {
     }
   };
 
-  // if (isAuthenticated) {
-  //   navigate("/profile");
-  // }
   return (
     <div className="flex flex-col items-center justify-center w-screen mt-20">
       <h1>Connexion</h1>
