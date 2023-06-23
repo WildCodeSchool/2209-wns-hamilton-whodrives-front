@@ -18,6 +18,14 @@ interface IAuthContext {
 
 export const AuthContext = createContext({} as IAuthContext);
 
+export const CHECK_USER_LOGGED = gql`
+query CheckUserLogged {
+  checkUserLogged {
+    msg
+  }
+}
+`;
+
 export const AuthProvider: React.FunctionComponent<{ children: ReactNode }> = ({
   children,
 }) => {
@@ -41,13 +49,7 @@ export const AuthProvider: React.FunctionComponent<{ children: ReactNode }> = ({
     }
   );
 
-  const CHECK_USER_LOGGED = gql`
-    query CheckUserLogged {
-      checkUserLogged {
-        msg
-      }
-    }
-  `;
+
 
   const authContextValue = {
     setUserInfos: async (data: ISetUserInfos) => {

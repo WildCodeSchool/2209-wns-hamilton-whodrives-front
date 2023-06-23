@@ -39,8 +39,8 @@ const uploadLink = createUploadLink({
 });
 
 const client = new ApolloClient({
-  // link: authLink.concat(httpLink).concat(uploadLink),
-  link: ApolloLink.from([authLink.concat(httpLink), uploadLink]), //le tableau vous permettra d'injecter d'autres link comme pour l'authentification
+  link: authLink.concat(httpLink).concat(uploadLink),
+  // link: ApolloLink.from([authLink.concat(httpLink), uploadLink]), //le tableau vous permettra d'injecter d'autres link comme pour l'authentification
   cache: new InMemoryCache(),
 });
 const root = ReactDOM.createRoot(

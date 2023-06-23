@@ -15,6 +15,7 @@ import ConfirmTrip from "./components/createTrip/ConfirmTrip";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from "./pages/dashboard/dashboard";
+import ProtectedArea from "./components/auth/ProtectedArea";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="create-trip" element={<CreateTripPage />} />
+        <Route path="create-trip" element={<ProtectedArea><CreateTripPage /></ProtectedArea>} />
         <Route path="search-trip" element={<SearchTripPage />} />
         <Route path="auth" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
@@ -32,7 +33,7 @@ function App() {
         <Route path="about-us" element={<AboutUsPage />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="contact-us" element={<ContactUsPage />} />
-        <Route path="confirm-trip" element={<ConfirmTrip/>} />
+        <Route path="confirm-trip" element={<ConfirmTrip />} />
 
       </Routes>
       <ToastContainer />
