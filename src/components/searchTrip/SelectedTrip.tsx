@@ -8,6 +8,7 @@ interface PropsSelectedTrip {
   place: number;
   prix: number;
   date: any;
+  nameProfil:string;
   stepBack: any;
   joinTrip:any
 }
@@ -18,6 +19,7 @@ function SelectedTrip({
   prix,
   date,
   stepBack,
+  nameProfil,
   joinTrip
 }: PropsSelectedTrip) {
   return (
@@ -45,7 +47,7 @@ function SelectedTrip({
         </div>
         <div className="w-1/2">
           <div className="flex flex-row justify-between mb-10">
-            <ProfilSearchComponent nameProfil="antoine"/>
+            <ProfilSearchComponent nameProfil={nameProfil}/>
             <button>Voir le profil</button>
           </div>
           <div className="ml-11 mb-10">

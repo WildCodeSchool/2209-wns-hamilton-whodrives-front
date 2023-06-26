@@ -16,7 +16,8 @@ interface FormState {
   passenger: string;
 }
 function SearchingTripPage() {
-
+  const [resultat, setResultat] = useState([]);
+  const [tripId, setTripId] = useState();
   //Query gql
   const GET_TRIP_SEARCH = gql`
     query GetTripSearch(
@@ -56,8 +57,6 @@ function SearchingTripPage() {
       }
     }
   `;
-
-  const [tripId, setTripId] = useState();
 
   const {
     loading: loadingTripId,
@@ -110,73 +109,65 @@ function SearchingTripPage() {
     },
   });
 
+  //installation stepper
   const steps = [
     "RECHERCHER VOTRE TRAJET",
     "SELECTIONNER UN TRAJET",
     "VALIDER VOTRE PROJET",
-    "FELICITATION"
+    "FELICITATION",
   ];
   const [activeStep, setActiveStep] = useState(0);
-  const [resultat, setResultat] = useState([]);
+
   //event to retrieve trips
 
-
-
   const handleclick = (e: any) => {
-    // if (form.departure === "départ") {
-    //   setErrorMessage("merci de selectionner une ville de départ");
-    //   setErrorForm(true);
-    // } else if (form.arrival === "destination") {
-    //   setErrorMessage("merci de selectionner une ville d'arrivée");
-    //   setErrorForm(true);
-    // } else if (form.date === today) {
-    //   setErrorMessage("merci de selectionner une date de départ");
-    //   setErrorForm(true);
-    // } else if (form.passenger === "") {
-    //   setErrorMessage("merci de selectionner un nombre de passager");
-    //   setErrorForm(true);
-    // } else {
-    //   setErrorForm(false);
-    //   setActiveStep(1);
-
-    //   console.log(data.getTripSearch, "boomm",error,loading);
-    // }
+    if (form.departure === "départ") {
+      setErrorMessage("merci de selectionner une ville de départ");
+      setErrorForm(true);
+    } else if (form.arrival === "destination") {
+      setErrorMessage("merci de selectionner une ville d'arrivée");
+      setErrorForm(true);
+    } else if (form.date === today) {
+      setErrorMessage("merci de selectionner une date de départ");
+      setErrorForm(true);
+    } else if (form.passenger === "") {
+      setErrorMessage("merci de selectionner un nombre de passager");
+      setErrorForm(true);
+    } else {
+      setErrorForm(false);
+      setActiveStep(1);
+    }
     setActiveStep(1);
     setResultat(data?.getTripSearch);
   };
 
-  // const handleclick = ()=>{
-  //     setActiveStep(1);
-  // }
   //event to choose one trip
   const submitTrip = (e: any) => {
     setActiveStep(2);
-
-    
-    console.log(dataTripId.getTrip.destination);
   };
-  const hoverSetId =(e:any)=>{
+  const hoverSetId = (e: any) => {
     setTripId(e.target.value);
     console.log(tripId);
-    
-  }
+  };
   const stepBack = () => {
     setActiveStep(1);
   };
-  const joinTrip =()=>{
+  const joinTrip = () => {
     setActiveStep(3);
-  }
+  };
   return (
     <div className="flex h-screen items-center flex-col w-screen">
       <h1 className="text-whodrivesPink mt-10 mb-8">JE CHERCHE UN TRAJET</h1>
-      {activeStep !== 3 ? (<Stepper activeStep={activeStep} className="mb-12">
-        {steps.map((step) => (
-          <Step key={step}>
-            <StepLabel>{step}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>):null}
-      {activeStep !== 2 && activeStep !== 3   ? (
+      {activeStep !== 3 ? (
+        <Stepper activeStep={activeStep} className="mb-12">
+          {steps.map((step) => (
+            <Step key={step}>
+              <StepLabel>{step}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      ) : null}
+      {activeStep !== 2 && activeStep !== 3 ? (
         <SearchTrip
           onclick={handleclick}
           form={form}
@@ -185,7 +176,6 @@ function SearchingTripPage() {
         />
       ) : null}
       {errorForm && <p className="text-red-600">{errorMessage}</p>}
-      {/* <div className="w-2/3 border border-black  mb-4"></div> */}
       {activeStep === 1 ? (
         <div className="step-1 flex flex-row border-t-2 border-black pt-5">
           <FilterSearchComponent />
@@ -195,7 +185,7 @@ function SearchingTripPage() {
                 value={el.id}
                 hoverSetId={hoverSetId}
                 nameProfil={el.users[0].username}
-                date={moment(el.date_departure).format("DD/MM/YYYY")}
+                date={moment(el.date_departure).format("YYYY/MM/DD")}
                 place={tab[1].place}
                 tarif={el.price}
                 départ={el.departure_places}
@@ -209,21 +199,20 @@ function SearchingTripPage() {
       {activeStep === 2 ? (
         <div className="step-1 flex flex-row">
           <SelectedTrip
+            nameProfil="toto"
             départ={dataTripId.getTrip.departure_places}
             arrivée={dataTripId.getTrip.destination}
             place={tab[1].place}
             prix={dataTripId.getTrip.price}
-            date={moment(dataTripId.getTrip.date_departure).format("DD/MM/YYYY")}
+            date={moment(dataTripId.getTrip.date_departure).format(
+              "DD/MM/YYYY"
+            )}
             stepBack={stepBack}
             joinTrip={joinTrip}
           />
         </div>
       ) : null}
-      {
-        activeStep === 3 ?(
-            <CongratulationPage/>
-        ):null
-      }
+      {activeStep === 3 ? <CongratulationPage /> : null}
     </div>
   );
 }
