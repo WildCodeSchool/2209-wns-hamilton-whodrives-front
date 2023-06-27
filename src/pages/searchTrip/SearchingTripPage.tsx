@@ -23,7 +23,7 @@ function SearchingTripPage() {
     query GetTripSearch(
       $departurePlaces: String
       $destination: String
-      $dateDeparture: Timestamp
+      $dateDeparture: Date
     ) {
       getTripSearch(
         departure_places: $departurePlaces
