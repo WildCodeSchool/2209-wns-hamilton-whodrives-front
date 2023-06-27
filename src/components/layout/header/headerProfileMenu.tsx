@@ -1,18 +1,12 @@
 import "../../../styles/layout.css";
-
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../../context/AuthContext";
+import { useState } from "react";
+import useAuth from "../../../hooks/useAuth";
 
 type MenuItems = {
   path: string;
   name: string;
-};
-
-const logout = () => {
-  localStorage.clear();
-  window.location.href = "/";
 };
 
 const disconnectedMenuItems: MenuItems[] = [
@@ -41,8 +35,8 @@ const responsiveDisconnectedMenuItems: MenuItems[] = headerLinks
   .map((obj) => ({ ...obj }));
 
 export default function HeaderProfileMenu(): JSX.Element {
-  const authContext = useContext(AuthContext);
-  const isAuthenticated = authContext?.isAuthenticated;
+  const { userInfos, logout } = useAuth();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -68,7 +62,7 @@ export default function HeaderProfileMenu(): JSX.Element {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          {isAuthenticated ? (
+          {Object.keys(userInfos).length > 0 ? (
             <img
               className="w-10"
               src="/assets/icons/user-green.svg"
@@ -92,7 +86,7 @@ export default function HeaderProfileMenu(): JSX.Element {
           />
         </button>
 
-        {isAuthenticated ? (
+        {Object.keys(userInfos).length > 0 ? (
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -173,7 +167,7 @@ export default function HeaderProfileMenu(): JSX.Element {
             alt="chevron down icon"
           />
         </button>
-        {isAuthenticated ? (
+        {Object.keys(userInfos).length > 0 ? (
           <Menu
             className="sm:hidden"
             id="basic-menu"
