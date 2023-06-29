@@ -43,14 +43,14 @@ function CardSearchTripResult({
       </div>
 
       <div className="flex flex-col mr-10 w-1/1">
-        <p className="text-#1195C3">seats Disponibles : {seats}</p>
+        <p className="text-#1195C3">Places Disponibles : {seats}</p>
         <button
           onClick={submitTrip}
           onMouseEnter={hoverSetId}
           className="border border-black"
           value={value}
         >
-          j'y vais
+          J'y vais
         </button>
       </div>
     </>

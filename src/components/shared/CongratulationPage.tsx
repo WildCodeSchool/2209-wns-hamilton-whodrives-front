@@ -3,7 +3,7 @@ import "../../styles/global.css";
 function CongratulationPage() {
   return (
     <div className="flex flex-col items-center mt-16">
-      <h3 className="congrats-title">FELICITATIONs !</h3>
+      <h3 className="congrats-title">FELICITATIONS !</h3>
       <img
         src="/assets/images/yellow-car.png"
         alt=""
