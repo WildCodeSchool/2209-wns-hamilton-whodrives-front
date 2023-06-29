@@ -13,7 +13,7 @@ interface FormState {
   departure: string;
   arrival: string;
   date: string;
-  passenger: string;
+//   passenger: string;
 }
 function SearchingTripPage() {
   const [resultat, setResultat] = useState([]);
@@ -100,7 +100,7 @@ function SearchingTripPage() {
     departure: "départ",
     arrival: "destination",
     date: today,
-    passenger: "",
+    // passenger: "",
   });
   let [errorMessage, setErrorMessage] = useState("");
   const [errorForm, setErrorForm] = useState(false);
@@ -133,9 +133,6 @@ function SearchingTripPage() {
       setErrorForm(true);
     } else if (form.date === today) {
       setErrorMessage("merci de selectionner une date de départ");
-      setErrorForm(true);
-    } else if (form.passenger === "") {
-      setErrorMessage("merci de selectionner un nombre de passager");
       setErrorForm(true);
     } else {
       setErrorForm(false);
@@ -209,6 +206,7 @@ function SearchingTripPage() {
             arrival={dataTripId.getTrip.destination}
             seats={dataTripId.getTrip.place_available}
             price={dataTripId.getTrip.price}
+            hour={dataTripId.getTrip.hour_departure}
             date={moment(dataTripId.getTrip.date_departure).format(
               "DD/MM/YYYY"
             )}

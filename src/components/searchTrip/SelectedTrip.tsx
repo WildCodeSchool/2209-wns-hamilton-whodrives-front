@@ -10,6 +10,7 @@ interface PropsSelectedTrip {
   nameProfil: string;
   stepBack: any;
   joinTrip: any;
+  hour:any
 }
 
 function SelectedTrip({
@@ -21,6 +22,7 @@ function SelectedTrip({
   stepBack,
   nameProfil,
   joinTrip,
+  hour
 }: PropsSelectedTrip) {
   return (
     <div className="flex flex-col items-center justify-center w-screen font-bold h-1/1">
@@ -36,7 +38,7 @@ function SelectedTrip({
           <p>{date}</p>
           <div className="flex flex-row justify-between mb-4 w-1/1">
             <p>departure : {departure}</p>
-            <p>8h00</p>
+            <p>{hour}</p>
           </div>
           <div className="flex flex-row justify-between mb-4 w-1/1">
             <p>arrival : {arrival}</p>
