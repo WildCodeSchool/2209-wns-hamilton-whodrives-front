@@ -49,6 +49,7 @@ const RegisterPage = () => {
 
   const [createUser, { loading, error }] = useMutation(REGISTER);
 
+
   const handleNext = (e: any) => {
     e.preventDefault();
 

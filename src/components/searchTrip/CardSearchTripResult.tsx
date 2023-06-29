@@ -7,6 +7,7 @@ interface PropsResult {
   place: number;
   value : any,
   hoverSetId :any,
+  hour:string
   submitTrip: any;
 }
 function CardSearchTripResult({
@@ -17,6 +18,7 @@ function CardSearchTripResult({
   place,
   submitTrip,
   hoverSetId,
+  hour,
   value
 }: PropsResult) {
   return (
@@ -26,7 +28,7 @@ function CardSearchTripResult({
         <div className="flex flex-row">
           <div className="flex flex-col">
             <p>{départ}</p>
-            <p>8h00</p>
+            <p>{hour}h</p>
           </div>
 
           <img

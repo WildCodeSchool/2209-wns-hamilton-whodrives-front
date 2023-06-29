@@ -33,7 +33,9 @@ function SearchingTripPage() {
         id
         departure_places
         date_departure
+        hour_departure
         destination
+        place_available
         price
         users {
           username
@@ -48,6 +50,8 @@ function SearchingTripPage() {
         departure_places
         destination
         date_departure
+        place_available
+        hour_departure
         arrival_date
         price
         description
@@ -185,9 +189,10 @@ function SearchingTripPage() {
                 value={el.id}
                 hoverSetId={hoverSetId}
                 nameProfil={el.users[0].username}
-                date={moment(el.date_departure).format("YYYY/MM/DD")}
-                place={tab[1].place}
+                date={moment(el.date_departure).format("DD/MM/YYYY")}
+                place={el.place_available}
                 tarif={el.price}
+                hour={(el.hour_departure).split(":00")}
                 départ={el.departure_places}
                 arrivé={el.destination}
                 submitTrip={submitTrip}
@@ -202,7 +207,7 @@ function SearchingTripPage() {
             nameProfil="toto"
             départ={dataTripId.getTrip.departure_places}
             arrivée={dataTripId.getTrip.destination}
-            place={tab[1].place}
+            place={dataTripId.getTrip.place_available}
             prix={dataTripId.getTrip.price}
             date={moment(dataTripId.getTrip.date_departure).format(
               "DD/MM/YYYY"
