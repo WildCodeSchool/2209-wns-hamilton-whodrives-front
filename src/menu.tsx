@@ -6,7 +6,6 @@ import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchingTripPage from "./pages/searchTrip/SearchingTripPage";
 
-
 type Menu = {
   path: string;
   titleFr: string;

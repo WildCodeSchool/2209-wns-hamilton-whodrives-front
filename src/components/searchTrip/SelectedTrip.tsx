@@ -1,75 +1,70 @@
-import React from "react";
-import ProfilSearchComponent from "../shared/ProfilSearchComponent";
 import "../../styles/global.css";
+import ProfileSearchComponent from "../shared/ProfileSearchComponent";
 
 interface PropsSelectedTrip {
-  départ: string;
-  arrivée: string;
-  place: number;
-  prix: number;
+  departure: string;
+  arrival: string;
+  seats: number;
+  price: number;
   date: any;
-  nameProfil:string;
+  nameProfil: string;
   stepBack: any;
-  joinTrip:any
+  joinTrip: any;
 }
+
 function SelectedTrip({
-  départ,
-  arrivée,
-  place,
-  prix,
+  departure,
+  arrival,
+  seats,
+  price,
   date,
   stepBack,
   nameProfil,
-  joinTrip
+  joinTrip,
 }: PropsSelectedTrip) {
   return (
-    <div className="w-screen h-1/1  font-bold flex justify-center flex-col items-center">
+    <div className="flex flex-col items-center justify-center w-screen font-bold h-1/1">
       <div
-        className="flex flex-row hover:cursor-pointer mb-5 "
+        className="flex flex-row mb-5 hover:cursor-pointer "
         onClick={stepBack}
       >
         <img src="/assets/icons/chevron-left.svg" alt="" />
         <p className="text-whodrivesGrey">Revenir à la liste des trajets </p>
       </div>
-      <div className="w-3/5 border h-1/1 flex flex-row pl-10 pr-10 ml-auto mr-auto p-4 mb-28 ">
-        <div className="w-1/2 border-whodrivesGrey-400 border-r-2 flex flex-col pr-5 justify-around">
+      <div className="flex flex-row w-3/5 p-4 pl-10 pr-10 ml-auto mr-auto border h-1/1 mb-28 ">
+        <div className="flex flex-col justify-around w-1/2 pr-5 border-r-2 border-whodrivesGrey-400">
           <p>{date}</p>
-          <div className="flex flex-row w-1/1 justify-between mb-4">
-            <p>départ : {départ}</p>
+          <div className="flex flex-row justify-between mb-4 w-1/1">
+            <p>departure : {departure}</p>
             <p>8h00</p>
           </div>
-          <div className="flex flex-row w-1/1 justify-between mb-4">
-            <p>arrivée : {arrivée}</p>
+          <div className="flex flex-row justify-between mb-4 w-1/1">
+            <p>arrival : {arrival}</p>
             <p>10h30</p>
           </div>
-          <p className="mb-4">durée : 2h30</p>
-          <p className="mb-4">place disponible : {place}</p>
+          <p className="mb-4">Durée : 2h30</p>
+          <p className="mb-4">Places disponibles : {seats}</p>
         </div>
         <div className="w-1/2">
           <div className="flex flex-row justify-between mb-10">
-            <ProfilSearchComponent nameProfil={nameProfil}/>
+            <ProfileSearchComponent nameProfil={nameProfil} />
             <button>Voir le profil</button>
           </div>
-          <div className="ml-11 mb-10">
-            <p>Preference</p>
+          <div className="mb-10 ml-11">
+            <p>Préférences</p>
             <div className="flex flex-row">
               <img src="/assets/icons/animal-blue.svg" alt="" />
               <img src="/assets/icons/music-blue.svg" alt="" />
             </div>
           </div>
 
-          <p className="ml-11">Prix du trajet par passager : {prix} €</p>
+          <p className="ml-11">Prix du trajet par passager : {price} €</p>
         </div>
       </div>
-      <button className="
-      w-56 bg-whodrivesGreen 
-      pl-24 pr-24 pt-5 pb-5 
-      align-middle flex justify-center 
-      border border-black
-       text-white 
-       selectedTripButton 
-       shadow-md
-       " onClick={joinTrip}>
+      <button
+        className="flex justify-center w-56 pt-5 pb-5 pl-24 pr-24 text-white align-middle border border-black shadow-md bg-whodrivesGreen selectedTripButton"
+        onClick={joinTrip}
+      >
         REJOINDRE
       </button>
     </div>

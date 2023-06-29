@@ -1,29 +1,27 @@
-import React from "react";
-
 function FilterSearchComponent() {
   return (
-    <div className="w-1/3 h-5/6 flex flex-col border-r-4 pr-5">
-      <h3 className="font-semibold mb-2">FILTRES</h3>
-      <button className="justify-start flex mb-1 hover:text-validBlue">
+    <div className="flex flex-col w-1/3 pr-5 border-r-4 h-5/6">
+      <h3 className="mb-2 font-semibold">FILTRES</h3>
+      <button className="flex justify-start mb-1 hover:text-validBlue">
         Reset
       </button>
-      <h3 className="font-semibold mb-2">TRIER PAR</h3>
-      <div className="w-1/1 flex-wrap justify-between ">
-        <button className="hover:text-validBlue  w-1/2  mb-2 text-left">
+      <h3 className="mb-2 font-semibold">TRIER PAR</h3>
+      <div className="flex-wrap justify-between w-1/1 ">
+        <button className="w-1/2 mb-2 text-left hover:text-validBlue">
           Date
         </button>
-        <button className="hover:text-validBlue  w-1/2 mb-2 text-left">
+        <button className="w-1/2 mb-2 text-left hover:text-validBlue">
           Disponibilité
         </button>
-        <button className="hover:text-validBlue  w-1/2  mb-2 text-left">
+        <button className="w-1/2 mb-2 text-left hover:text-validBlue">
           Prix
         </button>
-        <button className="hover:text-validBlue  w-1/2  mb-2 text-left">
+        <button className="w-1/2 mb-2 text-left hover:text-validBlue">
           Notes
         </button>
       </div>
 
-      <h3 className="font-semibold mb-2">HEURE DE DEPART</h3>
+      <h3 className="mb-2 font-semibold">HEURE DE DEPART</h3>
       <div className="flex flex-wrap justify-between w-1/1">
         <button className="border  w-[45%] p-1 mb-4 bg-whodrivesGrey font-medium hover:bg-validBlue hover:text-white">
           06:01-12:00

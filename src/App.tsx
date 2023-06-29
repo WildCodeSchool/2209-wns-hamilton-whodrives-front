@@ -9,11 +9,10 @@ import ContactUsPage from "./pages/footerPages/contactUs";
 import FaqPage from "./pages/footerPages/faq";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
-
 import RegisterPage from "./pages/auth/RegisterPage";
 import ConfirmTrip from "./components/createTrip/ConfirmTrip";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import SearchingTripPage from "./pages/searchTrip/SearchingTripPage";
 import Dashboard from "./pages/dashboard/dashboard";
 
@@ -26,15 +25,14 @@ function App() {
         <Route path="profile" element={<ProfilePage />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="create-trip" element={<CreateTripPage />} />
-        <Route path="search-trip" element={<SearchingTripPage/>} />
+        <Route path="search-trip" element={<SearchingTripPage />} />
         <Route path="auth" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="my-account" element={<AuthPage />} />
         <Route path="about-us" element={<AboutUsPage />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="contact-us" element={<ContactUsPage />} />
-        <Route path="confirm-trip" element={<ConfirmTrip/>} />
-
+        <Route path="confirm-trip" element={<ConfirmTrip />} />
       </Routes>
       <ToastContainer />
       <FooterComponent />
