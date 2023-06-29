@@ -9,7 +9,6 @@ import ContactUsPage from "./pages/footerPages/contactUs";
 import FaqPage from "./pages/footerPages/faq";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
-
 import RegisterPage from "./pages/auth/RegisterPage";
 import ConfirmTrip from "./components/createTrip/ConfirmTrip";
 import { ToastContainer } from "react-toastify";
@@ -26,16 +25,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="create-trip" element={<ProtectedArea><CreateTripPage /></ProtectedArea>} />
         <Route path="search-trip" element={<SearchingTripPage />} />
-        <Route
-          path="create-trip"
-          element={
-            <ProtectedArea>
-              <CreateTripPage />
-            </ProtectedArea>
-          }
-        />
-
         <Route path="auth" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="my-account" element={<AuthPage />} />

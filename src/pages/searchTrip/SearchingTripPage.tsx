@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import SearchTrip from "../../components/shared/SearchTrip";
 import "../../styles/searchTrip.css";
 import SearchTripResult from "../../components/searchTrip/SearchTripResult";
@@ -160,8 +160,8 @@ function SearchingTripPage() {
     setActiveStep(3);
   };
   return (
-    <div className="flex h-screen items-center flex-col w-screen">
-      <h1 className="text-whodrivesPink mt-10 mb-8">JE CHERCHE UN TRAJET</h1>
+    <div className="flex flex-col items-center w-screen h-screen">
+      <h1 className="mt-10 mb-8 text-whodrivesPink">JE CHERCHE UN TRAJET</h1>
       {activeStep !== 3 ? (
         <Stepper activeStep={activeStep} className="mb-12">
           {steps.map((step) => (
@@ -181,20 +181,20 @@ function SearchingTripPage() {
       ) : null}
       {errorForm && <p className="text-red-600">{errorMessage}</p>}
       {activeStep === 1 ? (
-        <div className="step-1 flex flex-row border-t-2 border-black pt-5">
+        <div className="flex flex-row pt-5 border-t-2 border-black step-1">
           <FilterSearchComponent />
-          <div className="flex flex-col w-1/1  h-5/6  overflow-auto pl-5 pr-5 pt-0">
+          <div className="flex flex-col pt-0 pl-5 pr-5 overflow-auto w-1/1 h-5/6">
             {resultat.map((el: any) => (
               <SearchTripResult
                 value={el.id}
                 hoverSetId={hoverSetId}
                 nameProfil={el.users[0].username}
                 date={moment(el.date_departure).format("DD/MM/YYYY")}
-                place={el.place_available}
-                tarif={el.price}
+                seats={el.place_available}
+                price={el.price}
                 hour={(el.hour_departure).split(":00")}
-                départ={el.departure_places}
-                arrivé={el.destination}
+                departure={el.departure_places}
+                arrival={el.destination}
                 submitTrip={submitTrip}
               />
             ))}
@@ -202,13 +202,13 @@ function SearchingTripPage() {
         </div>
       ) : null}
       {activeStep === 2 ? (
-        <div className="step-1 flex flex-row">
+        <div className="flex flex-row step-1">
           <SelectedTrip
             nameProfil="toto"
-            départ={dataTripId.getTrip.departure_places}
-            arrivée={dataTripId.getTrip.destination}
-            place={dataTripId.getTrip.place_available}
-            prix={dataTripId.getTrip.price}
+            departure={dataTripId.getTrip.departure_places}
+            arrival={dataTripId.getTrip.destination}
+            seats={dataTripId.getTrip.place_available}
+            price={dataTripId.getTrip.price}
             date={moment(dataTripId.getTrip.date_departure).format(
               "DD/MM/YYYY"
             )}

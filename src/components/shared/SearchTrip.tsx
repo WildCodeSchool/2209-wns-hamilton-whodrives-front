@@ -72,7 +72,7 @@ export default function SearchTripComponent({
   //submit form trip
 
   return (
-    <div className=" flex flex-row items-center justify-center align-middle bg-white mt-5  border border-black mb-12   ">
+    <div className="flex flex-row items-center justify-center mt-5 mb-12 align-middle bg-white border border-black ">
       <div className="flex flex-col border-r-4 border-whodrivesGrey">
         <div className="flex flex-row ">
           <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />

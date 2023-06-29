@@ -1,53 +1,58 @@
-import ProfilSearchComponent from "../shared/ProfilSearchComponent";
 interface PropsResult {
   date: any;
-  départ: string;
-  arrivé: string;
-  tarif: number;
-  place: number;
+  departure: string;
+  arrival: string;
+  price: number;
+  seats: number;
   value : any,
   hoverSetId :any,
   hour:string
   submitTrip: any;
 }
+
 function CardSearchTripResult({
   date,
-  départ,
-  arrivé,
-  tarif,
-  place,
+  departure,
+  arrival,
+  price,
+  seats,
   submitTrip,
   hoverSetId,
   hour,
-  value
+  value,
 }: PropsResult) {
   return (
     <>
-      <div className="w-1/1 flex flex-col pl-2 pr-2 justify-between mr-8 ">
+      <div className="flex flex-col justify-between pl-2 pr-2 mr-8 w-1/1 ">
         <p>{date}</p>
         <div className="flex flex-row">
           <div className="flex flex-col">
-            <p>{départ}</p>
+            <p>{departure}</p>
             <p>{hour}h</p>
           </div>
 
           <img
             src="assets/icons/arrow-right-black.svg"
             alt=""
-            className=" mr-3 ml-3"
+            className="ml-3 mr-3 "
           />
           <div className="flex flex-col">
-            <p>{arrivé}</p>
+            <p>{arrival}</p>
             <p>10h30</p>
           </div>
         </div>
-        <p>Prix du trajet : {tarif}€</p>
+        <p>Prix du trajet : {price}€</p>
       </div>
 
-      <div className="flex flex-col w-1/1 mr-10">
-        <p className="text-#1195C3">Place Disponibles : {place}</p>
-        <button onClick={submitTrip} onMouseEnter={hoverSetId} className="border border-black" value={value}>
-          j'y vais
+      <div className="flex flex-col mr-10 w-1/1">
+        <p className="text-#1195C3">Places Disponibles : {seats}</p>
+        <button
+          onClick={submitTrip}
+          onMouseEnter={hoverSetId}
+          className="border border-black"
+          value={value}
+        >
+          J'y vais
         </button>
       </div>
     </>
