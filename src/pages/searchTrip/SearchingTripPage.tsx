@@ -5,7 +5,7 @@ import SearchTripResult from "../../components/searchTrip/SearchTripResult";
 import { Step, StepLabel, Stepper } from "@mui/material";
 import FilterSearchComponent from "../../components/searchTrip/FilterSearchComponent";
 import SelectedTrip from "../../components/searchTrip/SelectedTrip";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useMutation } from "@apollo/client";
 import moment from "moment";
 import CongratulationPage from "../../components/shared/CongratulationPage";
 
@@ -13,7 +13,7 @@ interface FormState {
   departure: string;
   arrival: string;
   date: string;
-//   passenger: string;
+  passenger: string;
 }
 function SearchingTripPage() {
   const [resultat, setResultat] = useState([]);
@@ -61,6 +61,15 @@ function SearchingTripPage() {
       }
     }
   `;
+  const SELECT_TRIP = gql`
+    mutation SelectTrip($tripId: ID!) {
+      selectTrip(tripId: $tripId) {
+        id
+      }
+    }
+  `;
+
+  const [selectTrip] = useMutation(SELECT_TRIP);
 
   const {
     loading: loadingTripId,
@@ -71,36 +80,14 @@ function SearchingTripPage() {
       getTripId: tripId,
     },
   });
-  let tab = [
-    {
-      départ: "Lyon",
-      arrivé: "Metz",
-      tarif: 20,
-      place: 3,
-      date: new Date(),
-    },
-    {
-      départ: "Angers",
-      arrivé: "Lyon",
-      tarif: 10,
-      place: 1,
-      date: new Date(),
-    },
-    {
-      départ: "Paris",
-      arrivé: "Nante",
-      tarif: 32,
-      place: 4,
-      date: new Date(),
-    },
-  ];
+
   // form search trip
   const today = new Date().toLocaleDateString("en-us");
   const [form, setForm] = useState<FormState>({
     departure: "départ",
     arrival: "destination",
     date: today,
-    // passenger: "",
+    passenger: "",
   });
   let [errorMessage, setErrorMessage] = useState("");
   const [errorForm, setErrorForm] = useState(false);
@@ -124,7 +111,7 @@ function SearchingTripPage() {
 
   //event to retrieve trips
 
-  const handleclick = (e: any) => {
+  const handleclick = () => {
     if (form.departure === "départ") {
       setErrorMessage("merci de selectionner une ville de départ");
       setErrorForm(true);
@@ -139,11 +126,12 @@ function SearchingTripPage() {
       setActiveStep(1);
     }
     setActiveStep(1);
+
     setResultat(data?.getTripSearch);
   };
 
   //event to choose one trip
-  const submitTrip = (e: any) => {
+  const submitTrip = () => {
     setActiveStep(2);
   };
   const hoverSetId = (e: any) => {
@@ -154,6 +142,13 @@ function SearchingTripPage() {
     setActiveStep(1);
   };
   const joinTrip = () => {
+    selectTrip({ variables: { tripId } })
+      .then((response) => {
+        console.log("trip selected", response.data.selectTrip);
+      })
+      .catch((error) => {
+        console.log("error selectTrip", error);
+      });
     setActiveStep(3);
   };
   return (
@@ -181,26 +176,31 @@ function SearchingTripPage() {
         <div className="flex flex-row pt-5 border-t-2 border-black step-1">
           <FilterSearchComponent />
           <div className="flex flex-col pt-0 pl-5 pr-5 overflow-auto w-1/1 h-5/6">
-            {resultat.map((el: any) => (
-              <SearchTripResult
-                value={el.id}
-                hoverSetId={hoverSetId}
-                nameProfil={el.users[0].username}
-                date={moment(el.date_departure).format("DD/MM/YYYY")}
-                seats={el.place_available}
-                price={el.price}
-                hour={(el.hour_departure).split(":00")}
-                departure={el.departure_places}
-                arrival={el.destination}
-                submitTrip={submitTrip}
-              />
-            ))}
+            {resultat.map((el: any) =>
+              el.place_available >= form.passenger ? (
+                <SearchTripResult
+                  value={el.id}
+                  hoverSetId={hoverSetId}
+                  nameProfil={el.users[0].username}
+                  date={moment(el.date_departure).format("DD/MM/YYYY")}
+                  seats={el.place_available}
+                  price={el.price}
+                  hour={el.hour_departure.split(":00")}
+                  departure={el.departure_places}
+                  arrival={el.destination}
+                  submitTrip={submitTrip}
+                />
+              ) : (
+                <div>aucun trajet ne correspond a votre recherche</div>
+              )
+            )}
           </div>
         </div>
       ) : null}
       {activeStep === 2 ? (
         <div className="flex flex-row step-1">
           <SelectedTrip
+            passenger={dataTripId.getTrip.passenger}
             nameProfil="toto"
             departure={dataTripId.getTrip.departure_places}
             arrival={dataTripId.getTrip.destination}

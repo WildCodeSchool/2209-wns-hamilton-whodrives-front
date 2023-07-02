@@ -10,6 +10,7 @@ interface PropsSelectedTrip {
   nameProfil: string;
   stepBack: any;
   joinTrip: any;
+  passenger:any;
   hour:any
 }
 
@@ -20,6 +21,7 @@ function SelectedTrip({
   price,
   date,
   stepBack,
+  passenger,
   nameProfil,
   joinTrip,
   hour
