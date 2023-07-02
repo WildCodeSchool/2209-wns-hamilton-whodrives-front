@@ -136,7 +136,6 @@ function SearchingTripPage() {
   };
   const hoverSetId = (e: any) => {
     setTripId(e.target.value);
-    console.log(tripId);
   };
   const stepBack = () => {
     setActiveStep(1);
