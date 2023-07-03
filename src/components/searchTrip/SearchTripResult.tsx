@@ -2,16 +2,16 @@ import ProfileSearchComponent from "../shared/ProfileSearchComponent";
 import CardSearchTripResult from "./CardSearchTripResult";
 
 interface PropsResult {
-  date: any;
+  date: string;
   departure: string;
   arrival: string;
   price: number;
   seats: number;
   nameProfil: string;
-  value: any;
+  value: number;
   hoverSetId: any;
-  hour:any
-  submitTrip: any;
+  hour:any;
+  submitTrip: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 function SearchTripResult({

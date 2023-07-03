@@ -13,11 +13,25 @@ interface FormState {
   departure: string;
   arrival: string;
   date: string;
-  passenger: string;
+  passenger: number;
+}
+interface Trip {
+  id: number;
+  users: User[];
+  place_available: number;
+  price: number;
+  date_departure: string;
+  hour_departure: string;
+  departure_places: string;
+  destination: string;
+}
+
+interface User {
+  username: string;
 }
 function SearchingTripPage() {
   const [resultat, setResultat] = useState([]);
-  const [tripId, setTripId] = useState();
+  const [tripId, setTripId] = useState("");
   //Query gql
   const GET_TRIP_SEARCH = gql`
     query GetTripSearch(
@@ -87,7 +101,7 @@ function SearchingTripPage() {
     departure: "départ",
     arrival: "destination",
     date: today,
-    passenger: "",
+    passenger: 0,
   });
   let [errorMessage, setErrorMessage] = useState("");
   const [errorForm, setErrorForm] = useState(false);
@@ -134,7 +148,7 @@ function SearchingTripPage() {
   const submitTrip = () => {
     setActiveStep(2);
   };
-  const hoverSetId = (e: any) => {
+  const hoverSetId = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTripId(e.target.value);
   };
   const stepBack = () => {
@@ -175,7 +189,7 @@ function SearchingTripPage() {
         <div className="flex flex-row pt-5 border-t-2 border-black step-1">
           <FilterSearchComponent />
           <div className="flex flex-col pt-0 pl-5 pr-5 overflow-auto w-1/1 h-5/6">
-            {resultat.map((el: any) =>
+            {resultat.map((el: Trip) =>
               el.place_available >= form.passenger ? (
                 <SearchTripResult
                   value={el.id}

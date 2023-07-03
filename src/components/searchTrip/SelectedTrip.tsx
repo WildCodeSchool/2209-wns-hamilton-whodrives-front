@@ -6,12 +6,12 @@ interface PropsSelectedTrip {
   arrival: string;
   seats: number;
   price: number;
-  date: any;
+  date: string;
   nameProfil: string;
-  stepBack: any;
-  joinTrip: any;
-  passenger:any;
-  hour:any
+  stepBack: React.MouseEventHandler<HTMLDivElement>;
+  joinTrip: React.MouseEventHandler<HTMLButtonElement>;
+  passenger:number;
+  hour:string
 }
 
 function SelectedTrip({

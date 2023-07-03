@@ -5,9 +5,15 @@ import "../../styles/global.css";
 interface ISearchTrip {
   onclick: React.MouseEventHandler<HTMLButtonElement> | undefined;
   form: any | undefined;
-  setForm: any | undefined;
-  today: any;
+  setForm:  any| undefined;
+  today: string;
 }
+interface FormState {
+    departure: string ;
+    arrival: string;
+    date: string;
+    passenger: string;
+  }
 
 export default function SearchTripComponent({
   onclick,
@@ -15,12 +21,7 @@ export default function SearchTripComponent({
   setForm,
   today,
 }: ISearchTrip) {
-  interface FormState {
-    departure: string;
-    arrival: string;
-    date: string;
-    passenger: string;
-  }
+
 
   interface DataState {
     nom: string;
@@ -62,7 +63,7 @@ export default function SearchTripComponent({
   useEffect(() => {
     setDisplay({ arrival: false, departure: false });
   }, []);
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
     } = e;

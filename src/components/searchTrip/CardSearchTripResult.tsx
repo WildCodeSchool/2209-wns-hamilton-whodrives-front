@@ -4,7 +4,7 @@ interface PropsResult {
   arrival: string;
   price: number;
   seats: number;
-  value : any,
+  value : number,
   hoverSetId :any,
   hour:string
   submitTrip: any;
