@@ -157,10 +157,10 @@ function SearchingTripPage() {
   const joinTrip = () => {
     selectTrip({ variables: { tripId } })
       .then((response) => {
-        console.log("trip selected", response.data.selectTrip);
+       
       })
       .catch((error) => {
-        console.log("error selectTrip", error);
+       
       });
     setActiveStep(3);
   };
