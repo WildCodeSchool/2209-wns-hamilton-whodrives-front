@@ -228,7 +228,7 @@ function SearchingTripPage() {
           />
         </div>
       ) : null}
-      {activeStep === 3 ? <CongratulationPage /> : null}
+      {activeStep === 3 ? <CongratulationPage  messageCongrats="VOUS AVEZ REJOINT LE TRAJET"/> : null}
     </div>
   );
 }
