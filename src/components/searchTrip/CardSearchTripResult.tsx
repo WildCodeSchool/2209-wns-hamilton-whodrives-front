@@ -1,5 +1,5 @@
 interface PropsResult {
-  date: any;
+  date: string;
   departure: string;
   arrival: string;
   price: number;
