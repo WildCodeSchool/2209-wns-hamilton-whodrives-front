@@ -1,16 +1,16 @@
-interface PropsResult {
+interface IPropsResult {
   date: string;
   departure: string;
   arrival: string;
   price: number;
   seats: number;
-  value : number,
-  hoverSetId :any,
-  hour:string
+  value: number;
+  hoverSetId: any;
+  hour: string;
   submitTrip: any;
 }
 
-function CardSearchTripResult({
+export default function CardSearchTripResult({
   date,
   departure,
   arrival,
@@ -20,7 +20,7 @@ function CardSearchTripResult({
   hoverSetId,
   hour,
   value,
-}: PropsResult) {
+}: IPropsResult): JSX.Element {
   return (
     <>
       <div className="flex flex-col justify-between pl-2 pr-2 mr-8 w-1/1 ">
@@ -58,5 +58,3 @@ function CardSearchTripResult({
     </>
   );
 }
-
-export default CardSearchTripResult;

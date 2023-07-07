@@ -1,8 +1,8 @@
-interface propsProfil {
+interface IPropsProfile {
   nameProfil: string;
 }
 
-function ProfileSearchComponent({ nameProfil }: propsProfil) {
+export default function ProfileSearchComponent({ nameProfil }: IPropsProfile) {
   return (
     <div className="w-24 p-2 ml-10 mr-8 border-whodrivesGrey">
       <img src="/assets/images/blue.png" alt="" className="mb-2" />
@@ -10,5 +10,3 @@ function ProfileSearchComponent({ nameProfil }: propsProfil) {
     </div>
   );
 }
-
-export default ProfileSearchComponent;

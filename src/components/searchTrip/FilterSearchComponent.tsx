@@ -1,4 +1,4 @@
-function FilterSearchComponent() {
+export default function FilterSearchComponent() {
   return (
     <div className="flex flex-col w-1/3 pr-5 border-r-4 h-5/6">
       <h3 className="mb-2 font-semibold">FILTRES</h3>
@@ -46,5 +46,3 @@ function FilterSearchComponent() {
     </div>
   );
 }
-
-export default FilterSearchComponent;

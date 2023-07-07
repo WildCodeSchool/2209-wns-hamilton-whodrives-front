@@ -1,7 +1,8 @@
 import "../../styles/global.css";
+
 import ProfileSearchComponent from "../shared/ProfileSearchComponent";
 
-interface PropsSelectedTrip {
+interface IPropsSelectedTrip {
   departure: string;
   arrival: string;
   seats: number;
@@ -10,11 +11,11 @@ interface PropsSelectedTrip {
   nameProfil: string;
   stepBack: React.MouseEventHandler<HTMLDivElement>;
   joinTrip: React.MouseEventHandler<HTMLButtonElement>;
-  passenger:number;
-  hour:string
+  passenger: number;
+  hour: string;
 }
 
-function SelectedTrip({
+export default function SelectedTrip({
   departure,
   arrival,
   seats,
@@ -24,8 +25,8 @@ function SelectedTrip({
   passenger,
   nameProfil,
   joinTrip,
-  hour
-}: PropsSelectedTrip) {
+  hour,
+}: IPropsSelectedTrip): JSX.Element {
   return (
     <div className="flex flex-col items-center justify-center w-screen font-bold h-1/1">
       <div
@@ -74,5 +75,3 @@ function SelectedTrip({
     </div>
   );
 }
-
-export default SelectedTrip;

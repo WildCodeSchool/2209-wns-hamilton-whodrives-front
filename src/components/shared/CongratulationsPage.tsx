@@ -1,8 +1,12 @@
 import "../../styles/global.css";
-interface messageProps{
-    messageCongrats:string
+
+interface IMessageProps {
+  messageCongrats: string;
 }
-function CongratulationPage({messageCongrats}:messageProps) {
+
+export default function CongratulationsPage({
+  messageCongrats,
+}: IMessageProps): JSX.Element {
   return (
     <div className="flex flex-col items-center mt-16">
       <h3 className="congrats-title">FELICITATIONS !</h3>
@@ -17,5 +21,3 @@ function CongratulationPage({messageCongrats}:messageProps) {
     </div>
   );
 }
-
-export default CongratulationPage;
