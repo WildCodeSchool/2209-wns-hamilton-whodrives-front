@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "../../styles/createTrip.css";
 
 function LocationFields({ handleLocationFieldData, trip }: any) {
   const [departure, setDeparture] = useState("");
@@ -57,7 +56,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
   };
 
   const handleArrivalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const { value } = e.target;
     setArrival(value);
     setShowArrivalOptions(value !== ""); // Affiche la liste uniquement si l'input n'est pas vide
   };
@@ -89,14 +88,11 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen my-custom-class">
-      <h2 className="mb-4 text-lg font-semibold text-center">
-        Je publie un trajet
-      </h2>
-      <div className="w-full p-8 mx-auto bg-lightBlue sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
-        <div className="flex flex-col space-y-2">
+    <div className="flex flex-col items-center justify-center sm:my-12">
+      <div className="w-full p-8 bg-lightBlue sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
+        <div className="flex flex-col pb-4">
           <label className="text-center" htmlFor="depart">
-            Départ
+            Ville de départ
           </label>
           <div className="relative">
             <input
@@ -122,9 +118,9 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             )}
           </div>
         </div>
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col pb-4">
           <label className="text-center" htmlFor="arrivee">
-            Arrivée
+            Ville d'arrivée
           </label>
           <div className="relative">
             <input
@@ -150,21 +146,21 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             )}
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row sm:space-x-4">
-          <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
+        <div className="flex flex-col sm:pb-4 sm:flex-row sm:gap-4">
+          <div className="flex flex-col sm:w-1/2 sm:flex-1">
             <label className="text-center" htmlFor="date">
               Date
             </label>
             <input
               type="date"
               id="date"
-              // afficher la date de aujourd'hui par defaut
+              //afficher la date de aujourdui par defaut
               value={date || trip.date}
               onChange={(e) => setDate(e.target.value)}
               className="p-2 border border-gray-300"
             />
           </div>
-          <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
+          <div className="flex flex-col sm:w-1/2 sm:flex-1">
             <label className="text-center" htmlFor="heure">
               Heure
             </label>
@@ -177,7 +173,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             />
           </div>
         </div>
-        <div className="flex flex-col space-y-2">
+        {/* <div className="flex flex-col space-y-2 ">
           <label className="text-center" htmlFor="nombrePersonnes">
             Nombre de personnes
           </label>
@@ -188,13 +184,13 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             onChange={(e) => setPassengers(parseInt(e.target.value))}
             className="justify-center w-1/6 p-2 mx-auto border border-gray-300"
           />
-        </div>
+        </div> */}
       </div>
       <div className="flex justify-center">
         <button
           type="submit"
-          className="px-4 py-2 mt-6 text-white bg-whodrivesGrey"
-          // le bouton est disabled si les champs ne sont pas remplis
+          className="px-4 py-2 mt-6 text-white bg-whodrivesGrey "
+          //le bouton est disabled si les champs ne sont pas remplis
           disabled={!departure || !arrival || !date || !time || !passengers}
           onClick={() =>
             handleLocationFieldData({

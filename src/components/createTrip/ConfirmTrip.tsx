@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
 
-function ConfirmTrip({trip, handleConfirmTripData,BackToFirstStage}:any) {
-
+function ConfirmTrip({ trip, handleConfirmTripData, BackToFirstStage }: any) {
   useEffect(() => {
     ifTripDataIsComplete();
-    }, []);
-    
+  }, []);
+
   function ifTripDataIsComplete() {
     if (trip.price && trip.description) {
       setPrice(trip.price);
       setDescription(trip.description);
-    
     }
-  } 
+  }
 
   const [price, setPrice] = useState<number>(50);
-  const [description, setDescription] = useState<string>("")
+  const [description, setDescription] = useState<string>("");
 
   const LocationField = {
     departure: trip.departure,
@@ -25,17 +23,15 @@ function ConfirmTrip({trip, handleConfirmTripData,BackToFirstStage}:any) {
     passengers: trip.passengers,
     price: trip.price,
     description: trip.description,
-    
-  }
+  };
   const handlePriceChange = (event: any) => {
     setPrice(parseInt(event.target.value));
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center">
-      <div className="mx-auto sm:w-3/5 lg:w-2/5 xl:w-1/5">
-        <h2 className="text-lg font-semibold mb-4 text-center">Mon trajet</h2>
-        <div className="flex flex-wrap items-center justify-center space-x-2 mb-4">
+    <div className="flex flex-col items-center justify-center my-12">
+      <div className="w-full sm:w-3/5 lg:w-2/5">
+        <div className="flex flex-wrap items-center justify-center mb-4 space-x-2 border-2 border-black">
           <span className="font-semibold">{LocationField.departure}</span>
           <span>&rarr;</span>
           <span className="font-semibold">{LocationField.arrival}</span>
@@ -43,12 +39,12 @@ function ConfirmTrip({trip, handleConfirmTripData,BackToFirstStage}:any) {
           <span>{LocationField.date}</span>
           <span className="mx-2">-</span>
           <span>{LocationField.time}</span>
-          <span className="mx-2">|</span>
-          <span>{LocationField.passengers} passagers</span>
+          {/* <span className="mx-2">|</span>
+          <span>{LocationField.passengers} passagers</span> */}
         </div>
-        <div className="flex items-center mb-4 justify-center">
+        <div className="flex items-center justify-center mb-4">
           <button
-            className="bg-gray-200 text-gray-500 rounded-full px-2 py-1 mr-2"
+            className="px-2 py-1 mr-2 text-gray-500 bg-gray-200 rounded-full"
             onClick={() => setPrice(Math.max(0, price - 20))}
           >
             -
@@ -60,7 +56,7 @@ function ConfirmTrip({trip, handleConfirmTripData,BackToFirstStage}:any) {
             className="w-16 text-center"
           />
           <button
-            className="bg-gray-200 text-gray-500 rounded-full px-2 py-1 ml-2"
+            className="px-2 py-1 ml-2 text-gray-500 bg-gray-200 rounded-full"
             onClick={() => setPrice(price + 10)}
           >
             +
@@ -72,19 +68,21 @@ function ConfirmTrip({trip, handleConfirmTripData,BackToFirstStage}:any) {
             id="commentaire"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="border border-gray-300 rounded-md p-2"
+            className="p-2 border border-gray-300 rounded-md"
           />
         </div>
         <div className="text-center">
           <button
-           className="bg-whodrivesGrey text-white py-2 px-4 rounded-md mr-2"
-           onClick={() => BackToFirstStage() }>
+            className="px-4 py-2 mr-2 text-white rounded-md bg-whodrivesGrey"
+            onClick={() => BackToFirstStage()}
+          >
             retour
           </button>
           <button
-          type="submit"
-          className="bg-whodrivesGrey text-white py-2 px-4 rounded-md"
-          onClick={() => handleConfirmTripData({price, description})}>
+            type="submit"
+            className="px-4 py-2 text-white rounded-md bg-whodrivesGrey"
+            onClick={() => handleConfirmTripData({ price, description })}
+          >
             suivant
           </button>
         </div>

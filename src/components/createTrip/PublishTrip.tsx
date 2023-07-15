@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../../styles/createTrip.css";
 import { useNavigate } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 import moment from "moment";

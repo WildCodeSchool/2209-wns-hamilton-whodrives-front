@@ -16,7 +16,8 @@ module.exports = {
         roboto: ["/public/assets/fonts/Roboto-Regular.ttf"],
       },
       backgroundImage: {
-        "whodrives-bg": "url('/public/assets/images/whodrives.gif')",
+        "whodrives-bg": "url('/public/assets/images/wd.gif')",
+        "whodrives-bg-sm": "url('/public/assets/images/whodrives.jpg')",
       },
       fontSize: {
         xxs: ".5rem",

@@ -57,7 +57,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen mt-20">
+    <div className="w-full h-[calc(100vh-10rem)]">
       <h1>Connexion</h1>
       <form
         onSubmit={handleLogin}

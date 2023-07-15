@@ -7,7 +7,7 @@ export default function HomePage(): JSX.Element {
   const { userInfos } = useAuth();
 
   return (
-    <div className="min-h-screen">
+    <div className="w-full min-h-screen overflow-visible">
       <div>
         {Object.keys(userInfos).length > 0 ? (
           <h1>User connecté en tant que {userInfos.email}</h1>

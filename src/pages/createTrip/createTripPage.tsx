@@ -185,9 +185,9 @@ function CreateTripPage(): JSX.Element {
 
   return (
     <div className="w-full h-[calc(100vh-10rem)]">
-      <h2 className="mb-4 text-lg font-semibold text-center ">
+      <h1 className="mb-4 text-lg font-semibold text-center ">
         Je publie un trajet
-      </h2>
+      </h1>
       <Box sx={{ width: "100%" }}>
         <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map((label, index) => {
