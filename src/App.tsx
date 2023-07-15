@@ -13,7 +13,8 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import ConfirmTrip from "./components/createTrip/ConfirmTrip";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../src/styles/global.css";
+import Dashboard from "./pages/dashboard/dashboard";
+import ProtectedArea from "./components/auth/ProtectedArea";
 
 function App() {
   return (
@@ -22,7 +23,15 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="profile" element={<ProfilePage />} />
-        <Route path="create-trip" element={<CreateTripPage />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route
+          path="create-trip"
+          element={
+            <ProtectedArea>
+              <CreateTripPage />
+            </ProtectedArea>
+          }
+        />
         <Route path="search-trip" element={<SearchTripPage />} />
         <Route path="auth" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />

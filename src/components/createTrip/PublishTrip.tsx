@@ -1,17 +1,20 @@
 import { useState } from "react";
+import "../../styles/createTrip.css";
 import { useNavigate } from "react-router-dom";
-import { gql } from "@apollo/client";
-import { useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
+import moment from "moment";
 
 function PublishTrip({ trip, returnTrip }: any) {
-  const CreateTrip = gql`
+  const CREATE_TRIP_MUTATION = gql`
     mutation CreateTrip(
       $departurePlaces: String
       $destination: String
-      $dateDeparture: Timestamp
-      $arrivalDate: Timestamp
+      $dateDeparture: Date
+      $arrivalDate: Date
       $price: Int
       $description: String
+      $hourDeparture: String
+      $placeAvailable: Int
     ) {
       createTrip(
         departure_places: $departurePlaces
@@ -20,6 +23,8 @@ function PublishTrip({ trip, returnTrip }: any) {
         arrival_date: $arrivalDate
         price: $price
         description: $description
+        hour_departure: $hourDeparture
+        place_available: $placeAvailable
       ) {
         id
         departure_places
@@ -28,9 +33,12 @@ function PublishTrip({ trip, returnTrip }: any) {
         arrival_date
         price
         description
+        hour_departure
+        place_available
       }
     }
   `;
+
   const locationField = {
     departure: trip.departure,
     arrival: trip.arrival,
@@ -40,49 +48,49 @@ function PublishTrip({ trip, returnTrip }: any) {
     price: trip.price,
     description: trip.description,
   };
-  const returnLocationField = {
-    departure: returnTrip.departure,
-    arrival: returnTrip.arrival,
-    date: returnTrip.date,
-    time: returnTrip.time,
-    passengers: returnTrip.passengers,
-    price: returnTrip.price,
-    description: returnTrip.description,
-  };
-  const trips = [locationField];
-  if (returnLocationField.departure && returnLocationField.arrival) {
-    trips.push(returnLocationField);
-  }
-  const [publishTrip, setPublishTrip] = useState<boolean>(false);
-  const navigate = useNavigate();
-  const [createTrip] = useMutation(CreateTrip);
-  const handlePublishTrip = async () => {
-    let date = locationField.date;
-    let dateSplit = date.split("-");
-    let time = locationField.time;
-    let timeSplit = time.split(":");
 
-    let newDate = new Date();
-    newDate.setHours(+timeSplit[0] + 2, +timeSplit[1]);
-    newDate.setFullYear(+dateSplit[0], +dateSplit[1] - 1, +dateSplit[2]);
+  const trips = [locationField];
+
+  const [publishTrip, setPublishTrip] = useState(false);
+  const navigate = useNavigate();
+  const [createTrip] = useMutation(CREATE_TRIP_MUTATION);
+
+  const handlePublishTrip = async () => {
     try {
+      const formattedDate = moment(locationField.date, "YYYY-MM-DD", true);
+      if (!formattedDate.isValid()) {
+        throw new Error("La valeur de date est invalide.");
+      }
+
+      const formattedTime = moment(locationField.time, "HH:mm", true);
+      if (!formattedTime.isValid()) {
+        throw new Error("La valeur de l'heure est invalide.");
+      }
+
       const { data } = await createTrip({
         variables: {
           departurePlaces: locationField.departure,
           destination: locationField.arrival,
-          dateDeparture: newDate.getTime(),
-          arrivalDate: newDate.getTime(),
+          dateDeparture: formattedDate.isValid()
+            ? formattedDate.format("YYYY-MM-DD")
+            : null,
+          arrivalDate: formattedDate.isValid()
+            ? formattedDate.format("YYYY-MM-DD")
+            : null,
           price: locationField.price,
           description: locationField.description,
+          hourDeparture: formattedTime.isValid()
+            ? formattedTime.format("HH:mm:ss")
+            : null,
+          placeAvailable: locationField.passengers,
         },
       });
-
-      // Naviguer vers une autre page après publication
-      navigate("/nouvelle-page");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Erreur lors de la publication de l'annonce :", error);
     }
   };
+
   return (
     <div className="flex flex-col items-center">
       <div className="w-full max-w-xl p-4 mb-4 bg-white rounded-lg shadow-md">
@@ -136,4 +144,5 @@ function PublishTrip({ trip, returnTrip }: any) {
     </div>
   );
 }
+
 export default PublishTrip;

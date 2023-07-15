@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "../../styles/createTrip.css";
 
 function LocationFields({ handleLocationFieldData, trip }: any) {
   const [departure, setDeparture] = useState("");
@@ -56,7 +57,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
   };
 
   const handleArrivalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+    const value = e.target.value;
     setArrival(value);
     setShowArrivalOptions(value !== ""); // Affiche la liste uniquement si l'input n'est pas vide
   };
@@ -88,7 +89,10 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center my-custom-class">
+    <div className="flex flex-col items-center justify-center h-screen my-custom-class">
+      <h2 className="mb-4 text-lg font-semibold text-center">
+        Je publie un trajet
+      </h2>
       <div className="w-full p-8 mx-auto bg-lightBlue sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
         <div className="flex flex-col space-y-2">
           <label className="text-center" htmlFor="depart">
@@ -154,7 +158,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             <input
               type="date"
               id="date"
-              //afficher la date de aujourdui par defaut
+              // afficher la date de aujourd'hui par defaut
               value={date || trip.date}
               onChange={(e) => setDate(e.target.value)}
               className="p-2 border border-gray-300"
@@ -173,7 +177,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             />
           </div>
         </div>
-        <div className="flex flex-col space-y-2 ">
+        <div className="flex flex-col space-y-2">
           <label className="text-center" htmlFor="nombrePersonnes">
             Nombre de personnes
           </label>
@@ -189,8 +193,8 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
       <div className="flex justify-center">
         <button
           type="submit"
-          className="px-4 py-2 mt-6 text-white bg-whodrivesGrey "
-          //le bouton est disabled si les champs ne sont pas remplis
+          className="px-4 py-2 mt-6 text-white bg-whodrivesGrey"
+          // le bouton est disabled si les champs ne sont pas remplis
           disabled={!departure || !arrival || !date || !time || !passengers}
           onClick={() =>
             handleLocationFieldData({
