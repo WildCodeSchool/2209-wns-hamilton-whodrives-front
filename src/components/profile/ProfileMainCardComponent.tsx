@@ -1,12 +1,11 @@
 import AboutMeComponent from "./aboutMe";
-import "../../styles/profile.css"
 
 export default function ProfileMainCardComponent(): JSX.Element {
   return (
-    <div className="w-screen h-screen flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center w-screen h-screen">
       <h1 className="text-4xl font-bold">Mon Compte</h1>
       <div className="card">
-        <AboutMeComponent/>
+        <AboutMeComponent />
       </div>
     </div>
   );

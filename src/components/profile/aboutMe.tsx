@@ -1,4 +1,3 @@
-import "../../styles/profile.css";
 import { useQuery, gql } from "@apollo/client";
 
 const GET_USER_LOGGED = gql`
@@ -68,13 +67,13 @@ const AboutMeComponent = () => {
   const user = data.userLogged;
 
   return (
-    <div className=" flex border-2 border-blue-500 p-8 m-20">
+    <div className="flex p-8 m-20 border-2 border-blue-500 ">
       <div className="w-1/3 mr-5">
         <img src="/assets/images/dot-megachx.jpg" alt="" className="w-64" />
         <p>{user.username}</p>
       </div>
       <div className="w-2/3">
-        <h3 className="bg-blue-700 text-white">A propos de moi</h3>
+        <h3 className="text-white bg-blue-700">A propos de moi</h3>
         {user.userInfo && (
           <>
             <p>
@@ -84,7 +83,7 @@ const AboutMeComponent = () => {
               et j’habite à{" "}
               <span className="text-validBlue">{user.userInfo.city}</span> .
             </p>
-            <div className="Description mt-2">
+            <div className="mt-2 Description">
               <h4>Description</h4>
               <p className="ml-3">{user.userInfo.about.description}</p>
             </div>
@@ -118,9 +117,9 @@ const AboutMeComponent = () => {
           </>
         )}
 
-        <h3 className="bg-blue-700 text-white">Ma Voiture</h3>
+        <h3 className="text-white bg-blue-700">Ma Voiture</h3>
         {user.cars.map((car: any) => (
-          <div className="Cars flex" key={car.id}>
+          <div className="flex Cars" key={car.id}>
             <img src="/assets/images/yellow-car.png" alt="" className="w-64" />
             <p>
               Ma voiture est une{" "}
