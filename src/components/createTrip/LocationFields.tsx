@@ -87,8 +87,10 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
     setShowArrivalOptions(false);
   };
 
+  const isDisabled = !departure || !arrival || !date || !time || !passengers;
+
   return (
-    <div className="flex flex-col items-center justify-center sm:my-12">
+    <div className="flex flex-col items-center justify-center py-6">
       <div className="w-full p-8 bg-lightBlue sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
         <div className="flex flex-col pb-4">
           <label className="text-center" htmlFor="depart">
@@ -146,8 +148,8 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             )}
           </div>
         </div>
-        <div className="flex flex-col sm:pb-4 sm:flex-row sm:gap-4">
-          <div className="flex flex-col sm:w-1/2 sm:flex-1">
+        <div className="flex flex-col md:flex-row md:gap-4">
+          <div className="flex flex-col pb-4 sm:w-1/2 sm:flex-1">
             <label className="text-center" htmlFor="date">
               Date
             </label>
@@ -173,25 +175,39 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             />
           </div>
         </div>
-        {/* <div className="flex flex-col space-y-2 ">
+        <div className="flex flex-col space-y-2 ">
           <label className="text-center" htmlFor="nombrePersonnes">
-            Nombre de personnes
+            Nombre de places disponibles
           </label>
-          <input
-            type="number"
-            id="nombrePersonnes"
-            value={passengers || trip.passengers}
-            onChange={(e) => setPassengers(parseInt(e.target.value))}
-            className="justify-center w-1/6 p-2 mx-auto border border-gray-300"
-          />
-        </div> */}
+          <div className="flex flex-row items-center justify-center">
+            <button
+              className="px-4"
+              onClick={() => setPassengers(Math.max(1, passengers - 1))}
+            >
+              <img src="/assets/icons/minus.svg" alt="minus icon" />
+            </button>
+            <input
+              type="number"
+              id="nombrePersonnes"
+              value={passengers || trip.passengers}
+              onChange={(e) => setPassengers(parseInt(e.target.value))}
+              className="flex w-6 font-bold text-center"
+            />
+            <button
+              className="px-4"
+              onClick={() => setPassengers(passengers + 1)}
+            >
+              <img src="/assets/icons/plus.svg" alt="minus icon" />
+            </button>
+          </div>
+        </div>
       </div>
       <div className="flex justify-center">
         <button
           type="submit"
-          className="px-4 py-2 mt-6 text-white bg-whodrivesGrey "
-          //le bouton est disabled si les champs ne sont pas remplis
-          disabled={!departure || !arrival || !date || !time || !passengers}
+          className="px-4 py-2 "
+          // The button is disabled if the fields are not filled
+          disabled={isDisabled}
           onClick={() =>
             handleLocationFieldData({
               departure,
@@ -202,7 +218,15 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             })
           }
         >
-          Suivant
+          <p
+            className={
+              isDisabled
+                ? "grey-button p-2 text-xs"
+                : "green-button p-2 text-xs"
+            }
+          >
+            Suivant
+          </p>
         </button>
       </div>
     </div>

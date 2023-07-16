@@ -27,8 +27,8 @@ function CreateTripPage(): JSX.Element {
   const steps = [
     "Création de trajet",
     "Confirmation du trajet",
-    "Trajet retour",
-    "Confirmation du trajet retour",
+    // "Trajet retour",
+    // "Confirmation du trajet retour",
     "Publication du trajet",
   ];
 
@@ -79,7 +79,7 @@ function CreateTripPage(): JSX.Element {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  const BackToFirstStage = () => {
+  const BackToPreviousStage = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
@@ -114,36 +114,41 @@ function CreateTripPage(): JSX.Element {
           <ConfirmTrip
             trip={trip}
             handleConfirmTripData={handleConfirmTripData}
-            BackToFirstStage={BackToFirstStage}
-            c
+            BackToPreviousStage={BackToPreviousStage}
           />
         );
+      // case 2:
+      //   return (
+      //     <ReturnTrip
+      //       trip={trip}
+      //       setSkipReturnTrip={setSkipReturnTrip}
+      //       handlReturnTripData={handlReturnTripData}
+      //     />
+      //   );
+      // case 3:
+      //   return (
+      //     <ConfirmReturnTrip
+      //       returnTrip={returnTrip}
+      //       handleConfirmreturnTripData={handleConfirmreturnTripData}
+      //       BackToPreviousStage={BackToPreviousStage}
+      //     />
+      //   );
       case 2:
         return (
-          <ReturnTrip
-            trip={trip}
-            setSkipReturnTrip={setSkipReturnTrip}
-            handlReturnTripData={handlReturnTripData}
-          />
-        );
-      case 3:
-        return (
-          <ConfirmReturnTrip
+          <PublishTrip
             returnTrip={returnTrip}
-            handleConfirmreturnTripData={handleConfirmreturnTripData}
-            BackToFirstStage={BackToFirstStage}
+            trip={trip}
+            BackToPreviousStage={BackToPreviousStage}
           />
         );
-      case 4:
-        return <PublishTrip returnTrip={returnTrip} trip={trip} />;
       default:
         return "Unknown step";
     }
   }
 
-  const isStepOptional = (step: number) => {
-    return step === 2 || step === 3;
-  };
+  // const isStepOptional = (step: number) => {
+  //   return step === 2 || step === 3;
+  // };
 
   const isStepSkipped = (step: number) => {
     return skipped.has(step);
@@ -165,11 +170,11 @@ function CreateTripPage(): JSX.Element {
   };
 
   const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
+    // if (!isStepOptional(activeStep)) {
+    //   // You probably want to guard against something like this,
+    //   // it should never occur unless someone's actively trying to break something.
+    //   throw new Error("You can't skip a step that isn't optional.");
+    // }
 
     setActiveStep((prevActiveStep: number) => prevActiveStep + 1);
     setSkipped((prevSkipped) => {
@@ -184,7 +189,7 @@ function CreateTripPage(): JSX.Element {
   };
 
   return (
-    <div className="w-full h-[calc(100vh-10rem)]">
+    <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-6">
       <h1 className="mb-4 text-lg font-semibold text-center ">
         Je publie un trajet
       </h1>
@@ -195,11 +200,11 @@ function CreateTripPage(): JSX.Element {
             const labelProps: {
               optional?: React.ReactNode;
             } = {};
-            if (isStepOptional(index)) {
-              labelProps.optional = (
-                <Typography variant="caption">Optionnel</Typography>
-              );
-            }
+            // if (isStepOptional(index)) {
+            //   labelProps.optional = (
+            //     <Typography variant="caption">Optionnel</Typography>
+            //   );
+            // }
             if (isStepSkipped(index)) {
               stepProps.completed = false;
             }

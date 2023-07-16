@@ -19,7 +19,7 @@ import ProtectedArea from "./components/auth/ProtectedArea";
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen">
       <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />

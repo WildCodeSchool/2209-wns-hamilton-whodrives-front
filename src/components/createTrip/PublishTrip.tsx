@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 import moment from "moment";
 
-function PublishTrip({ trip, returnTrip }: any) {
+function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
   const CREATE_TRIP_MUTATION = gql`
     mutation CreateTrip(
       $departurePlaces: String
@@ -91,15 +91,13 @@ function PublishTrip({ trip, returnTrip }: any) {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="w-full max-w-xl p-4 mb-4 bg-white rounded-lg shadow-md">
-        <h1 className="mb-4 text-2xl font-semibold">
-          Récapitulatif de votre annonce
-        </h1>
+    <div className="flex flex-col items-center justify-center py-6">
+      <div className="w-3/5 p-4 mb-4 bg-white border-2 lg:w-2/5 border-validBlue">
+        <h2 className="mb-4">Récapitulatif de votre annonce</h2>
         <div className="space-y-4">
           {trips.map((locationField, index) => (
-            <div key={index} className="p-4 bg-gray-100 rounded-lg">
-              <h2 className="mb-2 text-lg font-semibold">Trajet {index + 1}</h2>
+            <div key={index} className="p-4 bg-gray-100">
+              <h2 className="mb-2">Votre trajet</h2>
               <div className="flex items-center mb-2">
                 <span className="text-gray-500">Départ :</span>
                 <span className="ml-2">{locationField.departure}</span>
@@ -134,12 +132,16 @@ function PublishTrip({ trip, returnTrip }: any) {
           ))}
         </div>
       </div>
-      <button
-        className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline"
-        onClick={handlePublishTrip}
-      >
-        Publier l'annonce
-      </button>
+      <div className="text-center">
+        <button className="px-4 py-2" onClick={() => BackToPreviousStage()}>
+          <p className="font-bold text-whodrivesGrey hover:text-validBlue">
+            Retour
+          </p>
+        </button>
+        <button className="px-4 py-2" onClick={handlePublishTrip}>
+          <p className="p-2 green-button">Publier l'annonce</p>
+        </button>
+      </div>
     </div>
   );
 }

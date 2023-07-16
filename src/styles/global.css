@@ -77,6 +77,38 @@ p {
     font-family: "roboto";
 }
 
+@layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  .green-button {
+    background-color: white;
+    color: #02EF92;
+    cursor: pointer;
+    border: 2px solid black;
+    font-family: "pressStart2p";
+  }
+
+  .green-button:hover {
+    background-color: #02EF92;
+    color: white;
+    cursor: pointer;
+    border: 2px solid black;
+    font-family: "pressStart2p";
+  }
+
+  .grey-button {
+    background-color: #909090;
+    color: white;
+    cursor: not-allowed;
+    border: 2px solid black;
+    font-family: "pressStart2p";
+  }
+
 /* SECTION TITLE WITH BLUE NEON EFFECT */
 .section-title {
     text-shadow:
