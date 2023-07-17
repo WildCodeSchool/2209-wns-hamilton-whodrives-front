@@ -1,6 +1,5 @@
 import LocationField from "../../components/createTrip/LocationFields";
 import ConfirmTrip from "../../components/createTrip/ConfirmTrip";
-import ReturnTrip from "../../components/createTrip/ReturnTrip";
 import * as React from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -9,7 +8,6 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import PublishTrip from "../../components/createTrip/PublishTrip";
-import ConfirmReturnTrip from "../../components/createTrip/ConfirmReturnTrip";
 
 // recuperer les donner du formulaire et les envoyer a la page suivante
 
@@ -27,8 +25,6 @@ function CreateTripPage(): JSX.Element {
   const steps = [
     "Création de trajet",
     "Confirmation du trajet",
-    // "Trajet retour",
-    // "Confirmation du trajet retour",
     "Publication du trajet",
   ];
 
@@ -65,37 +61,12 @@ function CreateTripPage(): JSX.Element {
     handleNextStep();
   };
 
-  const handlReturnTripData = (data: TripData) => {
-    setReturnTrip({ ...returnTrip, ...data });
-    handleNextStep();
-  };
-
-  const handleConfirmreturnTripData = (data: TripData) => {
-    setReturnTrip((returnTrip) => ({ ...returnTrip, ...data }));
-    handleNextStep();
-  };
-
   const handleNextStep = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const BackToPreviousStage = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const setSkipReturnTrip = () => {
-    //effacer le return trip
-    setReturnTrip({
-      departure: "",
-      arrival: "",
-      date: "",
-      time: "",
-      passengers: "",
-      price: "",
-      description: "",
-    });
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 2);
   };
 
   function getStepContent(step: number) {
@@ -117,22 +88,6 @@ function CreateTripPage(): JSX.Element {
             BackToPreviousStage={BackToPreviousStage}
           />
         );
-      // case 2:
-      //   return (
-      //     <ReturnTrip
-      //       trip={trip}
-      //       setSkipReturnTrip={setSkipReturnTrip}
-      //       handlReturnTripData={handlReturnTripData}
-      //     />
-      //   );
-      // case 3:
-      //   return (
-      //     <ConfirmReturnTrip
-      //       returnTrip={returnTrip}
-      //       handleConfirmreturnTripData={handleConfirmreturnTripData}
-      //       BackToPreviousStage={BackToPreviousStage}
-      //     />
-      //   );
       case 2:
         return (
           <PublishTrip
@@ -145,10 +100,6 @@ function CreateTripPage(): JSX.Element {
         return "Unknown step";
     }
   }
-
-  // const isStepOptional = (step: number) => {
-  //   return step === 2 || step === 3;
-  // };
 
   const isStepSkipped = (step: number) => {
     return skipped.has(step);
@@ -170,12 +121,6 @@ function CreateTripPage(): JSX.Element {
   };
 
   const handleSkip = () => {
-    // if (!isStepOptional(activeStep)) {
-    //   // You probably want to guard against something like this,
-    //   // it should never occur unless someone's actively trying to break something.
-    //   throw new Error("You can't skip a step that isn't optional.");
-    // }
-
     setActiveStep((prevActiveStep: number) => prevActiveStep + 1);
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());
@@ -200,14 +145,6 @@ function CreateTripPage(): JSX.Element {
             const labelProps: {
               optional?: React.ReactNode;
             } = {};
-            // if (isStepOptional(index)) {
-            //   labelProps.optional = (
-            //     <Typography variant="caption">Optionnel</Typography>
-            //   );
-            // }
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
             return (
               <Step key={label} {...stepProps}>
                 <StepLabel {...labelProps}>{label}</StepLabel>

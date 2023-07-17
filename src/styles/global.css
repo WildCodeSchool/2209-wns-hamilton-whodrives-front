@@ -83,7 +83,7 @@ h3 {
   font-size: small;
 }
 
-p {
+p, label {
     font-family: "roboto";
 }
 

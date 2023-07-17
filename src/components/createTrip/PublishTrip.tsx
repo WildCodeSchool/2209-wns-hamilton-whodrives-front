@@ -134,12 +134,12 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
         </div>
       </div>
       <div className="text-center">
-        <button className="px-4 py-2" onClick={() => BackToPreviousStage()}>
+        <button className="p-4" onClick={() => BackToPreviousStage()}>
           <p className="font-bold text-whodrivesGrey hover:text-validBlue">
             Retour
           </p>
         </button>
-        <button className="px-4 py-2" onClick={handlePublishTrip}>
+        <button className="p-4" onClick={handlePublishTrip}>
           <p className="p-2 text-xs green-button">Publier l'annonce</p>
         </button>
       </div>

@@ -175,7 +175,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             />
           </div>
         </div>
-        <div className="flex flex-col space-y-2 ">
+        <div className="flex flex-col ">
           <label className="text-center" htmlFor="nombrePersonnes">
             Nombre de places disponibles
           </label>
@@ -205,7 +205,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
       <div className="flex justify-center">
         <button
           type="submit"
-          className="px-4 py-2 "
+          className="p-4"
           // The button is disabled if the fields are not filled
           disabled={isDisabled}
           onClick={() =>
