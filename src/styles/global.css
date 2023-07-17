@@ -68,9 +68,19 @@ body {
     overflow-y: visible;
 }
 
-h1,
-h2 {
+h1 {
     font-family: "pressStart2p";
+    font-size: large;
+}
+
+h2 {
+  font-family: "pressStart2p";
+  font-size: medium;
+}
+
+h3 {
+  font-family: "pressStart2p";
+  font-size: small;
 }
 
 p {

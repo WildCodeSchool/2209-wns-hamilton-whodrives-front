@@ -93,37 +93,38 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
   return (
     <div className="flex flex-col items-center justify-center py-6">
       <div className="w-3/5 p-4 mb-4 bg-white border-2 lg:w-2/5 border-validBlue">
-        <h2 className="mb-4">Récapitulatif de votre annonce</h2>
+        <h3 className="mb-4 text-center text-validBlue">
+          Récapitulatif de votre annonce
+        </h3>
         <div className="space-y-4">
           {trips.map((locationField, index) => (
             <div key={index} className="p-4 bg-gray-100">
-              <h2 className="mb-2">Votre trajet</h2>
-              <div className="flex items-center mb-2">
+              <div className="flex justify-center mb-2">
                 <span className="text-gray-500">Départ :</span>
                 <span className="ml-2">{locationField.departure}</span>
               </div>
-              <div className="flex items-center mb-2">
+              <div className="flex justify-center mb-2">
                 <span className="text-gray-500">Arrivée :</span>
                 <span className="ml-2">{locationField.arrival}</span>
               </div>
-              <div className="flex items-center mb-2">
+              <div className="flex justify-center mb-2">
                 <span className="text-gray-500">Date :</span>
                 <span className="ml-2">{locationField.date}</span>
               </div>
-              <div className="flex items-center mb-2">
+              <div className="flex justify-center mb-2">
                 <span className="text-gray-500">Heure :</span>
                 <span className="ml-2">{locationField.time}</span>
               </div>
-              <div className="flex items-center mb-2">
+              <div className="flex justify-center mb-2">
                 <span className="text-gray-500">Prix :</span>
                 <span className="ml-2">{locationField.price}€</span>
               </div>
-              <div className="flex items-center mb-2">
+              <div className="flex justify-center mb-2">
                 <span className="text-gray-500">Nombre de passagers :</span>
                 <span className="ml-2">{locationField.passengers}</span>
               </div>
               {locationField.description && (
-                <div className="flex items-center mb-2">
+                <div className="flex justify-center mb-2">
                   <span className="text-gray-500">Commentaire :</span>
                   <span className="ml-2">{locationField.description}</span>
                 </div>
@@ -139,7 +140,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
           </p>
         </button>
         <button className="px-4 py-2" onClick={handlePublishTrip}>
-          <p className="p-2 green-button">Publier l'annonce</p>
+          <p className="p-2 text-xs green-button">Publier l'annonce</p>
         </button>
       </div>
     </div>
