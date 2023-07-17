@@ -18,6 +18,8 @@ import FaqPage from "./pages/footerPages/faq";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/SearchTripPage";
+import AboutPage from "./pages/about/aboutPage";
+import UserInfo from "./pages/userInfo/userInfoPage";
 
 function App() {
   return (
@@ -42,6 +44,9 @@ function App() {
         <Route path="about-us" element={<AboutUsPage />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="contact-us" element={<ContactUsPage />} />
+        <Route path="userInfo" element={<ProtectedArea><UserInfo /></ProtectedArea>} />
+        <Route path="userInfo/about" element={<ProtectedArea><AboutPage /></ProtectedArea>} />
+        <Route path="*" element={<h1>404</h1>} />
         <Route path="confirm-trip" element={<ConfirmTrip />} />
       </Routes>
       <ToastContainer />
