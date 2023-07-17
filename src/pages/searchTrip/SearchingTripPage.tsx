@@ -189,32 +189,36 @@ function SearchingTripPage() {
         <div className="flex flex-row pt-5 border-t-2 border-black step-1">
           <FilterSearchComponent />
           <div className="flex flex-col pt-0 pl-5 pr-5 overflow-auto w-1/1 h-5/6">
-            {resultat.map((el: Trip) =>
-              el.place_available >= form.passenger ? (
-                <SearchTripResult
-                  value={el.id}
-                  hoverSetId={hoverSetId}
-                  nameProfil={el.users[0].username}
-                  date={moment(el.date_departure).format("DD/MM/YYYY")}
-                  seats={el.place_available}
-                  price={el.price}
-                  hour={el.hour_departure.split(":00")}
-                  departure={el.departure_places}
-                  arrival={el.destination}
-                  submitTrip={submitTrip}
-                />
-              ) : (
-                <div>aucun trajet ne correspond a votre recherche</div>
-              )
-            )}
-          </div>
+  {resultat && resultat.length > 0 ? (
+    resultat.map((el: Trip, index) =>
+      el.place_available >= form.passenger ? (
+        <SearchTripResult
+          key={index}
+          value={el.id}
+          hoverSetId={hoverSetId}
+          nameProfil={el.users[0].username}
+          date={moment(el.date_departure).format("DD/MM/YYYY")}
+          seats={el.place_available}
+          price={el.price}
+          hour={el.hour_departure.split(":00")}
+          departure={el.departure_places}
+          arrival={el.destination}
+          submitTrip={submitTrip}
+        />
+      ) : null
+    )
+  ) : (
+    <div>Aucun trajet ne correspond à votre recherche</div>
+  )}
+</div>
+
         </div>
       ) : null}
       {activeStep === 2 ? (
         <div className="flex flex-row step-1">
           <SelectedTrip
             passenger={dataTripId.getTrip.passenger}
-            nameProfil="toto"
+            nameProfil={dataTripId.getTrip.users[0].username}
             departure={dataTripId.getTrip.departure_places}
             arrival={dataTripId.getTrip.destination}
             seats={dataTripId.getTrip.place_available}
