@@ -196,7 +196,7 @@ const RegisterPage = () => {
           <button
             type="button"
             onClick={handleNext}
-            className="py-2 mt-4 mb-5 text-white bg-blue-500  btnRegister"
+            className="py-2 mt-4 mb-5 text-white bg-blue-500 btnRegister"
           >
             Suivant
           </button>
@@ -218,7 +218,7 @@ const RegisterPage = () => {
           <button
             type="button"
             onClick={handleNext}
-            className="py-2 m-5 mt-4 text-white bg-blue-500  btnRegister"
+            className="py-2 m-5 mt-4 text-white bg-blue-500 btnRegister"
           >
             Suivant
           </button>
@@ -247,7 +247,7 @@ const RegisterPage = () => {
           <button
             type="submit"
             onClick={handleRegister}
-            className="py-2 m-5 mt-4 text-white bg-blue-500  btnRegister"
+            className="py-2 m-5 mt-4 text-white bg-blue-500 btnRegister"
           >
             S'inscrire
           </button>
