@@ -34,9 +34,9 @@ interface IUser {
 }
 
 export default function SearchTripPage(): JSX.Element {
-  const [resultat, setResultat] = useState([]);
+  const [resultat, setResultat] = useState<ITrip[]>([]);
   const [tripId, setTripId] = useState("");
-
+  const [sortOrder, setSortOrder] = useState('asc');
   //Query gql
   const GET_TRIP_SEARCH = gql`
     query GetTripSearch(
@@ -120,6 +120,7 @@ export default function SearchTripPage(): JSX.Element {
       dateDeparture: form.date,
     },
   });
+  
 
   //installation stepper
   const steps = [
@@ -149,7 +150,22 @@ export default function SearchTripPage(): JSX.Element {
 
     setResultat(data?.getTripSearch);
   };
-
+  //filtre par prix
+  const sortByPrice = () => {
+    
+    const sortedResultat = [...resultat]; // Créez une copie du tableau pour éviter de modifier l'original directement
+    
+    sortedResultat.sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return a.price - b.price; // Tri par ordre croissant
+      } else {
+        return b.price - a.price; // Tri par ordre décroissant
+      }
+    });
+    
+    // Mettez à jour le tableau trié
+    setResultat(sortedResultat);
+  };
   //event to choose one trip
   const submitTrip = () => {
     setActiveStep(2);
@@ -189,7 +205,8 @@ export default function SearchTripPage(): JSX.Element {
       {errorForm && <p className="text-red-600">{errorMessage}</p>}
       {activeStep === 1 ? (
         <div className="flex flex-row pt-5 border-t-2 border-black step-1">
-          <FilterSearchComponent />
+          <FilterSearchComponent 
+          filterByPriceClick={sortByPrice}/>
           <div className="flex flex-col pt-0 pl-5 pr-5 overflow-auto w-1/1 h-5/6">
             {resultat.map((el: ITrip) =>
               el.place_available >= form.passenger ? (

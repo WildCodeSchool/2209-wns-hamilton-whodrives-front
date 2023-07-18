@@ -1,4 +1,7 @@
-export default function FilterSearchComponent() {
+interface IpropsFilter{
+    filterByPriceClick:  React.MouseEventHandler<HTMLButtonElement>;
+}
+export default function FilterSearchComponent({filterByPriceClick}:IpropsFilter) {
   return (
     <div className="flex flex-col w-1/3 pr-5 border-r-4 h-5/6">
       <h3 className="mb-2 font-semibold">FILTRES</h3>
@@ -13,7 +16,7 @@ export default function FilterSearchComponent() {
         <button className="w-1/2 mb-2 text-left hover:text-validBlue">
           Disponibilité
         </button>
-        <button className="w-1/2 mb-2 text-left hover:text-validBlue">
+        <button className="w-1/2 mb-2 text-left hover:text-validBlue" onClick={filterByPriceClick}>
           Prix
         </button>
         <button className="w-1/2 mb-2 text-left hover:text-validBlue">
