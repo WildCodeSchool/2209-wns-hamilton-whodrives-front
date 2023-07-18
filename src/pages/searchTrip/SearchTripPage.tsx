@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import SearchTrip from "../../components/shared/SearchTrip";
 import "../../styles/searchTrip.css";
 import SearchTripResult from "../../components/searchTrip/SearchTripResult";
@@ -8,8 +8,26 @@ import SelectedTrip from "../../components/searchTrip/SelectedTrip";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import moment from "moment";
 import CongratulationsPage from "../../components/shared/CongratulationsPage";
+import { AuthContext } from "../../context/AuthContext";
 
-
+const hoursRange = [
+  {
+    min: "06:01:00",
+    max: "12:00:00",
+  },
+  {
+    min: "12:01:00",
+    max: "18:00:00",
+  },
+  {
+    min: "18:01:00",
+    max: "00:00:00",
+  },
+  {
+    min: "00:01:00",
+    max: "06:00:00",
+  },
+];
 
 interface FormState {
   departure: string;
@@ -30,12 +48,15 @@ interface ITrip {
 
 interface User {
   username: string;
+  email: string;
 }
 
 export default function SearchTripPage(): JSX.Element {
   const [resultat, setResultat] = useState<ITrip[]>([]);
   const [tripId, setTripId] = useState("");
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortOrder, setSortOrder] = useState("asc");
+  const { userInfos } = useContext(AuthContext);
+
   //Query gql
   const GET_TRIP_SEARCH = gql`
     query GetTripSearch(
@@ -55,6 +76,38 @@ export default function SearchTripPage(): JSX.Element {
         destination
         place_available
         price
+        users {
+          username
+          email
+        }
+      }
+    }
+  `;
+
+  const GET_TRIP_BY_HOUR = gql`
+    query GetTrips(
+      $departurePlaces: String
+      $destination: String
+      $dateDeparture: Date
+      $minHour: String
+      $maxHour: String
+    ) {
+      getTripSearchByHourRange(
+        departure_places: $departurePlaces
+        destination: $destination
+        minHour: $minHour
+        maxHour: $maxHour
+        date_departure: $dateDeparture
+      ) {
+        id
+        departure_places
+        destination
+        date_departure
+        place_available
+        hour_departure
+        arrival_date
+        price
+        description
         users {
           username
         }
@@ -86,7 +139,7 @@ export default function SearchTripPage(): JSX.Element {
       }
     }
   `;
-
+  const [rangeSelected, setRangeSelected] = useState<null | number>(null);
   const [selectTrip] = useMutation(SELECT_TRIP);
 
   const {
@@ -110,14 +163,47 @@ export default function SearchTripPage(): JSX.Element {
   let [errorMessage, setErrorMessage] = useState("");
   const [errorForm, setErrorForm] = useState(false);
 
-  const { loading, error, data } = useQuery(GET_TRIP_SEARCH, {
+  const { loading, error, data, refetch } = useQuery(GET_TRIP_BY_HOUR, {
     variables: {
       departurePlaces: form.departure,
       destination: form.arrival,
       dateDeparture: form.date,
+      minHour: "",
+      maxHour: "",
+    },
+    onCompleted(data) {
+      console.log(data,"oncomplited");
+      setResultat(data?.getTripSearchByHourRange);
+    },
+    onError(error) {
+      console.log({ error });
     },
   });
-  
+  useEffect(() => {
+    console.log("REFETCh", {
+      departurePlaces: form.departure,
+      destination: form.arrival,
+      dateDeparture: form.date,
+    });
+    if (rangeSelected !== null) {
+      console.log("rangeSelected", rangeSelected);
+      refetch({
+        departurePlaces: form.departure,
+        destination: form.arrival,
+        dateDeparture: form.date,
+        minHour: hoursRange[rangeSelected].min,
+        maxHour: hoursRange[rangeSelected].max,
+      });
+    } else {
+      refetch({
+        departurePlaces: form.departure,
+        destination: form.arrival,
+        dateDeparture: form.date,
+        minHour: "",
+        maxHour: "",
+      });
+    }
+  }, [rangeSelected]);
 
   //installation stepper
   const steps = [
@@ -131,6 +217,8 @@ export default function SearchTripPage(): JSX.Element {
   //event to retrieve trips
 
   const handleclick = () => {
+    console.log(userInfos);
+
     if (form.departure === "départ") {
       setErrorMessage("merci de selectionner une ville de départ");
       setErrorForm(true);
@@ -146,22 +234,20 @@ export default function SearchTripPage(): JSX.Element {
     }
     setActiveStep(1);
 
-    setResultat(data?.getTripSearch);
+    // setResultat(data?.getTripSearchByHourRange);
   };
-  //filtre par prix
+  //filter by price
   const sortByPrice = () => {
-    
-    const sortedResultat = [...resultat]; // Créez une copie du tableau pour éviter de modifier l'original directement
-    
+    const sortedResultat = [...resultat];
     sortedResultat.sort((a, b) => {
-      if (sortOrder === 'asc') {
-        return a.price - b.price; // Tri par ordre croissant
+      if (sortOrder === "asc") {
+        return a.price - b.price;
       } else {
-        return b.price - a.price; // Tri par ordre décroissant
+        return b.price - a.price;
       }
     });
-    
-    // Mettez à jour le tableau trié
+
+    // updated array Results
     setResultat(sortedResultat);
   };
   //event to choose one trip
@@ -176,14 +262,18 @@ export default function SearchTripPage(): JSX.Element {
   };
   const joinTrip = () => {
     selectTrip({ variables: { tripId } })
-      .then((response) => {
-       
-      })
-      .catch((error) => {
-       
-      });
+      .then((response) => {})
+      .catch((error) => {});
     setActiveStep(3);
   };
+  const changeHourRange = (key: number) => {
+    console.log("KEY", key);
+    setRangeSelected((r) => (r === key ? null : key));
+  };
+
+  useEffect(() => {
+    console.log("rangeSelected", rangeSelected);
+  },[rangeSelected])
   return (
     <div className="flex flex-col items-center w-screen h-screen">
       <h1 className="mt-10 mb-8 text-whodrivesPink">JE CHERCHE UN TRAJET</h1>
@@ -207,32 +297,35 @@ export default function SearchTripPage(): JSX.Element {
       {errorForm && <p className="text-red-600">{errorMessage}</p>}
       {activeStep === 1 ? (
         <div className="flex flex-row pt-5 border-t-2 border-black step-1">
-          <FilterSearchComponent 
-          filterByPriceClick={sortByPrice}/>
+          <FilterSearchComponent
+            filterByPriceClick={sortByPrice}
+            changeHourRange={changeHourRange}
+            rangeSelected={rangeSelected}
+            hoursRange={hoursRange}
+          />
           <div className="flex flex-col pt-0 pl-5 pr-5 overflow-auto w-1/1 h-5/6">
-  {resultat && resultat.length > 0 ? (
-    resultat.map((el: ITrip, index) =>
-     
-        <SearchTripResult
-          key={index}
-          value={el.id}
-          hoverSetId={hoverSetId}
-          nameProfil={el.users[0].username}
-          date={moment(el.date_departure).format("DD/MM/YYYY")}
-          seats={el.place_available}
-          price={el.price}
-          hour={el.hour_departure.split(":00")}
-          departure={el.departure_places}
-          arrival={el.destination}
-          submitTrip={submitTrip}
-        />
-    
-    )
-  ) : (
-    <div>Aucun trajet ne correspond à votre recherche</div>
-  )}
-</div>
-
+            {resultat && resultat.length > 0 ? (
+              resultat.map((el: ITrip, index) =>
+                // el.users[0].email !== userInfos.email ? (
+                  <SearchTripResult
+                    key={index}
+                    value={el.id}
+                    hoverSetId={hoverSetId}
+                    nameProfil={el.users[0].username}
+                    date={moment(el.date_departure).format("DD/MM/YYYY")}
+                    seats={el.place_available}
+                    price={el.price}
+                    hour={el.hour_departure.split(":00")}
+                    departure={el.departure_places}
+                    arrival={el.destination}
+                    submitTrip={submitTrip}
+                  />
+                // ) : null
+              )
+            ) : (
+              <div>Aucun trajet ne correspond à votre recherche</div>
+            )}
+          </div>
         </div>
       ) : null}
       {activeStep === 2 ? (
@@ -253,8 +346,9 @@ export default function SearchTripPage(): JSX.Element {
           />
         </div>
       ) : null}
-      {activeStep === 3 ? <CongratulationsPage messageCongrats="VOUS AVEZ REJOINT LE TRAJET"/> : null}
+      {activeStep === 3 ? (
+        <CongratulationsPage messageCongrats="VOUS AVEZ REJOINT LE TRAJET" />
+      ) : null}
     </div>
   );
 }
-
