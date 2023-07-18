@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_CAR_MUTATION ,GET_CAR_MODELS} from '../../queryMutation/queryMutation';
+import { GET_CAR_MODELS } from '../../queryMutation/query';
+import { CREATE_CAR_MUTATION } from '../../queryMutation/mutations';
 
 interface Car {
   id: number;

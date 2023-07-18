@@ -1,4 +1,5 @@
-import {CREATE_ABOUT,GET_MUSIC_OPTIONS,GET_CHAT_OPTIONS } from '../../queryMutation/queryMutation';
+import {GET_MUSIC_OPTIONS,GET_CHAT_OPTIONS } from '../../queryMutation/query';
+import {CREATE_ABOUT} from '../../queryMutation/mutations';
 import React, { useState } from 'react';
 import { useMutation, useQuery, gql } from '@apollo/client';
 

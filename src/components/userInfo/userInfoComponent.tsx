@@ -1,4 +1,4 @@
-import { CREATE_USER_INFO } from '../../queryMutation/queryMutation';
+import { CREATE_USER_INFO } from '../../queryMutation/mutations';
 import React from 'react';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';

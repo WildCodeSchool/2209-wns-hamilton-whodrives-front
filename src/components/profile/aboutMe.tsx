@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
-import { GET_USER_LOGGED } from '../../queryMutation/queryMutation';
+import { GET_USER_LOGGED } from '../../queryMutation/query';
 
 
 const AboutMeComponent = () => {
