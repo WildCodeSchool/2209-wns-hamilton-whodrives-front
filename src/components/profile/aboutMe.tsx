@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
-import {GET_USER_LOGGED} from '../../queryMutation/queryMutation';
+import { GET_USER_LOGGED } from '../../queryMutation/queryMutation';
 
 
 const AboutMeComponent = () => {
@@ -12,6 +12,13 @@ const AboutMeComponent = () => {
   };
   const handleClickAbout = () => {
     navigate('/userInfo/about');
+  };
+  const handleClickCar = () => {
+    navigate('/userInfo/Car');
+  };
+  const handleClickAddPicture = (carId: string) => {
+    localStorage.setItem('selectedCarId', carId);
+    navigate('/userInfo/AddPictureCar');
   };
 
   const { loading, error, data } = useQuery(GET_USER_LOGGED);
@@ -25,7 +32,7 @@ const AboutMeComponent = () => {
   }
 
   const user = data.userLogged;
-
+  console.log('ici la voiture', user.car)
   return (
     <div className="flex border-2 border-blue-500 p-8 m-20">
       <div className="w-1/3 mr-5">
@@ -42,7 +49,7 @@ const AboutMeComponent = () => {
             </p>
             {user.userInfo.about !== null ? (
               <>
-              <h4>Description</h4>
+                <h4>Description</h4>
                 <p>{user.userInfo.about.description}</p>
                 <h4>Préférences</h4>
                 <div className="flex">
@@ -87,14 +94,20 @@ const AboutMeComponent = () => {
           </>
         )}
         <h3 className="bg-blue-700 text-white">Ma Voiture</h3>
-        {user.cars.map((car: any) => (
-          <div className="Cars flex" key={car.id}>
-            <img src="/assets/images/yellow-car.png" alt="" className="w-64" />
-            <p>
-              Ma voiture est une <span className="text-validBlue">{car.model.name}</span> qui possède <span className="text-validBlue">{car.seat}</span> places.
-            </p>
-          </div>
-        ))}
+        {user.cars.length === 0 ? (
+          <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border m-1" onClick={handleClickCar}>
+            Ajouter une voiture
+          </button>
+        ) : (
+          user.cars.map((car: any) => (
+            <div className="Cars flex" key={car.id}>
+              <img src="/assets/images/yellow-car.png" alt="" className="w-64"  onClick={() => handleClickAddPicture(car.id)} />
+              <p>
+                Ma voiture est une <span className="text-validBlue">{car.model.name}</span> qui possède <span className="text-validBlue">{car.seat}</span> places.
+              </p>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

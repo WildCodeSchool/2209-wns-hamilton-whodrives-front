@@ -20,6 +20,8 @@ import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/SearchTripPage";
 import AboutPage from "./pages/about/aboutPage";
 import UserInfo from "./pages/userInfo/userInfoPage";
+import CarAddPage from "./pages/car/CarAddPage";
+import CarPicturePage from "./pages/car/carPicturePage";
 
 function App() {
   return (
@@ -29,14 +31,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="dashboard" element={<Dashboard />} />
-        <Route
-          path="create-trip"
-          element={
-            <ProtectedArea>
-              <CreateTripPage />
-            </ProtectedArea>
-          }
-        />
+        <Route path="create-trip"element={<ProtectedArea><CreateTripPage /></ProtectedArea>}/>
         <Route path="search-trip" element={<SearchTripPage />} />
         <Route path="auth" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
@@ -46,6 +41,8 @@ function App() {
         <Route path="contact-us" element={<ContactUsPage />} />
         <Route path="userInfo" element={<ProtectedArea><UserInfo /></ProtectedArea>} />
         <Route path="userInfo/about" element={<ProtectedArea><AboutPage /></ProtectedArea>} />
+        <Route path="/userInfo/Car" element={<ProtectedArea><CarAddPage /></ProtectedArea>} />
+        <Route path="/userInfo/AddPictureCar" element={<ProtectedArea><CarPicturePage /></ProtectedArea>} />
         <Route path="*" element={<h1>404</h1>} />
         <Route path="confirm-trip" element={<ConfirmTrip />} />
       </Routes>

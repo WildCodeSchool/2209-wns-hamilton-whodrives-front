@@ -106,3 +106,38 @@ query getUserLogged {
   }
 }
 `;
+
+export const CREATE_CAR_MUTATION = gql`
+mutation CreateCar($seat: Int!, $modelId: Int!) {
+  createCar(seat: $seat, modelId: $modelId) {
+    id
+    seat
+    model {
+      id
+      name
+    }
+    carPictures {
+      id
+      path
+    }
+  }
+}
+`;
+
+export const GET_CAR_MODELS = gql`
+query Models {
+  Models {
+    id
+    name
+  }
+}
+`;
+
+export const ADD_PICTURE_MUTATION = gql`
+mutation AddPicture($carId: ID!, $file: Upload!) {
+  addPicture(carId: $carId, file: $file) {
+    id
+    path
+  }
+}
+`
