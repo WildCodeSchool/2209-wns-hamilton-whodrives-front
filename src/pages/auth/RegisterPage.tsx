@@ -155,7 +155,7 @@ const RegisterPage = () => {
   const renderStep = () => {
     if (step === 1) {
       return (
-        <div className="w-full h-[calc(100vh-10rem)] pt-6">
+        <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-6">
           <h1 className="mb-4 text-center text-layoutBlue">Inscription</h1>
           <div className="w-5/6 px-8 py-4 mx-auto my-4 border-2 border-validBlue sm:w-2/4">
             <p className="mb-4 font-bold">Étape 1: Informations personnelles</p>

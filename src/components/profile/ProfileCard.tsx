@@ -1,9 +1,8 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import { GET_USER_LOGGED } from "../../queryMutation/query";
 
-const AboutMeComponent = () => {
+const ProfileCardComponent = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -22,6 +21,8 @@ const AboutMeComponent = () => {
 
   const { loading, error, data } = useQuery(GET_USER_LOGGED);
 
+  const localhost = "http://localhost:4000/graphql";
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -33,13 +34,13 @@ const AboutMeComponent = () => {
   const user = data.userLogged;
   console.log("ici la voiture", user.car);
   return (
-    <div className="flex p-8 m-20 border-2 border-blue-500">
-      <div className="w-1/3 mr-5">
-        <img src="/assets/images/dot-megachx.jpg" alt="" className="w-64" />
-        <p>{user.username}</p>
+    <div className="flex w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue">
+      <div className="w-1/4 mr-5">
+        <img src="/assets/images/blue.png" alt="profile pic" />
+        <p className="font-bold text-center">{user.username}</p>
       </div>
-      <div className="w-2/3">
-        <h3 className="text-white bg-blue-700">A propos de moi</h3>
+      <div className="w-3/4">
+        <h3 className="px-2 py-1 text-white bg-layoutBlue">A propos de moi</h3>
         {user.userInfo !== null && (
           <>
             <p>
@@ -51,9 +52,9 @@ const AboutMeComponent = () => {
             </p>
             {user.userInfo.about !== null ? (
               <>
-                <h4>Description</h4>
+                <p className="font-bold">Description</p>
                 <p>{user.userInfo.about.description}</p>
-                <h4>Préférences</h4>
+                <p className="font-bold">Préférences</p>
                 <div className="flex">
                   <div className="flex mr-5">
                     <img src="/assets/icons/chat-black.svg" alt="" />
@@ -101,7 +102,7 @@ const AboutMeComponent = () => {
             </button>
           </>
         )}
-        <h3 className="text-white bg-blue-700">Ma Voiture</h3>
+        <h3 className="px-2 py-1 text-white bg-layoutBlue">Ma Voiture</h3>
         {user.cars.length === 0 ? (
           <button
             className="px-4 py-2 m-1 font-bold text-white bg-green-500 border hover:bg-blue-700"
@@ -113,9 +114,9 @@ const AboutMeComponent = () => {
           user.cars.map((car: any) => (
             <div className="flex Cars" key={car.id}>
               <img
-                src="/assets/images/yellow-car.png"
+                src={`${localhost}/${car.carPictures.path}`}
                 alt=""
-                className="w-64"
+                className="w-40 "
                 onClick={() => handleClickAddPicture(car.id)}
               />
               <p>
@@ -131,4 +132,4 @@ const AboutMeComponent = () => {
     </div>
   );
 };
-export default AboutMeComponent;
+export default ProfileCardComponent;

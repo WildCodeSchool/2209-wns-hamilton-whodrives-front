@@ -38,11 +38,11 @@ const LoginForm = () => {
       const { success, token, email: emailUser, username } = data.loginUser;
 
       if (success) {
-        toast.success("Vous êtes connecté !", { autoClose: 2000 });
+        toast.success("Vous êtes connecté !", { autoClose: 1000 });
         await setUserInfos({ token, username, email: emailUser });
         setTimeout(() => {
           navigate("/profile", { replace: true });
-        }, 5000);
+        }, 2000);
       } else {
         toast.error(
           "Échec de la connexion. Veuillez vérifier vos informations."
@@ -56,7 +56,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full h-[calc(100vh-10rem)] pt-6">
+    <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-6">
       <h1 className="mb-4 text-center text-layoutBlue">Connexion</h1>
       <form
         onSubmit={handleLogin}

@@ -9,8 +9,6 @@ import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import PublishTrip from "../../components/createTrip/PublishTrip";
 
-// recuperer les donner du formulaire et les envoyer a la page suivante
-
 interface TripData {
   departure: string;
   arrival: string;
@@ -29,19 +27,8 @@ function CreateTripPage(): JSX.Element {
   ];
 
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set<number>());
 
   const [trip, setTrip] = useState<TripData>({
-    departure: "",
-    arrival: "",
-    date: "",
-    time: "",
-    passengers: "",
-    price: "",
-    description: "",
-  });
-
-  const [returnTrip, setReturnTrip] = useState<TripData>({
     departure: "",
     arrival: "",
     date: "",
@@ -72,7 +59,6 @@ function CreateTripPage(): JSX.Element {
   function getStepContent(step: number) {
     switch (step) {
       case 0:
-        // recuperer les donner du formulaire et + 1 a la step quand on click sur le bouton suivant situer dans le composant LocationField
         return (
           <LocationField
             trip={trip}
@@ -80,7 +66,6 @@ function CreateTripPage(): JSX.Element {
           />
         );
       case 1:
-        // envoyer trip au composant ConfirmTrip
         return (
           <ConfirmTrip
             trip={trip}
@@ -90,48 +75,12 @@ function CreateTripPage(): JSX.Element {
         );
       case 2:
         return (
-          <PublishTrip
-            returnTrip={returnTrip}
-            trip={trip}
-            BackToPreviousStage={BackToPreviousStage}
-          />
+          <PublishTrip trip={trip} BackToPreviousStage={BackToPreviousStage} />
         );
       default:
         return "Unknown step";
     }
   }
-
-  const isStepSkipped = (step: number) => {
-    return skipped.has(step);
-  };
-
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
-    setActiveStep((prevActiveStep: number) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep: number) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    setActiveStep((prevActiveStep: number) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
 
   return (
     <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-6">

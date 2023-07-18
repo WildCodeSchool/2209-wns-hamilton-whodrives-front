@@ -50,7 +50,6 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
 
   const trips = [locationField];
 
-  const [publishTrip, setPublishTrip] = useState(false);
   const navigate = useNavigate();
   const [createTrip] = useMutation(CREATE_TRIP_MUTATION);
 

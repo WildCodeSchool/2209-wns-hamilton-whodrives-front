@@ -16,7 +16,7 @@ const disconnectedMenuItems: MenuItems[] = [
 
 const menuItems: MenuItems[] = [
   { path: "/profile", name: "Mon compte" },
-  { path: "/profile/dashboard", name: "Mon tableau de bord" },
+  { path: "/dashboard", name: "Mon tableau de bord" },
 ];
 
 const headerLinks: MenuItems[] = [
@@ -62,11 +62,16 @@ export default function HeaderProfileMenu(): JSX.Element {
           onClick={handleClick}
         >
           {Object.keys(userInfos).length > 0 ? (
-            <img
-              className="w-10"
-              src="/assets/icons/user-green.svg"
-              alt="user icon"
-            />
+            <div className="flex flex-row">
+              <p className="mr-2 font-bold text-whodrivesGreen">
+                {userInfos.username}
+              </p>
+              <img
+                className="w-10"
+                src="/assets/icons/user-green.svg"
+                alt="user icon"
+              />
+            </div>
           ) : (
             <img
               className="w-10"

@@ -15,11 +15,12 @@ import "react-toastify/dist/ReactToastify.css";
 import "../src/styles/global.css";
 import Dashboard from "./pages/dashboard/dashboard";
 import ProtectedArea from "./components/auth/ProtectedArea";
-import AboutPage from "./pages/about/aboutPage";
-import UserInfo from "./pages/userInfo/userInfoPage";
-import CarAddPage from "./pages/car/CarAddPage";
-import CarPicturePage from "./pages/car/carPicturePage";
 import SearchTripPage from "./pages/searchTrip/SearchTripPage";
+import UserInfoPage from "./pages/userInfo/userInfoPage";
+import AboutPage from "./pages/about/aboutPage";
+import AddCarPage from "./pages/car/CarAddPage";
+import AddCarPicturePage from "./pages/car/carPicturePage";
+import UserInfosPage from "./pages/about/aboutPage";
 
 function App() {
   return (
@@ -48,7 +49,7 @@ function App() {
           path="userInfo"
           element={
             <ProtectedArea>
-              <UserInfo />
+              <UserInfoPage />
             </ProtectedArea>
           }
         />
@@ -64,7 +65,7 @@ function App() {
           path="/userInfo/Car"
           element={
             <ProtectedArea>
-              <CarAddPage />
+              <AddCarPage />
             </ProtectedArea>
           }
         />
@@ -72,7 +73,7 @@ function App() {
           path="/userInfo/AddPictureCar"
           element={
             <ProtectedArea>
-              <CarPicturePage />
+              <AddCarPicturePage />
             </ProtectedArea>
           }
         />
