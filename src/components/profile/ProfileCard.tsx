@@ -1,22 +1,26 @@
+import { useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { useQuery, gql } from "@apollo/client";
+
 import { GET_USER_LOGGED } from "../../queryMutation/query";
 
 const ProfileCardComponent = () => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/userInfo");
+  const handleClickUserInfos = () => {
+    navigate("/user-infos");
   };
+
   const handleClickAbout = () => {
-    navigate("/userInfo/about");
+    navigate("/user-infos/about");
   };
+
   const handleClickCar = () => {
-    navigate("/userInfo/Car");
+    navigate("/user-infos/car");
   };
+
   const handleClickAddPicture = (carId: string) => {
     localStorage.setItem("selectedCarId", carId);
-    navigate("/userInfo/AddPictureCar");
+    navigate("/user-infos/car-picture");
   };
 
   const { loading, error, data } = useQuery(GET_USER_LOGGED);
@@ -32,6 +36,7 @@ const ProfileCardComponent = () => {
   }
 
   const user = data.userLogged;
+
   return (
     <div className="flex w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue">
       <div className="w-1/4 mr-5">
@@ -41,73 +46,96 @@ const ProfileCardComponent = () => {
       <div className="w-3/4">
         <h3 className="px-2 py-1 text-white bg-layoutBlue">A propos de moi</h3>
         {user.userInfo !== null && (
-          <>
-            <p>
-              Salut, je m’appelle
-              <span className="text-validBlue"> {user.lastname}</span>, j’ai{" "}
-              <span className="text-validBlue">{user.userInfo.age} </span> ans
-              et j’habite à{" "}
-              <span className="text-validBlue">{user.userInfo.city}</span> .
-            </p>
+          <div>
+            <div className="mb-2">
+              <p>
+                Salut, je m’appelle
+                <span className="text-validBlue"> {user.lastname}</span>, j’ai{" "}
+                <span className="text-validBlue">{user.userInfo.age} </span> ans
+                et j’habite à{" "}
+                <span className="text-validBlue">{user.userInfo.city}</span> .
+              </p>
+            </div>
             {user.userInfo.about !== null ? (
               <>
-                <p className="font-bold">Description</p>
-                <p>{user.userInfo.about.description}</p>
-                <p className="font-bold">Préférences</p>
-                <div className="flex">
-                  <div className="flex mr-5">
-                    <img src="/assets/icons/chat-black.svg" alt="" />
-                    <p>{user.userInfo.about.chatOption.content}</p>
-                  </div>
-                  <div className="flex">
-                    <img src="/assets/icons/music-black.svg" alt="" />
-                    <p>{user.userInfo.about.musicOption.content}</p>
-                  </div>
+                <div className="mb-2">
+                  <p className="font-bold">Description</p>
+                  <p>{user.userInfo.about.description}</p>
                 </div>
-                <div className="flex">
-                  <div>
-                    {user.userInfo.about.animal === true ? (
-                      <img src="/assets/icons/animal-blue.svg" alt="" />
-                    ) : (
-                      <img src="/assets/icons/animal-grey.svg" alt="" />
-                    )}
-                  </div>
-                  <div className="ml-5">
-                    {user.userInfo.about.smoke === true ? (
-                      <img src="/assets/icons/wind-blue.svg" alt="" />
-                    ) : (
-                      <img src="/assets/icons/wind-grey.svg" alt="" />
-                    )}
+                <div className="mb-2">
+                  <p className="font-bold">Préférences</p>
+                  <div className="flex gap-6">
+                    <div className="flex gap-1">
+                      <img src="/assets/icons/chat-black.svg" alt="" />
+                      <p>{user.userInfo.about.chatOption.content}</p>
+                    </div>
+                    <div className="flex gap-1">
+                      <img src="/assets/icons/music-black.svg" alt="" />
+                      <p>{user.userInfo.about.musicOption.content}</p>
+                    </div>
+                    <div>
+                      {user.userInfo.about.animal === true ? (
+                        <img
+                          src="/assets/icons/animal-blue.svg"
+                          alt=""
+                          title="J'accepte les animaux"
+                        />
+                      ) : (
+                        <img
+                          src="/assets/icons/animal-grey.svg"
+                          alt=""
+                          title="Je n'accepte pas les animaux"
+                        />
+                      )}
+                    </div>
+                    <div>
+                      {user.userInfo.about.smoke === true ? (
+                        <img
+                          src="/assets/icons/wind-blue.svg"
+                          alt=""
+                          title="Je tolère la cigarette"
+                        />
+                      ) : (
+                        <img
+                          src="/assets/icons/wind-grey.svg"
+                          alt=""
+                          title="Je ne tolère pas la cigarette"
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </>
             ) : (
-              <button
-                className="px-4 py-2 m-1 font-bold text-white bg-green-500 border hover:bg-blue-700"
-                onClick={handleClickAbout}
-              >
-                Ajouter vos préférences
+              // <button
+              //   className="px-4 py-2 m-1 font-bold text-white bg-green-500 border hover:bg-blue-700"
+              //   onClick={handleClickAbout}
+              // >
+              //   Ajouter vos préférences
+              // </button>
+              <button className="p-4" onClick={handleClickAbout}>
+                <p className="font-bold text-whodrivesGrey hover:text-validBlue">
+                  Ajoutez vos préférences
+                </p>
               </button>
             )}
-          </>
+          </div>
         )}
         {user.userInfo === null && (
           <>
-            <button
-              className="px-4 py-2 m-1 font-bold text-white bg-green-500 border hover:bg-blue-700"
-              onClick={handleClick}
-            >
-              Ajouter vos informations
+            <button className="p-4" onClick={handleClickUserInfos}>
+              <p className="font-bold text-whodrivesGrey hover:text-validBlue">
+                Ajoutez vos informations
+              </p>
             </button>
           </>
         )}
         <h3 className="px-2 py-1 text-white bg-layoutBlue">Ma Voiture</h3>
         {user.cars.length === 0 ? (
-          <button
-            className="px-4 py-2 m-1 font-bold text-white bg-green-500 border hover:bg-blue-700"
-            onClick={handleClickCar}
-          >
-            Ajouter une voiture
+          <button className="p-4" onClick={handleClickCar}>
+            <p className="font-bold text-whodrivesGrey hover:text-validBlue">
+              Ajoutez votre voiture
+            </p>
           </button>
         ) : (
           user.cars.map((car: any) => (

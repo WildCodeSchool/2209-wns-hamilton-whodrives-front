@@ -112,13 +112,10 @@ export default function HeaderProfileMenu(): JSX.Element {
                 </MenuItem>
               );
             })}
-            <MenuItem>
-              <p
-                onClick={logout}
-                className="header-profile-text hover:text-validBlue"
-              >
+            <MenuItem onClick={logout}>
+              <a href="/" className="header-profile-text hover:text-validBlue">
                 Déconnexion
-              </p>
+              </a>
             </MenuItem>
           </Menu>
         ) : (
@@ -194,13 +191,10 @@ export default function HeaderProfileMenu(): JSX.Element {
                 </MenuItem>
               );
             })}
-            <MenuItem>
-              <p
-                onClick={logout}
-                className="header-profile-text hover:text-validBlue"
-              >
+            <MenuItem onClick={logout}>
+              <a href="/" className="header-profile-text hover:text-validBlue">
                 Déconnexion
-              </p>
+              </a>
             </MenuItem>
           </Menu>
         ) : (

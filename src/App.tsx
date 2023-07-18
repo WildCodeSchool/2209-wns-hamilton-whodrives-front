@@ -1,26 +1,27 @@
+import "../src/styles/global.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+import ProtectedArea from "./components/auth/ProtectedArea";
+import ConfirmTrip from "./components/createTrip/ConfirmTrip";
 import FooterComponent from "./components/layout/footer";
 import HeaderComponent from "./components/layout/header/header";
+import AboutPage from "./pages/about/aboutPage";
 import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+import AddCarPage from "./pages/car/CarAddPage";
+import AddCarPicturePage from "./pages/car/carPicturePage";
 import CreateTripPage from "./pages/createTrip/createTripPage";
+import Dashboard from "./pages/dashboard/dashboard";
 import AboutUsPage from "./pages/footerPages/aboutUs";
 import ContactUsPage from "./pages/footerPages/contactUs";
 import FaqPage from "./pages/footerPages/faq";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
-import RegisterPage from "./pages/auth/RegisterPage";
-import ConfirmTrip from "./components/createTrip/ConfirmTrip";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "../src/styles/global.css";
-import Dashboard from "./pages/dashboard/dashboard";
-import ProtectedArea from "./components/auth/ProtectedArea";
 import SearchTripPage from "./pages/searchTrip/SearchTripPage";
 import UserInfoPage from "./pages/userInfo/userInfoPage";
-import AboutPage from "./pages/about/aboutPage";
-import AddCarPage from "./pages/car/CarAddPage";
-import AddCarPicturePage from "./pages/car/carPicturePage";
-import UserInfosPage from "./pages/about/aboutPage";
 
 function App() {
   return (
@@ -28,17 +29,30 @@ function App() {
       <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        {/* <Route
+        <Route
+          path="profile"
+          element={
+            <ProtectedArea>
+              <ProfilePage />
+            </ProtectedArea>
+          }
+        />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedArea>
+              <Dashboard />
+            </ProtectedArea>
+          }
+        />
+        <Route
           path="create-trip"
           element={
             <ProtectedArea>
               <CreateTripPage />
             </ProtectedArea>
           }
-        /> */}
-        <Route path="create-trip" element={<CreateTripPage />} />
+        />
         <Route path="search-trip" element={<SearchTripPage />} />
         <Route path="auth" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
@@ -46,7 +60,7 @@ function App() {
         <Route path="faq" element={<FaqPage />} />
         <Route path="contact-us" element={<ContactUsPage />} />
         <Route
-          path="userInfo"
+          path="user-infos"
           element={
             <ProtectedArea>
               <UserInfoPage />
@@ -54,7 +68,7 @@ function App() {
           }
         />
         <Route
-          path="userInfo/about"
+          path="user-infos/about"
           element={
             <ProtectedArea>
               <AboutPage />
@@ -62,7 +76,7 @@ function App() {
           }
         />
         <Route
-          path="/userInfo/Car"
+          path="user-infos/car"
           element={
             <ProtectedArea>
               <AddCarPage />
@@ -70,7 +84,7 @@ function App() {
           }
         />
         <Route
-          path="/userInfo/AddPictureCar"
+          path="user-infos/car-picture"
           element={
             <ProtectedArea>
               <AddCarPicturePage />

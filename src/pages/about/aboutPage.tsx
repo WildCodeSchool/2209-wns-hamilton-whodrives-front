@@ -63,12 +63,13 @@ export default function AboutPage(): JSX.Element {
 
   return (
     <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-6">
+      <h2 className="mb-4 text-center text-layoutBlue">Mes préférences</h2>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue"
+        className="grid w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue"
       >
         <div className="flex flex-col items-center justify-center">
-          <div className="flex flex-col w-1/2 mb-4">
+          {/* <div className="flex flex-col w-1/2 mb-4">
             <label className="mb-2 font-bold">
               Acceptez-vous les animaux ?
             </label>
@@ -77,8 +78,25 @@ export default function AboutPage(): JSX.Element {
               checked={animal}
               onChange={(e) => setAnimal(e.target.checked)}
             />
+          </div> */}
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+            <label className="mb-2 font-bold">
+              Acceptez-vous les animaux ?
+            </label>
+            <div className="flex gap-4">
+              <img
+                src={
+                  animal
+                    ? "/assets/icons/animal-blue.svg"
+                    : "/assets/icons/animal-grey.svg"
+                }
+                alt=""
+                onClick={() => setAnimal(!animal)}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
           </div>
-          <div className="flex flex-col w-1/2 mb-4">
+          {/* <div className="flex flex-col w-1/2 mb-4">
             <label className="mb-2 font-bold">
               Acceptez-vous les fumeurs ?
             </label>
@@ -87,8 +105,25 @@ export default function AboutPage(): JSX.Element {
               checked={smoke}
               onChange={(e) => setSmoke(e.target.checked)}
             />
+          </div> */}
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+            <label className="mb-2 font-bold">
+              Acceptez-vous les fumeurs ?
+            </label>
+            <div className="flex gap-4">
+              <img
+                src={
+                  smoke
+                    ? "/assets/icons/wind-blue.svg"
+                    : "/assets/icons/wind-grey.svg"
+                }
+                alt=""
+                onClick={() => setSmoke(!smoke)}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
           </div>
-          <div className="flex flex-col w-1/2 mb-4">
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
             <label className="mb-2 font-bold">
               Etes-vous bavard en voiture ?
             </label>
@@ -105,7 +140,7 @@ export default function AboutPage(): JSX.Element {
               ))}
             </select>
           </div>
-          <div className="flex flex-col w-1/2 mb-4">
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
             <label className="mb-2 font-bold">
               Quel genre de musique écoutez-vous ?
             </label>
@@ -122,12 +157,14 @@ export default function AboutPage(): JSX.Element {
               ))}
             </select>
           </div>
-          <div className="flex flex-col w-1/2 mb-4">
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
             <label className="mb-2 font-bold">Description</label>
             <textarea
               value={description}
+              placeholder="200 caractères maximum"
               onChange={(e) => setDescription(e.target.value)}
               className="px-2 py-1 border"
+              maxLength={200}
             />
           </div>
         </div>

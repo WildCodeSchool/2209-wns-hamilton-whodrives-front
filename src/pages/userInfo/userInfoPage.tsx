@@ -1,9 +1,11 @@
-import { CREATE_USER_INFO } from "../../queryMutation/mutations";
-import React from "react";
-import { useMutation } from "@apollo/client";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { useMutation } from "@apollo/client";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { CREATE_USER_INFO } from "../../queryMutation/mutations";
 
 export default function UserInfoPage(): JSX.Element {
   const [city, setCity] = React.useState("");
@@ -44,7 +46,7 @@ export default function UserInfoPage(): JSX.Element {
         className="flex flex-col w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue"
       >
         <div className="flex flex-col items-center justify-center">
-          <div className="flex flex-col w-1/2 mb-4">
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
             <label className="mb-2 font-bold" htmlFor="city">
               Ville
             </label>
@@ -57,7 +59,7 @@ export default function UserInfoPage(): JSX.Element {
               className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
             />
           </div>
-          <div className="flex flex-col w-1/2 mb-4">
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
             <label className="mb-2 font-bold" htmlFor="country">
               Pays
             </label>
@@ -70,7 +72,7 @@ export default function UserInfoPage(): JSX.Element {
               className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
             />
           </div>
-          <div className="flex flex-col w-1/2 mb-4">
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
             <label className="mb-2 font-bold" htmlFor="age">
               Age
             </label>
@@ -83,7 +85,7 @@ export default function UserInfoPage(): JSX.Element {
               className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
             />
           </div>
-          <div className="flex flex-col w-1/2 mb-4">
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
             <label className="mb-2 font-bold" htmlFor="address">
               Adresse
             </label>

@@ -100,7 +100,7 @@ export default function AddCarPage() {
           className="grid w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue"
         >
           <div className="flex flex-col items-center justify-center">
-            <div className="flex flex-col w-1/2 mb-4">
+            <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
               <label className="mb-2 font-bold">
                 Quelle est la marque de votre voiture ?
               </label>
@@ -117,7 +117,7 @@ export default function AddCarPage() {
                 ))}
               </select>
             </div>
-            <div className="flex flex-col w-1/2 mb-4">
+            <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
               <label className="mb-2 font-bold">Nombre de places</label>
               <input
                 type="number"

@@ -18,13 +18,13 @@ export default function HomeBudgetFormComponent(): JSX.Element {
       <img
         src="/assets/images/brown-car.png"
         alt="background"
-        className="w-1/4"
+        className="w-1/2 md:w-1-4"
       />
       <p className="text-center text-white pressStart2p-text">
         Envie de partir sur un coup de tête ?
       </p>
       <div className="flex flex-col md:bg-white md:flex-row">
-        <div className="flex flex-row px-2 mb-4 bg-white border-r-2 md:bg-transparent">
+        <div className="flex flex-row px-2 mb-4 bg-white border-r-2 md:bg-transparent md:mb-0">
           <img src="/assets/icons/euro-grey.svg" alt="arrow" className="w-5" />
           <input
             className="w-20"
@@ -33,7 +33,7 @@ export default function HomeBudgetFormComponent(): JSX.Element {
             value={form.budget}
           />
         </div>
-        <div className="flex flex-row px-2 mb-4 bg-white border-r-2 md:bg-transparent">
+        <div className="flex flex-row px-2 mb-4 bg-white border-r-2 md:mb-0 md:bg-transparent">
           <input
             type="date"
             placeholder="Date"
