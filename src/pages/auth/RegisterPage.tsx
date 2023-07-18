@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import gql from "graphql-tag";
 import { useNavigate } from "react-router-dom";
+import RegisterUser from "../../components/auth/RegisterUser";
+import RegisterProfilePic from "../../components/auth/RegisterProfilePic";
 
 const REGISTER = gql`
   mutation CreateUser(
@@ -33,6 +35,20 @@ const REGISTER = gql`
     }
   }
 `;
+
+interface IUser {
+  username: string;
+  firstname: string;
+  lastname: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+  email: string;
+  dateOfBirth: string;
+  city: string;
+  file: File | null;
+}
+
 const RegisterPage = () => {
   const [step, setStep] = useState(1);
   const [username, setUsername] = useState("");
@@ -48,6 +64,74 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const [createUser, { loading, error }] = useMutation(REGISTER);
+
+  const steps = [
+    "Informations personnelles",
+    "Photo de profil",
+    "Mot de passe",
+  ];
+
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const [user, setUser] = useState<IUser>({
+    username: "",
+    firstname: "",
+    lastname: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    email: "",
+    dateOfBirth: "",
+    city: "",
+    file: null,
+  });
+
+  const handleRegisterUserDate = (data: IUser) => {
+    setUser({ ...user, ...data });
+    handleNextStep();
+  };
+
+  const handleRegisterProfilePicData = (data: IUser) => {
+    setUser((user) => ({ ...user, ...data }));
+    handleNextStep();
+  };
+
+  const handleNextStep = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const backToPreviousStage = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  function getStepContent(step: number) {
+    switch (step) {
+      case 0:
+        return (
+          <RegisterUser
+            user={user}
+            handleRegisterUserDate={handleRegisterUserDate}
+          />
+        );
+      case 1:
+        return (
+          <RegisterProfilePic
+            user={user}
+            handleRegisterProfilePicData={handleRegisterProfilePicData}
+            backToPreviousStage={backToPreviousStage}
+          />
+        );
+      // case 2:
+      //   return (
+      //     <RegisterPassword
+      //       user={user}
+      //       backToPreviousStage={backToPreviousStage}
+      //     />
+      //   );
+      default:
+        return "Unknown step";
+    }
+  }
 
   const handleNext = (e: any) => {
     e.preventDefault();
@@ -93,6 +177,20 @@ const RegisterPage = () => {
       }
     }
   };
+
+  const firstStepIsDisabled =
+    !username ||
+    !firstname ||
+    !phone ||
+    !lastname ||
+    !email ||
+    !dateOfBirth ||
+    !city;
+
+  const secondStepIsDisabled = !file || file.size === 0;
+
+  const thirdStepIsDisabled =
+    password === "" || confirmPassword === "" || password !== confirmPassword;
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -215,13 +313,29 @@ const RegisterPage = () => {
               className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
             />
           </div>
-          <button
-            type="button"
-            onClick={handleNext}
-            className="py-2 m-5 mt-4 text-white bg-blue-500 btnRegister"
-          >
-            Suivant
-          </button>
+          <div className="flex justify-center">
+            <button className="p-4" onClick={() => backToPreviousStage()}>
+              <p className="font-bold text-whodrivesGrey hover:text-validBlue">
+                Retour
+              </p>
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              disabled={secondStepIsDisabled}
+              className="p-4"
+            >
+              <p
+                className={
+                  secondStepIsDisabled
+                    ? "grey-button p-2 text-xs"
+                    : "green-button p-2 text-xs"
+                }
+              >
+                Suivant
+              </p>
+            </button>
+          </div>
         </div>
       );
     } else if (step === 3) {
@@ -244,13 +358,29 @@ const RegisterPage = () => {
               className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
             />
           </div>
-          <button
-            type="submit"
-            onClick={handleRegister}
-            className="py-2 m-5 mt-4 text-white bg-blue-500 btnRegister"
-          >
-            S'inscrire
-          </button>
+          <div className="flex justify-center">
+            <button className="p-4" onClick={() => backToPreviousStage()}>
+              <p className="font-bold text-whodrivesGrey hover:text-validBlue">
+                Retour
+              </p>
+            </button>
+            <button
+              type="submit"
+              onClick={handleRegister}
+              disabled={thirdStepIsDisabled}
+              className="p-4"
+            >
+              <p
+                className={
+                  thirdStepIsDisabled
+                    ? "grey-button p-2 text-xs"
+                    : "green-button p-2 text-xs"
+                }
+              >
+                S'inscrire
+              </p>
+            </button>
+          </div>
         </div>
       );
     }
