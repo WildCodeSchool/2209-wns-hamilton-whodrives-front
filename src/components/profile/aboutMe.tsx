@@ -1,28 +1,23 @@
-<<<<<<< HEAD
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
-=======
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
-import { GET_USER_LOGGED } from '../../queryMutation/query';
->>>>>>> 3dacf5c7ab76f71ae9636d4628eac6eaab61c3ed
-
+import { GET_USER_LOGGED } from "../../queryMutation/query";
 
 const AboutMeComponent = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/userInfo');
+    navigate("/userInfo");
   };
   const handleClickAbout = () => {
-    navigate('/userInfo/about');
+    navigate("/userInfo/about");
   };
   const handleClickCar = () => {
-    navigate('/userInfo/Car');
+    navigate("/userInfo/Car");
   };
   const handleClickAddPicture = (carId: string) => {
-    localStorage.setItem('selectedCarId', carId);
-    navigate('/userInfo/AddPictureCar');
+    localStorage.setItem("selectedCarId", carId);
+    navigate("/userInfo/AddPictureCar");
   };
 
   const { loading, error, data } = useQuery(GET_USER_LOGGED);
@@ -36,77 +31,24 @@ const AboutMeComponent = () => {
   }
 
   const user = data.userLogged;
-  console.log('ici la voiture', user.car)
+  console.log("ici la voiture", user.car);
   return (
-<<<<<<< HEAD
-    <div className="flex p-8 m-20 border-2 border-blue-500 ">
-=======
-    <div className="flex border-2 border-blue-500 p-8 m-20">
->>>>>>> 3dacf5c7ab76f71ae9636d4628eac6eaab61c3ed
+    <div className="flex p-8 m-20 border-2 border-blue-500">
       <div className="w-1/3 mr-5">
         <img src="/assets/images/dot-megachx.jpg" alt="" className="w-64" />
         <p>{user.username}</p>
       </div>
       <div className="w-2/3">
-<<<<<<< HEAD
         <h3 className="text-white bg-blue-700">A propos de moi</h3>
-        {user.userInfo && (
-=======
-        <h3 className="bg-blue-700 text-white">A propos de moi</h3>
         {user.userInfo !== null && (
->>>>>>> 3dacf5c7ab76f71ae9636d4628eac6eaab61c3ed
           <>
             <p>
               Salut, je m’appelle
-              <span className="text-validBlue"> {user.lastname}</span>, j’ai <span className="text-validBlue">{user.userInfo.age} </span> ans et j’habite à <span className="text-validBlue">{user.userInfo.city}</span> .
+              <span className="text-validBlue"> {user.lastname}</span>, j’ai{" "}
+              <span className="text-validBlue">{user.userInfo.age} </span> ans
+              et j’habite à{" "}
+              <span className="text-validBlue">{user.userInfo.city}</span> .
             </p>
-<<<<<<< HEAD
-            <div className="mt-2 Description">
-              <h4>Description</h4>
-              <p className="ml-3">{user.userInfo.about.description}</p>
-            </div>
-            <h4>Préférences</h4>
-            <div className="flex">
-              <div className="flex mr-5">
-                <img src="/assets/icons/chat-black.svg" alt="" />
-                <p>{user.userInfo.about.chatOption.content}</p>
-              </div>
-              <div className="flex">
-                <img src="/assets/icons/music-black.svg" alt="" />
-                <p>{user.userInfo.about.musicOption.content}</p>
-              </div>
-            </div>
-            <div className="flex">
-              <div>
-                {user.userInfo.about.animal === true ? (
-                  <img src="/assets/icons/animal-blue.svg" alt="" />
-                ) : (
-                  <img src="/assets/icons/animal-grey.svg" alt="" />
-                )}
-              </div>
-              <div className="ml-5">
-                {user.userInfo.about.smoke === true ? (
-                  <img src="/assets/icons/wind-blue.svg" alt="" />
-                ) : (
-                  <img src="/assets/icons/wind-grey.svg" alt="" />
-                )}
-              </div>
-            </div>
-          </>
-        )}
-
-        <h3 className="text-white bg-blue-700">Ma Voiture</h3>
-        {user.cars.map((car: any) => (
-          <div className="flex Cars" key={car.id}>
-            <img src="/assets/images/yellow-car.png" alt="" className="w-64" />
-            <p>
-              Ma voiture est une{" "}
-              <span className="text-validBlue">{car.model.name}</span> qui
-              possède <span className="text-validBlue">{car.seat}</span> places.
-            </p>
-          </div>
-        ))}
-=======
             {user.userInfo.about !== null ? (
               <>
                 <h4>Description</h4>
@@ -140,7 +82,10 @@ const AboutMeComponent = () => {
                 </div>
               </>
             ) : (
-              <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border m-1" onClick={handleClickAbout}>
+              <button
+                className="px-4 py-2 m-1 font-bold text-white bg-green-500 border hover:bg-blue-700"
+                onClick={handleClickAbout}
+              >
                 Ajouter vos préférences
               </button>
             )}
@@ -148,30 +93,42 @@ const AboutMeComponent = () => {
         )}
         {user.userInfo === null && (
           <>
-            <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border m-1" onClick={handleClick}>
+            <button
+              className="px-4 py-2 m-1 font-bold text-white bg-green-500 border hover:bg-blue-700"
+              onClick={handleClick}
+            >
               Ajouter vos informations
             </button>
           </>
         )}
-        <h3 className="bg-blue-700 text-white">Ma Voiture</h3>
+        <h3 className="text-white bg-blue-700">Ma Voiture</h3>
         {user.cars.length === 0 ? (
-          <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border m-1" onClick={handleClickCar}>
+          <button
+            className="px-4 py-2 m-1 font-bold text-white bg-green-500 border hover:bg-blue-700"
+            onClick={handleClickCar}
+          >
             Ajouter une voiture
           </button>
         ) : (
           user.cars.map((car: any) => (
-            <div className="Cars flex" key={car.id}>
-              <img src="/assets/images/yellow-car.png" alt="" className="w-64"  onClick={() => handleClickAddPicture(car.id)} />
+            <div className="flex Cars" key={car.id}>
+              <img
+                src="/assets/images/yellow-car.png"
+                alt=""
+                className="w-64"
+                onClick={() => handleClickAddPicture(car.id)}
+              />
               <p>
-                Ma voiture est une <span className="text-validBlue">{car.model.name}</span> qui possède <span className="text-validBlue">{car.seat}</span> places.
+                Ma voiture est une{" "}
+                <span className="text-validBlue">{car.model.name}</span> qui
+                possède <span className="text-validBlue">{car.seat}</span>{" "}
+                places.
               </p>
             </div>
           ))
         )}
->>>>>>> 3dacf5c7ab76f71ae9636d4628eac6eaab61c3ed
       </div>
     </div>
   );
 };
-
 export default AboutMeComponent;
