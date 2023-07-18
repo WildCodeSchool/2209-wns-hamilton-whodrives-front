@@ -1,19 +1,21 @@
+import "../../styles/global.css";
+
 import React from "react";
 import { useEffect, useState } from "react";
-import "../../styles/global.css";
 
 interface ISearchTrip {
   onclick: React.MouseEventHandler<HTMLButtonElement> | undefined;
   form: any | undefined;
-  setForm:  any| undefined;
+  setForm: any | undefined;
   today: string;
 }
-interface FormState {
-    departure: string ;
-    arrival: string;
-    date: string;
-    passenger: string;
-  }
+
+interface IFormState {
+  departure: string;
+  arrival: string;
+  date: string;
+  passenger: string;
+}
 
 export default function SearchTripComponent({
   onclick,
@@ -21,8 +23,6 @@ export default function SearchTripComponent({
   setForm,
   today,
 }: ISearchTrip) {
-
-
   interface DataState {
     nom: string;
     code: string;
@@ -71,7 +71,6 @@ export default function SearchTripComponent({
   };
 
   //submit form trip
-
   return (
     <div className="flex flex-row items-center justify-center mt-5 mb-12 align-middle bg-white border border-black ">
       <div className="flex flex-col border-r-4 border-whodrivesGrey">
@@ -156,7 +155,7 @@ export default function SearchTripComponent({
           name="passenger"
           placeholder="personne"
           style={{ height: "100%" }}
-          className="w-10 ml-5  "
+          className="w-10 ml-5 "
           onChange={(e) => setForm({ ...form, passenger: e.target.value })}
         >
           <option value="0"></option>
@@ -169,9 +168,9 @@ export default function SearchTripComponent({
 
       <button
         onClick={onclick}
-        className=" bg-whodrivesGreen min-h-full p-2 pl-4 pr-4 text-white border-l-2 border-black searchTripButton sm:w-1/1 "
+        className="min-h-full p-2 pl-4 pr-4 text-white border-l-2 border-black bg-whodrivesGreen searchTripButton sm:w-1/1"
       >
-        rechercher
+        Rechercher
       </button>
     </div>
   );

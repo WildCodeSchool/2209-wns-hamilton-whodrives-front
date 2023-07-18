@@ -1,7 +1,7 @@
 import ProfileSearchComponent from "../shared/ProfileSearchComponent";
 import CardSearchTripResult from "./CardSearchTripResult";
 
-interface PropsResult {
+interface IPropsResult {
   date: string;
   departure: string;
   arrival: string;
@@ -10,11 +10,11 @@ interface PropsResult {
   nameProfil: string;
   value: number;
   hoverSetId: any;
-  hour:any;
+  hour: any;
   submitTrip: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function SearchTripResult({
+export default function SearchTripResult({
   date,
   departure,
   arrival,
@@ -25,7 +25,7 @@ function SearchTripResult({
   hoverSetId,
   hour,
   submitTrip,
-}: PropsResult) {
+}: IPropsResult): JSX.Element {
   return (
     <div className="flex flex-row justify-between p-5 mb-10 border w-1/1 hover:border-validBlue">
       <ProfileSearchComponent nameProfil={nameProfil} />
@@ -43,5 +43,3 @@ function SearchTripResult({
     </div>
   );
 }
-
-export default SearchTripResult;

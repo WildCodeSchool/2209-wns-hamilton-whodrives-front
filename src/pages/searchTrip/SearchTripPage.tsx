@@ -1,23 +1,26 @@
-import { useState } from "react";
-import SearchTrip from "../../components/shared/SearchTrip";
 import "../../styles/searchTrip.css";
-import SearchTripResult from "../../components/searchTrip/SearchTripResult";
-import { Step, StepLabel, Stepper } from "@mui/material";
-import FilterSearchComponent from "../../components/searchTrip/FilterSearchComponent";
-import SelectedTrip from "../../components/searchTrip/SelectedTrip";
-import { useQuery, gql, useMutation } from "@apollo/client";
-import moment from "moment";
-import CongratulationPage from "../../components/shared/CongratulationPage";
 
-interface FormState {
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { Step, StepLabel, Stepper } from "@mui/material";
+import moment from "moment";
+import { useState } from "react";
+
+import FilterSearchComponent from "../../components/searchTrip/FilterSearchComponent";
+import SearchTripResult from "../../components/searchTrip/SearchTripResult";
+import SelectedTrip from "../../components/searchTrip/SelectedTrip";
+import CongratulationsPage from "../../components/shared/CongratulationsPage";
+import SearchTrip from "../../components/shared/SearchTrip";
+
+interface IFormState {
   departure: string;
   arrival: string;
   date: string;
   passenger: number;
 }
-interface Trip {
+
+interface ITrip {
   id: number;
-  users: User[];
+  users: IUser[];
   place_available: number;
   price: number;
   date_departure: string;
@@ -26,12 +29,14 @@ interface Trip {
   destination: string;
 }
 
-interface User {
+interface IUser {
   username: string;
 }
-function SearchingTripPage() {
+
+export default function SearchTripPage(): JSX.Element {
   const [resultat, setResultat] = useState([]);
   const [tripId, setTripId] = useState("");
+
   //Query gql
   const GET_TRIP_SEARCH = gql`
     query GetTripSearch(
@@ -57,6 +62,7 @@ function SearchingTripPage() {
       }
     }
   `;
+
   const GET_TRIP = gql`
     query GetTrip($getTripId: ID!) {
       getTrip(id: $getTripId) {
@@ -75,6 +81,7 @@ function SearchingTripPage() {
       }
     }
   `;
+
   const SELECT_TRIP = gql`
     mutation SelectTrip($tripId: ID!) {
       selectTrip(tripId: $tripId) {
@@ -97,7 +104,7 @@ function SearchingTripPage() {
 
   // form search trip
   const today = new Date().toLocaleDateString("en-us");
-  const [form, setForm] = useState<FormState>({
+  const [form, setForm] = useState<IFormState>({
     departure: "départ",
     arrival: "destination",
     date: today,
@@ -124,7 +131,6 @@ function SearchingTripPage() {
   const [activeStep, setActiveStep] = useState(0);
 
   //event to retrieve trips
-
   const handleclick = () => {
     if (form.departure === "départ") {
       setErrorMessage("merci de selectionner une ville de départ");
@@ -156,12 +162,8 @@ function SearchingTripPage() {
   };
   const joinTrip = () => {
     selectTrip({ variables: { tripId } })
-      .then((response) => {
-       
-      })
-      .catch((error) => {
-       
-      });
+      .then((response) => {})
+      .catch((error) => {});
     setActiveStep(3);
   };
   return (
@@ -190,7 +192,7 @@ function SearchingTripPage() {
           <FilterSearchComponent />
           <div className="flex flex-col pt-0 pl-5 pr-5 overflow-auto w-1/1 h-5/6">
   {resultat && resultat.length > 0 ? (
-    resultat.map((el: Trip, index) =>
+    resultat.map((el: ITrip, index) =>
       el.place_available >= form.passenger ? (
         <SearchTripResult
           key={index}
@@ -232,9 +234,9 @@ function SearchingTripPage() {
           />
         </div>
       ) : null}
-      {activeStep === 3 ? <CongratulationPage  messageCongrats="VOUS AVEZ REJOINT LE TRAJET"/> : null}
+      {activeStep === 3 ? (
+        <CongratulationsPage messageCongrats="VOUS AVEZ REJOINT LE TRAJET" />
+      ) : null}
     </div>
   );
 }
-
-export default SearchingTripPage;
