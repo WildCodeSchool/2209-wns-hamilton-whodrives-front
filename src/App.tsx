@@ -15,7 +15,11 @@ import "react-toastify/dist/ReactToastify.css";
 import "../src/styles/global.css";
 import Dashboard from "./pages/dashboard/dashboard";
 import ProtectedArea from "./components/auth/ProtectedArea";
-import SearchTripPage from "./pages/searchTrip/searchTripPage";
+import AboutPage from "./pages/about/aboutPage";
+import UserInfo from "./pages/userInfo/userInfoPage";
+import CarAddPage from "./pages/car/CarAddPage";
+import CarPicturePage from "./pages/car/carPicturePage";
+import SearchTripPage from "./pages/searchTrip/SearchTripPage";
 
 function App() {
   return (
@@ -40,6 +44,39 @@ function App() {
         <Route path="about-us" element={<AboutUsPage />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="contact-us" element={<ContactUsPage />} />
+        <Route
+          path="userInfo"
+          element={
+            <ProtectedArea>
+              <UserInfo />
+            </ProtectedArea>
+          }
+        />
+        <Route
+          path="userInfo/about"
+          element={
+            <ProtectedArea>
+              <AboutPage />
+            </ProtectedArea>
+          }
+        />
+        <Route
+          path="/userInfo/Car"
+          element={
+            <ProtectedArea>
+              <CarAddPage />
+            </ProtectedArea>
+          }
+        />
+        <Route
+          path="/userInfo/AddPictureCar"
+          element={
+            <ProtectedArea>
+              <CarPicturePage />
+            </ProtectedArea>
+          }
+        />
+        <Route path="*" element={<h1>404</h1>} />
         <Route path="confirm-trip" element={<ConfirmTrip />} />
       </Routes>
       <ToastContainer />
