@@ -70,6 +70,10 @@ export default function AddCarPage() {
     }
   };
 
+  const BackToProfile = () => {
+    window.history.back();
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const fileList = Array.from(event.target.files);
@@ -78,53 +82,66 @@ export default function AddCarPage() {
   };
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="w-full max-w-md px-4 py-8 bg-white rounded-lg shadow-md">
-        <h2 className="mb-4 text-2xl font-bold">Ajouter une voiture</h2>
-        {loading && <p>Loading models...</p>}
-        {error && (
-          <p className="text-red-500">Error loading models: {error.message}</p>
-        )}
-        {mutationLoading && <p>Creating car...</p>}
-        {mutationError && (
-          <p className="text-red-500">
-            Error creating car: {mutationError.message}
-          </p>
-        )}
-        {data && (
-          <form onSubmit={handleSubmit}>
-            <label className="block mb-4">
-              <span className="text-gray-700">Seat:</span>
-              <input
-                type="number"
-                className="block w-full mt-1 form-input"
-                value={seat}
-                onChange={(e) => setSeat(parseInt(e.target.value))}
-              />
-            </label>
-            <label className="block mb-4">
-              <span className="text-gray-700">Model:</span>
+    <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-6">
+      <h1 className="mb-4 text-center text-layoutBlue">Ma voiture</h1>
+      {loading && <p>Loading models...</p>}
+      {error && (
+        <p className="text-red-500">Error loading models: {error.message}</p>
+      )}
+      {mutationLoading && <p>Creating car...</p>}
+      {mutationError && (
+        <p className="text-red-500">
+          Error creating car: {mutationError.message}
+        </p>
+      )}
+      {data && (
+        <form
+          onSubmit={handleSubmit}
+          className="grid w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue"
+        >
+          <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col w-1/2 mb-4">
+              <label className="mb-2 font-bold">
+                Quelle est la marque de votre voiture ?
+              </label>
               <select
-                className="block w-full mt-1 form-select"
+                className="px-4 py-2 border"
                 value={modelId}
                 onChange={(e) => setModelId(parseInt(e.target.value))}
               >
-                <option value={0}>Select a model</option>
+                <option value={0}></option>
                 {data.Models.map((model) => (
                   <option key={model.id} value={model.id}>
                     {model.name}
                   </option>
                 ))}
               </select>
-            </label>
-            <button
-              type="submit"
-              className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-            >
-              Créer la voiture
-            </button>
-          </form>
-        )}
+            </div>
+            <div className="flex flex-col w-1/2 mb-4">
+              <label className="mb-2 font-bold">Nombre de places</label>
+              <input
+                type="number"
+                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                value={seat}
+                onChange={(e) => setSeat(parseInt(e.target.value))}
+              />
+            </div>
+          </div>
+        </form>
+      )}
+      <div className="flex justify-center">
+        <button
+          type="button"
+          className="mb-2 font-bold"
+          onClick={() => BackToProfile()}
+        >
+          <p className="font-bold text-whodrivesGrey hover:text-validBlue">
+            Retour
+          </p>
+        </button>
+        <button type="submit" className="p-4">
+          <p className="p-2 text-xs green-button">Valider</p>
+        </button>
       </div>
     </div>
   );

@@ -67,59 +67,69 @@ export default function AboutPage(): JSX.Element {
         onSubmit={handleSubmit}
         className="flex flex-col items-center w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue"
       >
-        <div className="flex flex-col mb-4">
-          <label className="mb-4">Acceptez-vous les animaux ?</label>
-          <input
-            type="checkbox"
-            checked={animal}
-            onChange={(e) => setAnimal(e.target.checked)}
-          />
-        </div>
-        <div className="flex flex-col mb-4">
-          <label className="mb-4">Acceptez-vous les fumeurs ?</label>
-          <input
-            type="checkbox"
-            checked={smoke}
-            onChange={(e) => setSmoke(e.target.checked)}
-          />
-        </div>
-        <div className="flex flex-col mb-4">
-          <label className="mb-4">Etes-vous bavard en voiture ?</label>
-          <select
-            value={chatOptionId}
-            onChange={(e) => setChatOptionId(e.target.value)}
-            className="px-2 py-1 border"
-          >
-            <option value=""></option>
-            {chatOptions.map((option: { id: string; content: string }) => (
-              <option key={option.id} value={option.id}>
-                {option.content}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex flex-col mb-4">
-          <label className="mb-4">Quel genre de musique écoutez-vous ?</label>
-          <select
-            value={musicOptionId}
-            onChange={(e) => setMusicOptionId(e.target.value)}
-            className="px-2 py-1 border"
-          >
-            <option value=""></option>
-            {musicOptions.map((option: { id: string; content: string }) => (
-              <option key={option.id} value={option.id}>
-                {option.content}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex flex-col mb-4">
-          <label className="mb-4">Description</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="px-2 py-1 border"
-          />
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col w-1/2 mb-4">
+            <label className="mb-2 font-bold">
+              Acceptez-vous les animaux ?
+            </label>
+            <input
+              type="checkbox"
+              checked={animal}
+              onChange={(e) => setAnimal(e.target.checked)}
+            />
+          </div>
+          <div className="flex flex-col w-1/2 mb-4">
+            <label className="mb-2 font-bold">
+              Acceptez-vous les fumeurs ?
+            </label>
+            <input
+              type="checkbox"
+              checked={smoke}
+              onChange={(e) => setSmoke(e.target.checked)}
+            />
+          </div>
+          <div className="flex flex-col w-1/2 mb-4">
+            <label className="mb-2 font-bold">
+              Etes-vous bavard en voiture ?
+            </label>
+            <select
+              value={chatOptionId}
+              onChange={(e) => setChatOptionId(e.target.value)}
+              className="px-2 py-1 border"
+            >
+              <option value=""></option>
+              {chatOptions.map((option: { id: string; content: string }) => (
+                <option key={option.id} value={option.id}>
+                  {option.content}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-col w-1/2 mb-4">
+            <label className="mb-2 font-bold">
+              Quel genre de musique écoutez-vous ?
+            </label>
+            <select
+              value={musicOptionId}
+              onChange={(e) => setMusicOptionId(e.target.value)}
+              className="px-2 py-1 border"
+            >
+              <option value=""></option>
+              {musicOptions.map((option: { id: string; content: string }) => (
+                <option key={option.id} value={option.id}>
+                  {option.content}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-col w-1/2 mb-4">
+            <label className="mb-2 font-bold">Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="px-2 py-1 border"
+            />
+          </div>
         </div>
       </form>
       <div className="flex justify-center">

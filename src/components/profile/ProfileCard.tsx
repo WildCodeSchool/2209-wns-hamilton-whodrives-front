@@ -32,7 +32,6 @@ const ProfileCardComponent = () => {
   }
 
   const user = data.userLogged;
-  console.log("ici la voiture", user.car);
   return (
     <div className="flex w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue">
       <div className="w-1/4 mr-5">
