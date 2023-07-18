@@ -8,7 +8,6 @@ import ContactUsPage from "./pages/footerPages/contactUs";
 import FaqPage from "./pages/footerPages/faq";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
-import SearchTripPage from "./pages/searchTrip/SearchTripPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import ConfirmTrip from "./components/createTrip/ConfirmTrip";
 import { ToastContainer } from "react-toastify";
@@ -16,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../src/styles/global.css";
 import Dashboard from "./pages/dashboard/dashboard";
 import ProtectedArea from "./components/auth/ProtectedArea";
+import SearchTripPage from "./pages/searchTrip/searchTripPage";
 
 function App() {
   return (
