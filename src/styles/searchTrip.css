@@ -1,0 +1,44 @@
+@font-face {
+    font-family: "pressStart2p";
+    src: url('../../public/assets/fonts/PressStart2P.ttf');
+}
+
+.search-background{
+    background-image: url(../../public/whodrives.gif);
+    background-repeat: no-repeat;
+     background-size: cover;
+       width: 100vw;
+       height:100vh;
+       z-index: -1;
+       position: absolute;
+    }
+    
+    option:hover{
+        background-color: aqua;
+        cursor: pointer;
+    }
+    option{
+        background-color: white;
+    }
+    input:focus {
+        outline:none;
+    }
+    h1{
+        font-size: 2rem;
+        font-family:"pressStart2p" ;
+    }
+
+    .selectedTripButton{
+        font-family:"pressStart2p" ;
+    }
+    .searchTripButton{
+        font-family:"pressStart2p" ;
+    }
+    .congrats-title{
+        font-family:"pressStart2p" ;
+        font-size: 1.3rem;
+    }
+    h4{
+        font-family:"pressStart2p" ;
+        font-size: 1.3rem;
+    }
