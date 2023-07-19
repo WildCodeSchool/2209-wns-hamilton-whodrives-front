@@ -1,12 +1,11 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_USER_INFO = gql`
-  mutation CreateUserInfo($city: String, $country: String, $age: Int, $address: String) {
-    createUserInfo(city: $city, country: $country, age: $age, address: $address) {
+  mutation CreateUserInfo($city: String, $country: String,  $address: String) {
+    createUserInfo(city: $city, country: $country, address: $address) {
       id
       city
       country
-      age
       address
     }
   }
@@ -25,7 +24,7 @@ export const CREATE_ABOUT = gql`
       smoke: $smoke
       chatOptionId: $chatOptionId
       musicOptionId: $musicOptionId
-    ) {CREATE_CAR_MUTATION
+    ) {
       id
       animal
       description

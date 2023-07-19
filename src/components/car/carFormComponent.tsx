@@ -32,19 +32,15 @@ interface Model {
       {
         onCompleted: (data) => {
           console.log('Car created:', data.createCar);
-          // Vous pouvez exécuter une action supplémentaire ici après la création de la voiture
         },
         onError: (error) => {
           console.error('Car creation error:', error);
-          // Gérez les erreurs ici si nécessaire
         },
       }
     );
   
     const handleSubmit = async (event: React.FormEvent) => {
       event.preventDefault();
-  
-      // Vérifiez si les valeurs sont valides avant d'appeler la mutation
       if (seat > 0 && modelId > 0) {
         const pictures = await Promise.all(
           carPictures.map((file) =>

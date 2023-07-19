@@ -24,7 +24,6 @@ const REGISTER = gql`
       firstname: $firstname
       lastname: $lastname
     ) {
-      password
       phone
       username
       lastname

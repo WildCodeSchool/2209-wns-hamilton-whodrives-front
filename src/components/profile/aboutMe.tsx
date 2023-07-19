@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, useMutation, gql } from '@apollo/client';
 import { GET_USER_LOGGED } from '../../queryMutation/query';
 
+const ADD_PROFILE_PICTURE_MUTATION = gql`
+mutation AddProfilePicture($pictureId: ID!, $file: Upload!) {
+  addProfilePicture(pictureID: $pictureId, file: $file) {
+    id
+    path
+  }
+}
+`;
 
 const AboutMeComponent = () => {
   const navigate = useNavigate();
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const [addProfilePicture] = useMutation(ADD_PROFILE_PICTURE_MUTATION);
+
+
 
   const handleClick = () => {
     navigate('/userInfo');
@@ -21,7 +34,10 @@ const AboutMeComponent = () => {
     navigate('/userInfo/AddPictureCar');
   };
 
-  const { loading, error, data } = useQuery(GET_USER_LOGGED);
+  const { loading, error, data, refetch } = useQuery(GET_USER_LOGGED);
+  useEffect(() => {
+    refetch()
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -30,13 +46,42 @@ const AboutMeComponent = () => {
   if (error) {
     return <div>Error retrieving user information.</div>;
   }
-
+  const backendUrl = "http://localhost:4000/cars-images/";
   const user = data.userLogged;
-  console.log('ici la voiture', user.car)
+  // const testdata = JSON.stringify(user);
+  // alert(testdata)
+
+  const handleFileSelect = (event:any) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    try {
+      if (!selectedFile) return;
+      console.log('Uploading file...', user.userInfo.id);
+      const { data } = await addProfilePicture({
+        variables: { pictureId: user.userInfo.id, file: selectedFile },
+      });
+      console.log('Picture uploaded:', data.addProfilePicture);
+    } catch (error) {
+      console.error('Error uploading picture:', error);
+    }
+  };
+
   return (
     <div className="flex border-2 border-blue-500 p-8 m-20">
       <div className="w-1/3 mr-5">
-        <img src="/assets/images/dot-megachx.jpg" alt="" className="w-64" />
+        {/* File upload zone */}
+        <input type="file" accept="image/*" onChange={handleFileSelect} />
+        <button onClick={handleUpload}>Upload Picture</button>
+        {/* Replace the img tag with a preview of the selected picture (if available) */}
+        {selectedFile && (
+          <img
+            src={URL.createObjectURL(selectedFile)}
+            alt=""
+            className="w-64"
+          />
+        )}
         <p>{user.username}</p>
       </div>
       <div className="w-2/3">
@@ -99,11 +144,15 @@ const AboutMeComponent = () => {
             Ajouter une voiture
           </button>
         ) : (
+
           user.cars.map((car: any) => (
             <div className="Cars flex" key={car.id}>
-              <img src="/assets/images/yellow-car.png" alt="" className="w-64"  onClick={() => handleClickAddPicture(car.id)} />
+              
+              {car.carPictures?.map((picture: any) => (
+                <img src={picture.path ? backendUrl + picture.path : "/assets/images/yellow-car.png"} alt="" className="w-64" key={picture.id} onClick={() => handleClickAddPicture(car.id)} />
+              ))}
               <p>
-                Ma voiture est une <span className="text-validBlue">{car.model.name}</span> qui possède <span className="text-validBlue">{car.seat}</span> places.
+                Ma voiture est une <span className="text-validBlue">{car.model?.name}</span> qui possède <span className="text-validBlue">{car.seat}</span> places.
               </p>
             </div>
           ))
