@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { GET_USER_LOGGED } from "../../queryMutation/query";
@@ -23,7 +24,11 @@ const ProfileCardComponent = () => {
     navigate("/user-infos/car-picture");
   };
 
-  const { loading, error, data } = useQuery(GET_USER_LOGGED);
+  const { loading, error, data, refetch } = useQuery(GET_USER_LOGGED);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   const localhost = "http://localhost:4000/graphql";
 
@@ -38,21 +43,20 @@ const ProfileCardComponent = () => {
   const user = data.userLogged;
 
   return (
-    <div className="flex w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue">
-      <div className="w-1/4 mr-5">
+    <div className="flex flex-col w-5/6 p-8 m-auto my-4 border-2 md:flex-row md:w-1/2 border-validBlue">
+      <div className="w-full mr-5 md:w-1/4">
         <img src="/assets/images/blue.png" alt="profile pic" />
         <p className="font-bold text-center">{user.username}</p>
       </div>
-      <div className="w-3/4">
+      <div className="w-full md:w-3/4">
         <h3 className="px-2 py-1 text-white bg-layoutBlue">A propos de moi</h3>
         {user.userInfo !== null && (
           <div>
             <div className="mb-2">
               <p>
                 Salut, je m’appelle
-                <span className="text-validBlue"> {user.lastname}</span>, j’ai{" "}
-                <span className="text-validBlue">{user.userInfo.age} </span> ans
-                et j’habite à{" "}
+                <span className="text-validBlue"> {user.lastname}</span> et
+                j’habite à{" "}
                 <span className="text-validBlue">{user.userInfo.city}</span> .
               </p>
             </div>

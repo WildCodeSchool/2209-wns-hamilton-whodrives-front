@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_CAR_MODELS } from "../../queryMutation/query";
 import { CREATE_CAR_MUTATION } from "../../queryMutation/mutations";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface Car {
   id: number;
@@ -25,6 +27,8 @@ export default function AddCarPage() {
   const [modelId, setModelId] = useState<number>(0);
   const [carPictures, setCarPictures] = useState<File[]>([]);
 
+  const navigate = useNavigate();
+
   const { loading, error, data } = useQuery<{ Models: Model[] }>(
     GET_CAR_MODELS
   );
@@ -32,19 +36,19 @@ export default function AddCarPage() {
   const [createCar, { loading: mutationLoading, error: mutationError }] =
     useMutation<{ createCar: Car }>(CREATE_CAR_MUTATION, {
       onCompleted: (data) => {
-        console.log("Car created:", data.createCar);
-        // Vous pouvez exécuter une action supplémentaire ici après la création de la voiture
+        toast.success("Votre voiture a été ajoutée avec succès !");
+        navigate("/profile");
       },
       onError: (error) => {
-        console.error("Car creation error:", error);
-        // Gérez les erreurs ici si nécessaire
+        toast.error(
+          `Erreur lors de l'ajout de votre voiture : ${error.message}`
+        );
       },
     });
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    // Vérifiez si les valeurs sont valides avant d'appeler la mutation
     if (seat > 0 && modelId > 0) {
       const pictures = await Promise.all(
         carPictures.map(
@@ -95,10 +99,7 @@ export default function AddCarPage() {
         </p>
       )}
       {data && (
-        <form
-          onSubmit={handleSubmit}
-          className="grid w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue"
-        >
+        <div className="grid w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue">
           <div className="flex flex-col items-center justify-center">
             <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
               <label className="mb-2 font-bold">
@@ -127,7 +128,7 @@ export default function AddCarPage() {
               />
             </div>
           </div>
-        </form>
+        </div>
       )}
       <div className="flex justify-center">
         <button
@@ -139,7 +140,7 @@ export default function AddCarPage() {
             Retour
           </p>
         </button>
-        <button type="submit" className="p-4">
+        <button type="submit" className="p-4" onClick={handleSubmit}>
           <p className="p-2 text-xs green-button">Valider</p>
         </button>
       </div>

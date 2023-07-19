@@ -24,7 +24,6 @@ const REGISTER = gql`
       firstname: $firstname
       lastname: $lastname
     ) {
-      password
       phone
       username
       lastname
@@ -72,15 +71,6 @@ const RegisterPage = () => {
         });
       }
     } else if (step === 2) {
-      if (file && file.size > 0) {
-        toast.success("Seconde étape terminée !", { autoClose: 1000 });
-        setTimeout(() => {
-          setStep(3);
-        }, 3000);
-      } else {
-        toast.error("Veuillez sélectionner un fichier", { autoClose: 1000 });
-      }
-    } else if (step === 3) {
       if (
         password !== "" &&
         confirmPassword !== "" &&
@@ -234,44 +224,7 @@ const RegisterPage = () => {
         <div className="w-full h-[calc(100vh-10rem)] pt-6">
           <h1 className="mb-4 text-center text-layoutBlue">Inscription</h1>
           <div className="w-5/6 px-8 py-4 mx-auto my-4 border-2 border-validBlue sm:w-2/4">
-            <p className="mb-4 font-bold">Étape 2: Photo de profil</p>
-            <input
-              type="file"
-              onChange={(e) => setFile(e.target.files && e.target.files[0])}
-              className="w-full px-4 py-2 mb-2 border border-gray-300"
-            />
-          </div>
-          <div className="flex justify-center">
-            <button className="p-4" onClick={() => BackToPreviousStage()}>
-              <p className="font-bold text-whodrivesGrey hover:text-validBlue">
-                Retour
-              </p>
-            </button>
-            <button
-              type="button"
-              onClick={handleNext}
-              disabled={secondStepIsDisabled}
-              className="p-4"
-            >
-              <p
-                className={
-                  secondStepIsDisabled
-                    ? "grey-button p-2 text-xs"
-                    : "green-button p-2 text-xs"
-                }
-              >
-                Suivant
-              </p>
-            </button>
-          </div>
-        </div>
-      );
-    } else if (step === 3) {
-      return (
-        <div className="w-full h-[calc(100vh-10rem)] pt-6">
-          <h1 className="mb-4 text-center text-layoutBlue">Inscription</h1>
-          <div className="w-5/6 px-8 py-4 mx-auto my-4 border-2 border-validBlue sm:w-2/4">
-            <p className="mb-4 font-bold">Étape 3: Mot de passe</p>
+            <p className="mb-4 font-bold">Étape 2: Mot de passe</p>
             <input
               type="password"
               placeholder="Mot de passe"

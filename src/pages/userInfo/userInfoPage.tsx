@@ -10,7 +10,6 @@ import { CREATE_USER_INFO } from "../../queryMutation/mutations";
 export default function UserInfoPage(): JSX.Element {
   const [city, setCity] = React.useState("");
   const [country, setCountry] = React.useState("");
-  const [age, setAge] = React.useState(0);
   const [address, setAddress] = React.useState("");
 
   const [createUserInfo, { loading }] = useMutation(CREATE_USER_INFO);
@@ -19,20 +18,20 @@ export default function UserInfoPage(): JSX.Element {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     createUserInfo({
-      variables: { city, country, age, address },
+      variables: { city, country, address },
     })
       .then(() => {
-        toast.success("Informations ajoutées avec succès !");
+        toast.success("Vos informations ont été ajoutées avec succès !");
         navigate("/profile");
       })
       .catch((error) => {
         toast.error(
-          `Erreur lors de l'ajout des informations : ${error.message}`
+          `Erreur lors de l'ajout de vos informations : ${error.message}`
         );
       });
   };
 
-  const isDisabled = !city || !country || !age || !address;
+  const isDisabled = !city || !country || !address;
 
   const BackToProfile = () => {
     window.history.back();
@@ -73,19 +72,6 @@ export default function UserInfoPage(): JSX.Element {
             />
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold" htmlFor="age">
-              Age
-            </label>
-            <input
-              id="age"
-              type="number"
-              placeholder="Age"
-              value={age}
-              onChange={(e) => setAge(parseInt(e.target.value))}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
-            />
-          </div>
-          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
             <label className="mb-2 font-bold" htmlFor="address">
               Adresse
             </label>
@@ -98,26 +84,30 @@ export default function UserInfoPage(): JSX.Element {
               className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
             />
           </div>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              className="p-4"
+              onClick={() => BackToProfile()}
+            >
+              <p className="font-bold text-whodrivesGrey hover:text-validBlue">
+                Retour
+              </p>
+            </button>
+            <button type="submit" disabled={isDisabled} className="p-4">
+              <p
+                className={
+                  isDisabled
+                    ? "grey-button p-2 text-xs"
+                    : "green-button p-2 text-xs"
+                }
+              >
+                Valider
+              </p>
+            </button>
+          </div>
         </div>
       </form>
-      <div className="flex justify-center">
-        <button type="button" className="p-4" onClick={() => BackToProfile()}>
-          <p className="font-bold text-whodrivesGrey hover:text-validBlue">
-            Retour
-          </p>
-        </button>
-        <button type="submit" disabled={isDisabled} className="p-4">
-          <p
-            className={
-              isDisabled
-                ? "grey-button p-2 text-xs"
-                : "green-button p-2 text-xs"
-            }
-          >
-            Valider
-          </p>
-        </button>
-      </div>
     </div>
   );
 }

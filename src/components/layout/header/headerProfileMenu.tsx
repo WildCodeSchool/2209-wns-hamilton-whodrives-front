@@ -145,7 +145,7 @@ export default function HeaderProfileMenu(): JSX.Element {
       </div>
 
       {/* Menu mobile */}
-      <div className="flex flex-row items-center justify-end sm:hidden">
+      <div className="flex justify-end sm:hidden">
         <button
           className="flex flex-row"
           aria-controls={open ? "basic-menu" : undefined}
