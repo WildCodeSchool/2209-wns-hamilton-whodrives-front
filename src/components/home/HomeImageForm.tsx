@@ -1,7 +1,7 @@
 export default function HomeImageFormComponent(): JSX.Element {
   return (
     <div>
-      <div className="hidden h-screen md:block">
+      <div className="hidden h-[calc(100vh-5rem)] md:block">
         <div className="w-full h-full bg-center bg-no-repeat md:bg-cover md:bg-whodrives-bg">
           <div className="pt-12 text-center text-white section-title">
             <h1 className=" text-8xl">WHODRIVES</h1>
