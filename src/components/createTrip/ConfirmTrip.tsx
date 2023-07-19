@@ -33,7 +33,7 @@ function ConfirmTrip({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-6">
+    <div className="flex flex-col items-center justify-center py-5">
       <div className="w-3/5 lg:w-2/5">
         <div className="flex flex-wrap items-center justify-center p-4 mb-4 border-2 border-black">
           <span className="font-semibold">{LocationField.departure}</span>

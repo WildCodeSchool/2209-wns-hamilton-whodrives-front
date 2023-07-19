@@ -5,7 +5,7 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import CreateTripPage from "./pages/createTrip/createTripPage";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
-import SearchTripPage from "./pages/searchTrip/SearchTripPage";
+import SearchTripPage from "./pages/searchTrip/searchTripPage";
 
 type Menu = {
   path: string;

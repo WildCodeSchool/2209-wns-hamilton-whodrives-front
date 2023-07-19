@@ -90,7 +90,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
   const isDisabled = !departure || !arrival || !date || !time || !passengers;
 
   return (
-    <div className="flex flex-col items-center justify-center py-6">
+    <div className="flex flex-col items-center justify-center py-5">
       <div className="w-full p-8 bg-lightBlue sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
         <div className="flex flex-col pb-4">
           <label className="text-center" htmlFor="depart">

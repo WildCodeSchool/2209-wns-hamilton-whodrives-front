@@ -90,7 +90,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-6">
+    <div className="flex flex-col items-center justify-center py-5">
       <div className="w-3/5 p-4 mb-4 bg-white border-2 lg:w-2/5 border-validBlue">
         <h3 className="mb-4 text-center text-validBlue">
           Récapitulatif de votre annonce

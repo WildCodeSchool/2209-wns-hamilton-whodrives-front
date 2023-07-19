@@ -20,7 +20,7 @@ import ContactUsPage from "./pages/footerPages/contactUs";
 import FaqPage from "./pages/footerPages/faq";
 import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
-import SearchTripPage from "./pages/searchTrip/SearchTripPage";
+import SearchTripPage from "./pages/searchTrip/searchTripPage";
 import UserInfoPage from "./pages/userInfo/userInfoPage";
 
 function App() {

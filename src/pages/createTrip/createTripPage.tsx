@@ -83,7 +83,7 @@ function CreateTripPage(): JSX.Element {
   }
 
   return (
-    <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-6">
+    <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">
       <h1 className="mb-4 text-center text-whodrivesGreen">
         Je publie un trajet
       </h1>

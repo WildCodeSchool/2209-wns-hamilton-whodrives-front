@@ -38,9 +38,9 @@ const cardItems: CardItems[] = [
 
 export default function HomeCardsComponent(): JSX.Element {
   return (
-    <div className="m-6 md:m-12 md:justify-between md:flex md:flex-row">
+    <div className="my-12 md:justify-between md:flex md:flex-row">
       {cardItems.map((item: CardItems, index: number) => {
-        const cardClassName = `border-4 ${item.border} lg:w-1/4 md:w-1/3 md:mx-2 my-4 md:my-0 h-auto border-solid flex flex-col gap-4 py-4`;
+        const cardClassName = `border-4 ${item.border} lg:w-1/4 md:w-1/3 mx-6 my-4 md:my-0 h-auto border-solid flex flex-col gap-6 py-4`;
         const cardTitleClassName = `${item.color} text-center pressStart2p-text`;
 
         return (

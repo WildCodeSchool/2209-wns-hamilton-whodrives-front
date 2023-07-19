@@ -66,7 +66,7 @@ export default function AboutPage(): JSX.Element {
   const chatOptions = chatData.chatOptions;
 
   return (
-    <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-6">
+    <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">
       <h2 className="mb-4 text-center text-layoutBlue">Mes préférences</h2>
       <div className="grid w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue">
         <div className="flex flex-col items-center justify-center">
