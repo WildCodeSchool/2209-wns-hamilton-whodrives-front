@@ -40,8 +40,8 @@ export const CREATE_ABOUT = gql`
     }
   }
 `;
-export const UPDATE_ABOUT = gql`mutation UpdateAbout($updateAboutId: ID!, $animal: Boolean, $description: String, $chatOptionId: Int, $musicOptionId: Int, $smoke: Boolean) {
-  updateAbout(id: $updateAboutId, animal: $animal, description: $description, chatOptionId: $chatOptionId, musicOptionId: $musicOptionId, smoke: $smoke) {
+export const UPDATE_ABOUT = gql`mutation UpdateAbout($updateAboutId: ID!, $animal: Boolean, $description: String, $smoke: Boolean) {
+  updateAbout(id: $updateAboutId, animal: $animal, description: $description, smoke: $smoke) {
     id
     animal
     description
@@ -75,19 +75,6 @@ export const CREATE_CAR_MUTATION = gql`
       carPictures {
         id
         path
-      }
-    }
-  }
-`;
-
-export const UPDATE_CAR_MUTATION = gql`
-  mutation UpdateCar($updateCarId: ID!, $seat: Int, $modelId: Int) {
-    updateCar(id: $updateCarId, seat: $seat, modelId: $modelId) {
-      id
-      seat
-      model {
-        id
-        name
       }
     }
   }

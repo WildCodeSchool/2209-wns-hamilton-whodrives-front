@@ -1,16 +1,16 @@
 import { GET_MUSIC_OPTIONS, GET_CHAT_OPTIONS, GET_ABOUT } from "../../queryMutation/query";
 import { CREATE_ABOUT, UPDATE_ABOUT } from "../../queryMutation/mutations";
 import { useState, useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, gql } from "@apollo/client";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export default function AboutPage(): JSX.Element {
-  const [animal, setAnimal] = useState<boolean>(false);
-  const [description, setDescription] = useState<string>("");
-  const [smoke, setSmoke] = useState<boolean>(false);
-  const [chatOptionId, setChatOptionId] = useState<number | string>("");
-  const [musicOptionId, setMusicOptionId] = useState<number | string>("");
+  const [animal, setAnimal] = useState(false);
+  const [description, setDescription] = useState("");
+  const [smoke, setSmoke] = useState(false);
+  const [chatOptionId, setChatOptionId] = useState("");
+  const [musicOptionId, setMusicOptionId] = useState("");
   const {
     loading: aboutLoading,
     error: aboutError,
@@ -39,8 +39,8 @@ export default function AboutPage(): JSX.Element {
       setAnimal(animal || false);
       setDescription(description || "");
       setSmoke(smoke || false);
-      setChatOptionId(chatOption?.id ? parseInt(chatOption.id) : ""); // Convert the id to an integer if provided
-      setMusicOptionId(musicOption?.id ? parseInt(musicOption.id) : ""); // Convert the id to an integer if provided
+      setChatOptionId(chatOption?.id || "");
+      setMusicOptionId(musicOption?.id || "");
     }
   }, [aboutLoading, aboutData]);
 
@@ -64,7 +64,7 @@ export default function AboutPage(): JSX.Element {
     if (updateAboutId) {
       updateAbout({
         variables: {
-          updateAboutId,
+          updateAboutId, 
           ...variables,
         },
       })
@@ -143,11 +143,11 @@ export default function AboutPage(): JSX.Element {
             </label>
             <select
               value={chatOptionId}
-              onChange={(e) => setChatOptionId(Number(e.target.value) || "")}
+              onChange={(e) => setChatOptionId(e.target.value)}
               className="px-2 py-1 border"
             >
               <option value=""></option>
-              {chatOptions.map((option: { id: number; content: string }) => (
+              {chatOptions.map((option: { id: string; content: string }) => (
                 <option key={option.id} value={option.id}>
                   {option.content}
                 </option>
@@ -160,11 +160,11 @@ export default function AboutPage(): JSX.Element {
             </label>
             <select
               value={musicOptionId}
-              onChange={(e) => setMusicOptionId(Number(e.target.value) || "")}
+              onChange={(e) => setMusicOptionId(e.target.value)}
               className="px-2 py-1 border"
             >
               <option value=""></option>
-              {musicOptions.map((option: { id: number; content: string }) => (
+              {musicOptions.map((option: { id: string; content: string }) => (
                 <option key={option.id} value={option.id}>
                   {option.content}
                 </option>
