@@ -74,6 +74,17 @@ export const CREATE_CAR_MUTATION = gql`
   }
 `;
 
+export const UPDATE_CAR_MUTATION = gql`mutation UpdateCar($updateCarId: ID!, $seat: Int, $modelId: Int) {
+  updateCar(id: $updateCarId, seat: $seat, modelId: $modelId) {
+    id
+    seat
+    model {
+      id
+      name
+    }
+  }
+}`;
+
 export const ADD_PICTURE_MUTATION = gql`
   mutation AddPicture($carId: ID!, $file: Upload!) {
     addPicture(carId: $carId, file: $file) {
