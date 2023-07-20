@@ -118,8 +118,8 @@ export default function SearchTripPage(): JSX.Element {
     }
   `;
   const UPDATE_TRIP = gql`
-  mutation UpdateTrip($updateTripId: ID!, $placeAvailable: Int) {
-    updateTrip(id: $updateTripId, place_available: $placeAvailable) {
+  mutation UpdateTripPlace($updateTripId: ID!, $placeAvailable: Int) {
+    updateTripPlace(id: $updateTripId, place_available: $placeAvailable) {
       id
       departure_places
       destination
@@ -134,7 +134,7 @@ export default function SearchTripPage(): JSX.Element {
   `;
   const [rangeSelected, setRangeSelected] = useState<null | number>(null);
   const [selectTrip] = useMutation(SELECT_TRIP);
-  const [updateTrip] = useMutation(UPDATE_TRIP, {
+  const [updateTripPlace] = useMutation(UPDATE_TRIP, {
     variables: {
       updateTripId: tripId,
       placeAvailable: placeAvailableTrip, 
@@ -264,7 +264,7 @@ export default function SearchTripPage(): JSX.Element {
     if(dataTripId.getTrip.users[0].email !== userInfos.email){
         Promise.all([
             selectTrip({ variables: { tripId } }),
-            updateTrip({ variables: { updateTripId: tripId, placeAvailable: placeAvailableTrip-1 } }),
+            updateTripPlace({ variables: { updateTripId: tripId, placeAvailable: placeAvailableTrip-1 } }),
           ])
             .then((responses) => {
               setActiveStep(3);
