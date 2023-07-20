@@ -60,7 +60,7 @@ const AboutMeComponent = () => {
       if (!selectedFile) return;
       console.log('Uploading file...', user.userInfo.id);
       const { data } = await addProfilePicture({
-        variables: { pictureId: user.userInfo.id, file: selectedFile },
+        variables: { pictureId: user.id, file: selectedFile },
       });
       console.log('Picture uploaded:', data.addProfilePicture);
     } catch (error) {
@@ -71,10 +71,8 @@ const AboutMeComponent = () => {
   return (
     <div className="flex border-2 border-blue-500 p-8 m-20">
       <div className="w-1/3 mr-5">
-        {/* File upload zone */}
         <input type="file" accept="image/*" onChange={handleFileSelect} />
         <button onClick={handleUpload}>Upload Picture</button>
-        {/* Replace the img tag with a preview of the selected picture (if available) */}
         {selectedFile && (
           <img
             src={URL.createObjectURL(selectedFile)}
@@ -147,14 +145,39 @@ const AboutMeComponent = () => {
 
           user.cars.map((car: any) => (
             <div className="Cars flex" key={car.id}>
-              
-              {car.carPictures?.map((picture: any) => (
-                <img src={picture.path ? backendUrl + picture.path : "/assets/images/yellow-car.png"} alt="" className="w-64" key={picture.id} onClick={() => handleClickAddPicture(car.id)} />
-              ))}
-              <p>
-                Ma voiture est une <span className="text-validBlue">{car.model?.name}</span> qui possède <span className="text-validBlue">{car.seat}</span> places.
-              </p>
-            </div>
+            {car.carPictures ? (
+              car.carPictures.map((picture: any) => (
+                <React.Fragment key={picture.id}>
+                  {picture.path !== null ? (
+                    <img
+                      src={backendUrl + picture.path}
+                      alt=""
+                      className="w-64"
+                      onClick={() => handleClickAddPicture(car.id)}
+                    />
+                  ) : (
+                    <img
+                      src="/assets/images/yellow-car.png"
+                      alt=""
+                      className="w-64"
+                      onClick={() => handleClickAddPicture(car.id)}
+                    />
+                  )}
+                </React.Fragment>
+              ))
+            ) : (
+              <img
+                src="/assets/images/yellow-car.png"
+                alt=""
+                className="w-64"
+                onClick={() => handleClickAddPicture(car.id)}
+              />
+            )}
+            <p>
+              Ma voiture est une <span className="text-validBlue">{car.model?.name}</span> qui possède{" "}
+              <span className="text-validBlue">{car.seat}</span> places.
+            </p>
+          </div>
           ))
         )}
       </div>
