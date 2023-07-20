@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useMutation, useQuery, gql } from "@apollo/client";
-import { GET_CAR_MODELS, GET_CAR_USER_LOGGED } from "../../queryMutation/query";
-import { CREATE_CAR_MUTATION, UPDATE_CAR_MUTATION } from "../../queryMutation/mutations";
+import React, { useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_CAR_MODELS } from "../../queryMutation/query";
+import { CREATE_CAR_MUTATION } from "../../queryMutation/mutations";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
-
 
 interface Car {
   id: number;
@@ -19,7 +17,6 @@ interface Car {
     path: string;
   }[];
 }
-
 interface Model {
   id: number;
   name: string;
@@ -27,16 +24,14 @@ interface Model {
 
 export default function AddCarPage() {
   const [seat, setSeat] = useState<number>(0);
-  const [modelId, setModelId] = useState<number | string>("0");
+  const [modelId, setModelId] = useState<number>(0);
   const [carPictures, setCarPictures] = useState<File[]>([]);
 
   const navigate = useNavigate();
 
-  const { loading, error, data } = useQuery<{ Models: Model[] }>(GET_CAR_MODELS);
-  const { loading: carLoading, error: carError, data: carData } =
-    useQuery<{ userLogged: { cars: Car[] } }>(GET_CAR_USER_LOGGED);
-
-  const updateCarId = carData?.userLogged.cars[0]?.id;
+  const { loading, error, data } = useQuery<{ Models: Model[] }>(
+    GET_CAR_MODELS
+  );
 
   const [createCar, { loading: mutationLoading, error: mutationError }] =
     useMutation<{ createCar: Car }>(CREATE_CAR_MUTATION, {
@@ -51,28 +46,10 @@ export default function AddCarPage() {
       },
     });
 
-  const [updateCar] = useMutation<{ updateCar: Car }>(UPDATE_CAR_MUTATION, {
-    onCompleted: (data) => {
-      toast.success("Votre voiture a été mise à jour avec succès !");
-      navigate("/profile");
-    },
-    onError: (error) => {
-      toast.error(`Erreur lors de la mise à jour de votre voiture : ${error.message}`);
-    },
-  });
-
-  useEffect(() => {
-    if (!carLoading && carData && carData.userLogged.cars.length > 0) {
-      const carInfo = carData.userLogged.cars[0];
-      setSeat(carInfo.seat);
-      setModelId(carInfo.model.id);
-    }
-  }, [carLoading, carData]);
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (seat > 0 && parseInt(modelId.toString()) > 0) {
+    if (seat > 0 && modelId > 0) {
       const pictures = await Promise.all(
         carPictures.map(
           (file) =>
@@ -87,25 +64,25 @@ export default function AddCarPage() {
         )
       );
 
-      if (updateCarId) {
-        updateCar({
-          variables: { updateCarId, seat, modelId: parseInt(modelId.toString()) },
-        });
-      } else {
-        createCar({
-          variables: {
-            seat: parseInt(seat.toString()),
-            modelId: parseInt(modelId.toString()),
-            pictures,
-          },
-        });
-      }
+      createCar({
+        variables: {
+          seat: parseInt(seat.toString()),
+          modelId: parseInt(modelId.toString()),
+          pictures,
+        },
+      });
     }
   };
 
-
   const BackToProfile = () => {
     window.history.back();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const fileList = Array.from(event.target.files);
+      setCarPictures(fileList);
+    }
   };
 
   return (
@@ -115,13 +92,11 @@ export default function AddCarPage() {
       {error && (
         <p className="text-red-500">Error loading models: {error.message}</p>
       )}
-      {carLoading && <p>Loading car data...</p>}
-      {carError && (
-        <p className="text-red-500">Error loading car data: {carError.message}</p>
-      )}
       {mutationLoading && <p>Creating car...</p>}
       {mutationError && (
-        <p className="text-red-500">Error creating car: {mutationError.message}</p>
+        <p className="text-red-500">
+          Error creating car: {mutationError.message}
+        </p>
       )}
       {data && (
         <div className="grid w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue">
