@@ -40,6 +40,23 @@ export const CREATE_ABOUT = gql`
     }
   }
 `;
+export const UPDATE_ABOUT = gql`mutation UpdateAbout($updateAboutId: ID!, $animal: Boolean, $description: String, $smoke: Boolean) {
+  updateAbout(id: $updateAboutId, animal: $animal, description: $description, smoke: $smoke) {
+    id
+    animal
+    description
+    smoke
+    chatOption {
+      id
+      content
+    }
+    musicOption {
+      id
+      content
+    }
+  }
+}`;
+
 export const CREATE_CAR_MUTATION = gql`
   mutation CreateCar($seat: Int!, $modelId: Int!) {
     createCar(seat: $seat, modelId: $modelId) {

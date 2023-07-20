@@ -69,6 +69,12 @@ const ProfileCardComponent = () => {
             </div>
             {user.userInfo.about !== null ? (
               <>
+               <img
+                className="w-4"
+                src="assets/icons/edit-box.svg"
+                alt="arrow icon"
+                onClick={handleClickAbout}
+              />
                 <div className="mb-2">
                   <p className="font-bold">Description</p>
                   <p>{user.userInfo.about.description}</p>

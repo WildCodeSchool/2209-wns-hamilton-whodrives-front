@@ -97,3 +97,25 @@ query UserLogged {
     }
   }
 }`;
+
+export const GET_ABOUT = gql`
+query About {
+  userLogged {
+    userInfo {
+      about {
+        id
+        animal
+        description
+        smoke
+        chatOption {
+          id
+          content
+        }
+        musicOption {
+          id
+          content
+        }
+      }
+    }
+  }
+}`;
