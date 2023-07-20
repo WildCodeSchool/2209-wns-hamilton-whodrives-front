@@ -1,7 +1,7 @@
-import { GET_MUSIC_OPTIONS, GET_CHAT_OPTIONS } from "../../queryMutation/query";
-import { CREATE_ABOUT } from "../../queryMutation/mutations";
-import { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { GET_MUSIC_OPTIONS, GET_CHAT_OPTIONS, GET_ABOUT } from "../../queryMutation/query";
+import { CREATE_ABOUT, UPDATE_ABOUT } from "../../queryMutation/mutations";
+import { useState, useEffect } from "react";
+import { useMutation, useQuery, gql } from "@apollo/client";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,11 @@ export default function AboutPage(): JSX.Element {
   const [smoke, setSmoke] = useState(false);
   const [chatOptionId, setChatOptionId] = useState("");
   const [musicOptionId, setMusicOptionId] = useState("");
+  const {
+    loading: aboutLoading,
+    error: aboutError,
+    data: aboutData,
+  } = useQuery(GET_ABOUT);
 
   const {
     loading: musicLoading,
@@ -24,8 +29,20 @@ export default function AboutPage(): JSX.Element {
     data: chatData,
   } = useQuery(GET_CHAT_OPTIONS);
 
-  const [createAbout, { loading, error }] = useMutation(CREATE_ABOUT);
+  const [createAbout, { loading: createLoading, error: createError }] = useMutation(CREATE_ABOUT);
+  const [updateAbout, { loading: updateLoading, error: updateError }] = useMutation(UPDATE_ABOUT);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!aboutLoading && aboutData && aboutData.userLogged.userInfo.about) {
+      const { animal, description, smoke, chatOption, musicOption } = aboutData.userLogged.userInfo.about;
+      setAnimal(animal || false);
+      setDescription(description || "");
+      setSmoke(smoke || false);
+      setChatOptionId(chatOption?.id || "");
+      setMusicOptionId(musicOption?.id || "");
+    }
+  }, [aboutLoading, aboutData]);
 
   const BackToProfile = () => {
     window.history.back();
@@ -34,24 +51,40 @@ export default function AboutPage(): JSX.Element {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    createAbout({
-      variables: {
-        animal,
-        description,
-        smoke,
-        chatOptionId,
-        musicOptionId,
-      },
-    })
-      .then(() => {
-        toast.success("Vos préférences on été ajoutées avec succès !");
-        navigate("/profile");
+    const variables = {
+      animal,
+      description,
+      smoke,
+      chatOptionId,
+      musicOptionId,
+    };
+
+    const updateAboutId = aboutData?.userLogged?.userInfo?.about?.id;
+
+    if (updateAboutId) {
+      updateAbout({
+        variables: {
+          updateAboutId, 
+          ...variables,
+        },
       })
-      .catch((error) => {
-        toast.error(
-          `Erreur lors de l'ajout de vos préférences : ${error.message}`
-        );
-      });
+        .then(() => {
+          toast.success("Vos préférences ont été mises à jour avec succès !");
+          navigate("/profile");
+        })
+        .catch((error) => {
+          toast.error(`Erreur lors de la mise à jour de vos préférences : ${error.message}`);
+        });
+    } else {
+      createAbout({ variables })
+        .then(() => {
+          toast.success("Vos préférences ont été ajoutées avec succès !");
+          navigate("/profile");
+        })
+        .catch((error) => {
+          toast.error(`Erreur lors de l'ajout de vos préférences : ${error.message}`);
+        });
+    }
   };
 
   if (musicLoading || chatLoading) {
