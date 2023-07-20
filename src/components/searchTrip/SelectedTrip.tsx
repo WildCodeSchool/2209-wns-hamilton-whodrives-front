@@ -45,9 +45,8 @@ export default function SelectedTrip({
           </div>
           <div className="flex flex-row justify-between mb-4 w-1/1">
             <p>arrival : {arrival}</p>
-            <p>10h30</p>
           </div>
-          <p className="mb-4">Durée : 2h30</p>
+          <p className="mb-4">Durée : non renseigné</p>
           <p className="mb-4">Places disponibles : {seats}</p>
         </div>
         <div className="w-1/2">
