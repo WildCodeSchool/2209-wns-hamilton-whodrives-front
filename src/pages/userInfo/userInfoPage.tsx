@@ -1,41 +1,72 @@
-import "react-toastify/dist/ReactToastify.css";
-
-import { useMutation } from "@apollo/client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
-
-import { CREATE_USER_INFO } from "../../queryMutation/mutations";
+import { CREATE_USER_INFO, UPDATE_USER_INFO } from "../../queryMutation/mutations";
+import { GET_USERINFO_LOGGED } from "../../queryMutation/query";
 
 export default function UserInfoPage(): JSX.Element {
   const [city, setCity] = React.useState("");
   const [country, setCountry] = React.useState("");
   const [address, setAddress] = React.useState("");
 
-  const [createUserInfo, { loading }] = useMutation(CREATE_USER_INFO);
+  const [createUserInfo, { loading: creating }] = useMutation(CREATE_USER_INFO);
+  const [updateUserInfo, { loading: updating }] = useMutation(UPDATE_USER_INFO);
+
   const navigate = useNavigate();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    createUserInfo({
-      variables: { city, country, address },
+
+    if (!city || !country || !address) {
+      if (!userInfoData.userLogged.userInfo) {
+
+        toast.error("Veuillez remplir tous les champs pour ajouter vos informations.");
+        return;
+      }
+
+      toast.success("Vos informations n'ont pas été modifiées car les champs sont vides.");
+      navigate("/profile");
+      return;
+    }
+
+    const mutation = userInfoData.userLogged.userInfo ? updateUserInfo : createUserInfo;
+
+    mutation({
+      variables: { city, country, address, updateUserInfoId: userInfoData.userLogged.userInfo?.id },
     })
       .then(() => {
-        toast.success("Vos informations ont été ajoutées avec succès !");
+        toast.success(
+          `Vos informations ont été ${
+            userInfoData.userLogged.userInfo ? "mises à jour" : "ajoutées"
+          } avec succès !`
+        );
         navigate("/profile");
       })
       .catch((error) => {
         toast.error(
-          `Erreur lors de l'ajout de vos informations : ${error.message}`
+          `Erreur lors de ${
+            userInfoData.userLogged.userInfo ? "la mise à jour" : "l'ajout"
+          } de vos informations : ${error.message}`
         );
       });
   };
 
   const isDisabled = !city || !country || !address;
-
   const BackToProfile = () => {
     window.history.back();
   };
+
+  const { loading: userInfoLoading, data: userInfoData } = useQuery(GET_USERINFO_LOGGED);
+
+  React.useEffect(() => {
+    if (!userInfoLoading && userInfoData && userInfoData.userLogged) {
+      const { city, country, address } = userInfoData.userLogged.userInfo || {};
+      setCity(city || "");
+      setCountry(country || "");
+      setAddress(address || "");
+    }
+  }, [userInfoLoading, userInfoData]);
 
   return (
     <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">
@@ -85,23 +116,11 @@ export default function UserInfoPage(): JSX.Element {
             />
           </div>
           <div className="flex justify-center">
-            <button
-              type="button"
-              className="p-4"
-              onClick={() => BackToProfile()}
-            >
-              <p className="font-bold text-whodrivesGrey hover:text-validBlue">
-                Retour
-              </p>
+            <button type="button" className="p-4" onClick={() => BackToProfile()}>
+              <p className="font-bold text-whodrivesGrey hover:text-validBlue">Retour</p>
             </button>
             <button type="submit" disabled={isDisabled} className="p-4">
-              <p
-                className={
-                  isDisabled
-                    ? "grey-button p-2 text-xs"
-                    : "green-button p-2 text-xs"
-                }
-              >
+              <p className={isDisabled ? "grey-button p-2 text-xs" : "green-button p-2 text-xs"}>
                 Valider
               </p>
             </button>
