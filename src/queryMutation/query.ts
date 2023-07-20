@@ -32,7 +32,6 @@ export const GET_USER_LOGGED = gql`
         id
         city
         country
-        age
         address
         about {
           id
