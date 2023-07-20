@@ -373,7 +373,6 @@ export default function SearchTripPage(): JSX.Element {
             arrival={dataTripId.getTrip.destination}
             seats={dataTripId.getTrip.place_available}
             price={dataTripId.getTrip.price}
-            // hour={dataTripId.getTrip.hour_departure}
             hour={`${dataTripId.getTrip.hour_departure.split(":")[0]}h${dataTripId.getTrip.hour_departure.split(":")[1]}`}
             date={moment(dataTripId.getTrip.date_departure).format(
               "DD/MM/YYYY"
