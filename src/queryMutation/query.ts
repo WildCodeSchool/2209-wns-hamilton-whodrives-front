@@ -33,7 +33,6 @@ query getUserLogged {
       id
       city
       country
-      age
       address
       about {
         id

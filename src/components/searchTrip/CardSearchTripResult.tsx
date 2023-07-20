@@ -38,7 +38,6 @@ export default function CardSearchTripResult({
           />
           <div className="flex flex-col">
             <p>{arrival}</p>
-            {/* <p>10h30</p> */}
           </div>
         </div>
         <p>Prix du trajet : {price}€</p>

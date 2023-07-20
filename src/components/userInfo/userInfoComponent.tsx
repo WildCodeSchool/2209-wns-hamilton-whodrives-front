@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 const UserInfo = () => {
   const [city, setCity] = React.useState('');
   const [country, setCountry] = React.useState('');
-  const [age, setAge] = React.useState(0);
   const [address, setAddress] = React.useState('');
 
   const [createUserInfo, { loading }] = useMutation(CREATE_USER_INFO);
@@ -17,7 +16,7 @@ const UserInfo = () => {
   const handleSubmit = (e:any) => {
     e.preventDefault();
     createUserInfo({
-      variables: { city, country, age, address },
+      variables: { city, country,address },
     })
       .then(() => {
         toast.success('Informations ajoutées avec succès');
@@ -54,19 +53,6 @@ const UserInfo = () => {
             placeholder="Country"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">
-            Age
-          </label>
-          <input
-            id="age"
-            type="number"
-            placeholder="Age"
-            value={age}
-            onChange={(e) => setAge(parseInt(e.target.value))}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>

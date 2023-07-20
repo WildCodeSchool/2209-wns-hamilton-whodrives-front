@@ -56,33 +56,9 @@ export default function SearchTripPage(): JSX.Element {
   const [tripId, setTripId] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const { userInfos } = useContext(AuthContext);
+  const [placeAvailableTrip,setPlaceAvailableTrip]=useState(1)
 
   //Query gql
-  const GET_TRIP_SEARCH = gql`
-    query GetTripSearch(
-      $departurePlaces: String
-      $destination: String
-      $dateDeparture: Date
-    ) {
-      getTripSearch(
-        departure_places: $departurePlaces
-        destination: $destination
-        date_departure: $dateDeparture
-      ) {
-        id
-        departure_places
-        date_departure
-        hour_departure
-        destination
-        place_available
-        price
-        users {
-          username
-          email
-        }
-      }
-    }
-  `;
 
   const GET_TRIP_BY_HOUR = gql`
     query GetTrips(
@@ -110,6 +86,7 @@ export default function SearchTripPage(): JSX.Element {
         description
         users {
           username
+          email
         }
       }
     }
@@ -128,6 +105,7 @@ export default function SearchTripPage(): JSX.Element {
         description
         users {
           username
+          email
         }
       }
     }
@@ -139,8 +117,29 @@ export default function SearchTripPage(): JSX.Element {
       }
     }
   `;
+  const UPDATE_TRIP = gql`
+  mutation UpdateTrip($updateTripId: ID!, $placeAvailable: Int) {
+    updateTrip(id: $updateTripId, place_available: $placeAvailable) {
+      id
+      departure_places
+      destination
+      date_departure
+      arrival_date
+      price
+      description
+      hour_departure
+      place_available
+    }
+  }
+  `;
   const [rangeSelected, setRangeSelected] = useState<null | number>(null);
   const [selectTrip] = useMutation(SELECT_TRIP);
+  const [updateTrip] = useMutation(UPDATE_TRIP, {
+    variables: {
+      updateTripId: tripId,
+      placeAvailable: placeAvailableTrip, 
+    },
+  });
 
   const {
     loading: loadingTripId,
@@ -172,8 +171,9 @@ export default function SearchTripPage(): JSX.Element {
       maxHour: "",
     },
     onCompleted(data) {
-      console.log(data,"oncomplited");
       setResultat(data?.getTripSearchByHourRange);
+      
+      
     },
     onError(error) {
       console.log({ error });
@@ -186,7 +186,6 @@ export default function SearchTripPage(): JSX.Element {
       dateDeparture: form.date,
     });
     if (rangeSelected !== null) {
-      console.log("rangeSelected", rangeSelected);
       refetch({
         departurePlaces: form.departure,
         destination: form.arrival,
@@ -217,8 +216,6 @@ export default function SearchTripPage(): JSX.Element {
   //event to retrieve trips
 
   const handleclick = () => {
-    console.log(userInfos);
-
     if (form.departure === "départ") {
       setErrorMessage("merci de selectionner une ville de départ");
       setErrorForm(true);
@@ -234,7 +231,6 @@ export default function SearchTripPage(): JSX.Element {
     }
     setActiveStep(1);
 
-    // setResultat(data?.getTripSearchByHourRange);
   };
   //filter by price
   const sortByPrice = () => {
@@ -253,26 +249,39 @@ export default function SearchTripPage(): JSX.Element {
   //event to choose one trip
   const submitTrip = () => {
     setActiveStep(2);
+    setPlaceAvailableTrip(dataTripId.getTrip.place_available);    
+
   };
   const hoverSetId = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTripId(e.target.value);
+   
+    
   };
   const stepBack = () => {
     setActiveStep(1);
   };
   const joinTrip = () => {
-    selectTrip({ variables: { tripId } })
-      .then((response) => {})
-      .catch((error) => {});
-    setActiveStep(3);
+    if(dataTripId.getTrip.users[0].email !== userInfos.email){
+        Promise.all([
+            selectTrip({ variables: { tripId } }),
+            updateTrip({ variables: { updateTripId: tripId, placeAvailable: placeAvailableTrip-1 } }),
+          ])
+            .then((responses) => {
+              setActiveStep(3);
+            })
+            .catch((errors) => {
+            });
+    }else{
+        alert("Impossible rejoindre le trajet")
+    }
+  
+
   };
   const changeHourRange = (key: number) => {
-    console.log("KEY", key);
     setRangeSelected((r) => (r === key ? null : key));
   };
 
   useEffect(() => {
-    console.log("rangeSelected", rangeSelected);
   },[rangeSelected])
   return (
     <div className="flex flex-col items-center w-screen h-screen">
@@ -306,7 +315,7 @@ export default function SearchTripPage(): JSX.Element {
           <div className="flex flex-col pt-0 pl-5 pr-5 overflow-auto w-1/1 h-5/6">
             {resultat && resultat.length > 0 ? (
               resultat.map((el: ITrip, index) =>
-                // el.users[0].email !== userInfos.email ? (
+                 el.place_available !== 0 ? (
                   <SearchTripResult
                     key={index}
                     value={el.id}
@@ -320,7 +329,7 @@ export default function SearchTripPage(): JSX.Element {
                     arrival={el.destination}
                     submitTrip={submitTrip}
                   />
-                // ) : null
+                ) : null
               )
             ) : (
               <div>Aucun trajet ne correspond à votre recherche</div>

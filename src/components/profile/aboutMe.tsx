@@ -45,7 +45,7 @@ const AboutMeComponent = () => {
           <>
             <p>
               Salut, je m’appelle
-              <span className="text-validBlue"> {user.lastname}</span>, j’ai <span className="text-validBlue">{user.userInfo.age} </span> ans et j’habite à <span className="text-validBlue">{user.userInfo.city}</span> .
+              <span className="text-validBlue"> {user.lastname}</span>, j’habite à <span className="text-validBlue">{user.userInfo.city}</span> .
             </p>
             {user.userInfo.about !== null ? (
               <>

@@ -48,19 +48,10 @@ export default function FilterSearchComponent({
               key={key}
               className="border w-[45%] p-1 mb-4 bg-whodrivesGrey font-medium hover:bg-validBlue hover:text-white"
             >
-              {v.min}-{v.max}
+              {(v.min.split(":00"))}-{v.max.split(":00")}
             </button>
           );
         })}
-        {/* <button className="border  w-[45%] p-1 mb-4 bg-whodrivesGrey font-medium hover:bg-validBlue hover:text-white">
-          12:01-18:00
-        </button>
-        <button className="border w-[45%] p-1 mb-4 bg-whodrivesGrey font-medium hover:bg-validBlue hover:text-white">
-          18:01-00:00
-        </button>
-        <button className="border  w-[45%] p-1 mb-4 bg-whodrivesGrey font-medium hover:bg-validBlue hover:text-white">
-          00:01-06:00
-        </button> */}
       </div>
 
       <h3 className="mb-2 font-semibold">PREFERENCES</h3>
