@@ -10,6 +10,7 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
+  ApolloLink
 } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 import { formDataAppendFile } from "apollo-upload-client";
@@ -34,9 +35,10 @@ const uploadLink = createUploadLink({
   headers: { "Apollo-Require-Preflight": "true" },
   formDataAppendFile,
 });
+const link = ApolloLink.from([authLink, uploadLink])
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink).concat(uploadLink),
+  link,
   cache: new InMemoryCache(),
 });
 
