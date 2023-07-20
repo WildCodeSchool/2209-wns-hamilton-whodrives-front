@@ -50,8 +50,15 @@ const ProfileCardComponent = () => {
       </div>
       <div className="w-full md:w-3/4">
         <h3 className="px-2 py-1 text-white bg-layoutBlue">A propos de moi</h3>
+        
         {user.userInfo !== null && (
           <div>
+            <img
+                className="w-4"
+                src="assets/icons/edit-box.svg"
+                alt="arrow icon"
+                onClick={handleClickUserInfos}
+              />
             <div className="mb-2">
               <p>
                 Salut, je m’appelle
