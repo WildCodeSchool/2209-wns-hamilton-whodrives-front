@@ -1,12 +1,11 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_USER_INFO = gql`
-  mutation CreateUserInfo($city: String, $country: String, $age: Int, $address: String) {
-    createUserInfo(city: $city, country: $country, age: $age, address: $address) {
+  mutation CreateUserInfo($city: String, $country: String, $address: String) {
+    createUserInfo(city: $city, country: $country, address: $address) {
       id
       city
       country
-      age
       address
     }
   }
@@ -25,7 +24,7 @@ export const CREATE_ABOUT = gql`
       smoke: $smoke
       chatOptionId: $chatOptionId
       musicOptionId: $musicOptionId
-    ) {CREATE_CAR_MUTATION
+    ) {
       id
       animal
       description
@@ -42,27 +41,46 @@ export const CREATE_ABOUT = gql`
   }
 `;
 export const CREATE_CAR_MUTATION = gql`
-mutation CreateCar($seat: Int!, $modelId: Int!) {
-  createCar(seat: $seat, modelId: $modelId) {
-    id
-    seat
-    model {
+  mutation CreateCar($seat: Int!, $modelId: Int!) {
+    createCar(seat: $seat, modelId: $modelId) {
       id
-      name
+      seat
+      model {
+        id
+        name
+      }
+      carPictures {
+        id
+        path
+      }
     }
-    carPictures {
+  }
+`;
+
+export const ADD_PICTURE_MUTATION = gql`
+  mutation AddPicture($carId: ID!, $file: Upload!) {
+    addPicture(carId: $carId, file: $file) {
       id
       path
     }
   }
-}
 `;
 
-export const ADD_PICTURE_MUTATION = gql`
-mutation AddPicture($carId: ID!, $file: Upload!) {
-  addPicture(carId: $carId, file: $file) {
-    id
-    path
+export const ADD_PROFILE_PICTURE_MUTATION = gql`
+  mutation AddProfilePicture($pictureId: ID!, $file: Upload!) {
+    addProfilePicture(pictureID: $pictureId, file: $file) {
+      id
+      path
+    }
   }
-}
-`
+`;
+
+export const UPDATE_USER_INFO = gql`
+mutation UpdateUserInfo($updateUserInfoId: ID!, $city: String, $country: String, $address: String) {
+  updateUserInfo(id: $updateUserInfoId, city: $city, country: $country, address: $address) {
+    id
+    city
+    country
+    address
+  }
+}`; 

@@ -17,9 +17,17 @@ module.exports = {
       },
       backgroundImage: {
         "whodrives-bg": "url('/public/assets/images/whodrives.gif')",
+        "whodrives-bg-sm": "url('/public/assets/images/whodrives-sm.gif')",
       },
       fontSize: {
         xxs: ".5rem",
+      },
+      height: {
+        header: "5rem",
+        body: 'calc(100vh - theme("height.header"))',
+      },
+      minHeight: {
+        body: 'calc(100vh - theme("height.header"))',
       },
     },
   },

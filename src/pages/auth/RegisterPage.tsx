@@ -10,7 +10,7 @@ const REGISTER = gql`
     $username: String!
     $password: String!
     $email: String!
-    $phone: String! # Modifier le type en String!
+    $phone: String!
     $dateOfBirth: Date!
     $firstname: String
     $lastname: String
@@ -24,7 +24,6 @@ const REGISTER = gql`
       firstname: $firstname
       lastname: $lastname
     ) {
-      password
       phone
       username
       lastname
@@ -62,7 +61,7 @@ const RegisterPage = () => {
         dateOfBirth &&
         city
       ) {
-        toast.success("1er etape terminée !", { autoClose: 3000 });
+        toast.success("Prémière étape terminée !", { autoClose: 1000 });
         setTimeout(() => {
           setStep(2);
         }, 3000);
@@ -72,26 +71,35 @@ const RegisterPage = () => {
         });
       }
     } else if (step === 2) {
-      if (file && file.size > 0) {
-        toast.success("2eme etape terminée !", { autoClose: 2000 });
-        setTimeout(() => {
-          setStep(3);
-        }, 3000);
-      } else {
-        toast.error("Veuillez sélectionner un fichier", { autoClose: 2000 });
-      }
-    } else if (step === 3) {
       if (
         password !== "" &&
         confirmPassword !== "" &&
         password === confirmPassword
       ) {
-        toast.success("3eme etape terminée !", { autoClose: 2000 });
+        toast.success("Troisième tape terminée !", { autoClose: 1000 });
         handleRegister(e);
       } else {
-        toast.error("Veuillez saisir un mot de passe. !", { autoClose: 2000 });
+        toast.error("Veuillez saisir un mot de passe", { autoClose: 1000 });
       }
     }
+  };
+
+  const firstStepIsDisabled =
+    !username ||
+    !firstname ||
+    !phone ||
+    !lastname ||
+    !email ||
+    !dateOfBirth ||
+    !city;
+
+  const secondStepIsDisabled = !file || file.size === 0;
+
+  const thirdStepIsDisabled =
+    password === "" || confirmPassword === "" || password !== confirmPassword;
+
+  const BackToPreviousStage = () => {
+    setStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -123,7 +131,7 @@ const RegisterPage = () => {
           lastname,
         },
       });
-      toast.success("Vous êtes inscrit !", { autoClose: 3000 });
+      toast.success("Vous êtes inscrit !", { autoClose: 1000 });
       setTimeout(() => {
         navigate("/auth");
       }, 2000);
@@ -133,130 +141,134 @@ const RegisterPage = () => {
       });
     }
   };
+
   const renderStep = () => {
     if (step === 1) {
       return (
-        <div className="flex flex-col items-center justify-center">
-          <div>
-            <div className="p-16 mt-20 border-2 border-blue-500 ">
-              <h2 className="mb-4 text-2xl font-bold">
-                Étape 1: Informations personnelles
-              </h2>
-              <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
-              />
-              <input
-                type="text"
-                placeholder="Nom"
-                value={firstname}
-                onChange={(e) => setFirstname(e.target.value)}
-                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
-              />
-              <input
-                type="text"
-                placeholder="Prénom"
-                value={lastname}
-                onChange={(e) => setLastname(e.target.value)}
-                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
-              />
-              <input
-                type="text"
-                placeholder="Téléphone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
-              />
-              <input
-                type="text"
-                placeholder="Adresse email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
-              />
-              <input
-                type="date"
-                placeholder="Date de naissance"
-                value={dateOfBirth}
-                onChange={(e) => setDateOfBirth(e.target.value)}
-                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
-              />
-              <input
-                type="text"
-                placeholder="Ville"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
-              />
-            </div>
+        <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">
+          <h1 className="mb-4 text-center text-layoutBlue">Inscription</h1>
+          <div className="w-5/6 px-8 py-4 mx-auto my-4 border-2 border-validBlue sm:w-2/4">
+            <p className="mb-4 font-bold">Étape 1: Informations personnelles</p>
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+            />
+            <input
+              type="text"
+              placeholder="Nom"
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+            />
+            <input
+              type="text"
+              placeholder="Prénom"
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+            />
+            <input
+              type="text"
+              placeholder="Téléphone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+            />
+            <input
+              type="text"
+              placeholder="Adresse email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+            />
+            <input
+              type="date"
+              placeholder="Date de naissance"
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+            />
+            <input
+              type="text"
+              placeholder="Ville"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+            />
           </div>
-          <button
-            type="button"
-            onClick={handleNext}
-            className="py-2 mt-4 mb-5 text-white bg-blue-500 btnRegister"
-          >
-            Suivant
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={handleNext}
+              disabled={firstStepIsDisabled}
+              className="p-4"
+            >
+              <p
+                className={
+                  firstStepIsDisabled
+                    ? "grey-button p-2 text-xs"
+                    : "green-button p-2 text-xs"
+                }
+              >
+                Suivant
+              </p>
+            </button>
+          </div>
         </div>
       );
     } else if (step === 2) {
       return (
-        <div className="flex flex-col items-center justify-center ">
-          <div className="p-40 m-5 border-2 border-blue-500">
-            <h2 className="mb-4 text-2xl font-bold">
-              Étape 2: Photo de profil
-            </h2>
-            <input
-              type="file"
-              onChange={(e) => setFile(e.target.files && e.target.files[0])}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
-            />
-          </div>
-          <button
-            type="button"
-            onClick={handleNext}
-            className="py-2 m-5 mt-4 text-white bg-blue-500 btnRegister"
-          >
-            Suivant
-          </button>
-        </div>
-      );
-    } else if (step === 3) {
-      return (
-        <div className="flex flex-col items-center justify-center ">
-          <div className="p-40 m-5 border-2 border-blue-500">
-            <h2 className="mb-4 text-2xl font-bold">Étape 3: Mot de passe</h2>
+        <div className="w-full h-[calc(100vh-10rem)] pt-6">
+          <h1 className="mb-4 text-center text-layoutBlue">Inscription</h1>
+          <div className="w-5/6 px-8 py-4 mx-auto my-4 border-2 border-validBlue sm:w-2/4">
+            <p className="mb-4 font-bold">Étape 2: Mot de passe</p>
             <input
               type="password"
               placeholder="Mot de passe"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
             />
             <input
               type="password"
               placeholder="Confirmez le mot de passe"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-200"
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
             />
           </div>
-          <button
-            type="submit"
-            onClick={handleRegister}
-            className="py-2 m-5 mt-4 text-white bg-blue-500 btnRegister"
-          >
-            S'inscrire
-          </button>
+          <div className="flex justify-center">
+            <button className="p-4" onClick={() => BackToPreviousStage()}>
+              <p className="font-bold text-whodrivesGrey hover:text-validBlue">
+                Retour
+              </p>
+            </button>
+            <button
+              type="submit"
+              onClick={handleRegister}
+              disabled={thirdStepIsDisabled}
+              className="p-4"
+            >
+              <p
+                className={
+                  thirdStepIsDisabled
+                    ? "grey-button p-2 text-xs"
+                    : "green-button p-2 text-xs"
+                }
+              >
+                S'inscrire
+              </p>
+            </button>
+          </div>
         </div>
       );
     }
   };
   return (
-    <div className="container mx-auto">
+    <div className="w-full min-h-[calc(100vh-10rem)]">
       <form onSubmit={handleRegister}>{renderStep()}</form>
       {loading && <div>Loading...</div>}
       {error && (

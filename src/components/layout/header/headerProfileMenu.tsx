@@ -16,8 +16,7 @@ const disconnectedMenuItems: MenuItems[] = [
 
 const menuItems: MenuItems[] = [
   { path: "/profile", name: "Mon compte" },
-  { path: "/profile/dashboard", name: "Mon tableau de bord" },
-  { path: "/profile/messages", name: "Mes messages" },
+  { path: "/dashboard", name: "Mon tableau de bord" },
 ];
 
 const headerLinks: MenuItems[] = [
@@ -63,11 +62,16 @@ export default function HeaderProfileMenu(): JSX.Element {
           onClick={handleClick}
         >
           {Object.keys(userInfos).length > 0 ? (
-            <img
-              className="w-10"
-              src="/assets/icons/user-green.svg"
-              alt="user icon"
-            />
+            <div className="flex flex-row">
+              <p className="mr-2 font-bold text-whodrivesGreen">
+                {userInfos.username}
+              </p>
+              <img
+                className="w-10"
+                src="/assets/icons/user-green.svg"
+                alt="user icon"
+              />
+            </div>
           ) : (
             <img
               className="w-10"
@@ -108,13 +112,10 @@ export default function HeaderProfileMenu(): JSX.Element {
                 </MenuItem>
               );
             })}
-            <MenuItem>
-              <p
-                onClick={logout}
-                className="header-profile-text hover:text-validBlue"
-              >
+            <MenuItem onClick={logout}>
+              <a href="/" className="header-profile-text hover:text-validBlue">
                 Déconnexion
-              </p>
+              </a>
             </MenuItem>
           </Menu>
         ) : (
@@ -144,7 +145,7 @@ export default function HeaderProfileMenu(): JSX.Element {
       </div>
 
       {/* Menu mobile */}
-      <div className="flex flex-row justify-end h-full sm:hidden">
+      <div className="flex justify-end sm:hidden">
         <button
           className="flex flex-row"
           aria-controls={open ? "basic-menu" : undefined}
@@ -190,13 +191,10 @@ export default function HeaderProfileMenu(): JSX.Element {
                 </MenuItem>
               );
             })}
-            <MenuItem>
-              <p
-                onClick={logout}
-                className="header-profile-text hover:text-validBlue"
-              >
+            <MenuItem onClick={logout}>
+              <a href="/" className="header-profile-text hover:text-validBlue">
                 Déconnexion
-              </p>
+              </a>
             </MenuItem>
           </Menu>
         ) : (

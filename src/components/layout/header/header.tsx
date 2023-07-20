@@ -6,7 +6,7 @@ export default function HeaderComponent(): JSX.Element {
   const navigate = useNavigate();
 
   return (
-    <div className="sticky top-0 h-20 sm:p-10 p-5 bg-layoutBlue">
+    <div className="sticky top-0 z-20 w-screen h-20 p-10 md:w-full bg-layoutBlue">
       <div className="flex-row items-center justify-end h-full gap-20 sm:flex">
         <div className="flex-row hidden w-auto gap-20 text-xs sm:flex md:text-sm lg:text-base lg:mr-40 header-text sm:visible">
           <div
@@ -15,7 +15,7 @@ export default function HeaderComponent(): JSX.Element {
               navigate("/");
             }}
           >
-            <p>Accueil</p>
+            <h2>Accueil</h2>
           </div>
 
           <div
@@ -29,7 +29,7 @@ export default function HeaderComponent(): JSX.Element {
               src="/assets/icons/search-white.svg"
               alt="search icon"
             />
-            <p>Rechercher</p>
+            <h2>Rechercher</h2>
           </div>
 
           <div
@@ -43,7 +43,7 @@ export default function HeaderComponent(): JSX.Element {
               src="/assets/icons/car-white.svg"
               alt="car icon"
             />
-            <p>Publier un trajet</p>
+            <h2>Publier un trajet</h2>
           </div>
         </div>
 
