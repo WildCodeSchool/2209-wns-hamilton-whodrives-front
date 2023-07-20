@@ -23,7 +23,19 @@ function ProtectedArea({ children }: { children: JSX.Element }) {
     //rafraichir le checktoken
     refetch();
   }, [userInfos]);
-  return <>{loading ? "Chargement en cours" : children}</>;
+  return (
+    <>
+      {loading ? (
+        <div className="h-screen">
+          <div className="w-1/6 m-auto align-middle">
+            <img src="/assets/images/loading.gif" alt="loading" />
+          </div>
+        </div>
+      ) : (
+        children
+      )}
+    </>
+  );
 }
 
 export default ProtectedArea;

@@ -42,8 +42,6 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [city, setCity] = useState("");
-  const [file, setFile] = useState<File | null>(null);
   const navigate = useNavigate();
 
   const [createUser, { loading, error }] = useMutation(REGISTER);
@@ -52,15 +50,7 @@ const RegisterPage = () => {
     e.preventDefault();
 
     if (step === 1) {
-      if (
-        username &&
-        firstname &&
-        phone &&
-        lastname &&
-        email &&
-        dateOfBirth &&
-        city
-      ) {
+      if (username && firstname && phone && lastname && email && dateOfBirth) {
         toast.success("Prémière étape terminée !", { autoClose: 1000 });
         setTimeout(() => {
           setStep(2);
@@ -85,17 +75,9 @@ const RegisterPage = () => {
   };
 
   const firstStepIsDisabled =
-    !username ||
-    !firstname ||
-    !phone ||
-    !lastname ||
-    !email ||
-    !dateOfBirth ||
-    !city;
+    !username || !firstname || !phone || !lastname || !email || !dateOfBirth;
 
-  const secondStepIsDisabled = !file || file.size === 0;
-
-  const thirdStepIsDisabled =
+  const secondStepIsDisabled =
     password === "" || confirmPassword === "" || password !== confirmPassword;
 
   const BackToPreviousStage = () => {
@@ -191,13 +173,6 @@ const RegisterPage = () => {
               onChange={(e) => setDateOfBirth(e.target.value)}
               className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
             />
-            <input
-              type="text"
-              placeholder="Ville"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
-            />
           </div>
           <div className="flex justify-center">
             <button
@@ -249,12 +224,12 @@ const RegisterPage = () => {
             <button
               type="submit"
               onClick={handleRegister}
-              disabled={thirdStepIsDisabled}
+              disabled={secondStepIsDisabled}
               className="p-4"
             >
               <p
                 className={
-                  thirdStepIsDisabled
+                  secondStepIsDisabled
                     ? "grey-button p-2 text-xs"
                     : "green-button p-2 text-xs"
                 }
