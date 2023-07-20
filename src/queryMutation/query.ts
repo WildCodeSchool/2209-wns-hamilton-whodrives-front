@@ -19,15 +19,28 @@ export const GET_CHAT_OPTIONS = gql`
 `;
 
 export const GET_USER_LOGGED = gql`
-  query getUserLogged {
+  query UserLogged {
     userLogged {
+      id
       username
-      password
       firstname
       lastname
       date_of_birth
+      password
       email
       phone
+      cars {
+        id
+        seat
+        model {
+          id
+          name
+        }
+        carPictures {
+          id
+          path
+        }
+      }
       userInfo {
         id
         city
@@ -47,19 +60,10 @@ export const GET_USER_LOGGED = gql`
             content
           }
         }
-        profilPictureId
-      }
-      cars {
-        carPictures {
+        profilPictureId {
+          id
           path
-          id
         }
-        id
-        model {
-          id
-          name
-        }
-        seat
       }
     }
   }

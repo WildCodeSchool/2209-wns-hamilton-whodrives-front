@@ -30,7 +30,7 @@ const ProfileCardComponent = () => {
     refetch();
   }, []);
 
-  const localhost = "http://localhost:4000/graphql";
+  const backendUrl = "http://localhost:4000/cars-images/";
 
   if (loading) {
     return <div>Loading...</div>;
@@ -111,12 +111,6 @@ const ProfileCardComponent = () => {
                 </div>
               </>
             ) : (
-              // <button
-              //   className="px-4 py-2 m-1 font-bold text-white bg-green-500 border hover:bg-blue-700"
-              //   onClick={handleClickAbout}
-              // >
-              //   Ajouter vos préférences
-              // </button>
               <button className="p-4" onClick={handleClickAbout}>
                 <p className="font-bold text-whodrivesGrey hover:text-validBlue">
                   Ajoutez vos préférences
@@ -144,15 +138,37 @@ const ProfileCardComponent = () => {
         ) : (
           user.cars.map((car: any) => (
             <div className="flex Cars" key={car.id}>
-              <img
-                src={`${localhost}/${car.carPictures.path}`}
-                alt=""
-                className="w-40 "
-                onClick={() => handleClickAddPicture(car.id)}
-              />
+              {car.carPictures ? (
+                car.carPictures.map((picture: any) => (
+                  <div className="w-12" key={picture.id}>
+                    {picture.path !== null ? (
+                      <img
+                        src={backendUrl + picture.path}
+                        alt=""
+                        className="w-48 "
+                        onClick={() => handleClickAddPicture(car.id)}
+                      />
+                    ) : (
+                      <img
+                        src="/assets/images/yellow-car.png"
+                        alt=""
+                        className="w-48"
+                        onClick={() => handleClickAddPicture(car.id)}
+                      />
+                    )}
+                  </div>
+                ))
+              ) : (
+                <img
+                  src="/assets/images/yellow-car.png"
+                  alt=""
+                  className="w-48"
+                  onClick={() => handleClickAddPicture(car.id)}
+                />
+              )}
               <p>
                 Ma voiture est une{" "}
-                <span className="text-validBlue">{car.model.name}</span> qui
+                <span className="text-validBlue">{car.model?.name}</span> qui
                 possède <span className="text-validBlue">{car.seat}</span>{" "}
                 places.
               </p>
