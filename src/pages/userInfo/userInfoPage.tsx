@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
@@ -59,7 +59,7 @@ export default function UserInfoPage(): JSX.Element {
 
   const { loading: userInfoLoading, data: userInfoData } = useQuery(GET_USERINFO_LOGGED);
 
-  React.useEffect(() => {
+useEffect(() => {
     if (!userInfoLoading && userInfoData && userInfoData.userLogged) {
       const { city, country, address } = userInfoData.userLogged.userInfo || {};
       setCity(city || "");
