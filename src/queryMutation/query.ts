@@ -77,3 +77,23 @@ export const GET_CAR_MODELS = gql`
     }
   }
 `;
+
+export const GET_USERINFO_LOGGED = gql`
+query UserLogged {
+  userLogged {
+    id
+    username
+    firstname
+    lastname
+    date_of_birth
+    password
+    email
+    phone
+    userInfo {
+      id
+      city
+      country
+      address
+    }
+  }
+}`;

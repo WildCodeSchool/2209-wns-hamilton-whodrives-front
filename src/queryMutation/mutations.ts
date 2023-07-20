@@ -74,3 +74,13 @@ export const ADD_PROFILE_PICTURE_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_USER_INFO = gql`
+mutation UpdateUserInfo($updateUserInfoId: ID!, $city: String, $country: String, $address: String) {
+  updateUserInfo(id: $updateUserInfoId, city: $city, country: $country, address: $address) {
+    id
+    city
+    country
+    address
+  }
+}`; 
