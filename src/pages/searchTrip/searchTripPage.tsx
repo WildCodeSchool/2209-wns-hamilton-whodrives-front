@@ -178,11 +178,6 @@ export default function SearchTripPage(): JSX.Element {
     },
   });
   useEffect(() => {
-    console.log("REFETCh", {
-      departurePlaces: form.departure,
-      destination: form.arrival,
-      dateDeparture: form.date,
-    });
     if (rangeSelected !== null) {
       refetch({
         departurePlaces: form.departure,
@@ -359,7 +354,9 @@ export default function SearchTripPage(): JSX.Element {
                     arrival={el.destination}
                     submitTrip={submitTrip}
                   />
-                ) : null
+                ) : (
+                    <div>Aucun trajet ne correspond à votre recherche</div>
+                  )
               )
             ) : (
               <div>Aucun trajet ne correspond à votre recherche</div>
