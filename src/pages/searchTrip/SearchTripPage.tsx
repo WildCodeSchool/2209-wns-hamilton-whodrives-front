@@ -178,11 +178,6 @@ export default function SearchTripPage(): JSX.Element {
     },
   });
   useEffect(() => {
-    console.log("REFETCh", {
-      departurePlaces: form.departure,
-      destination: form.arrival,
-      dateDeparture: form.date,
-    });
     if (rangeSelected !== null) {
       refetch({
         departurePlaces: form.departure,
@@ -359,7 +354,9 @@ export default function SearchTripPage(): JSX.Element {
                     arrival={el.destination}
                     submitTrip={submitTrip}
                   />
-                ) : null
+                ) : (
+                    <div>Aucun trajet ne correspond à votre recherche</div>
+                  )
               )
             ) : (
               <div>Aucun trajet ne correspond à votre recherche</div>
@@ -376,7 +373,6 @@ export default function SearchTripPage(): JSX.Element {
             arrival={dataTripId.getTrip.destination}
             seats={dataTripId.getTrip.place_available}
             price={dataTripId.getTrip.price}
-            // hour={dataTripId.getTrip.hour_departure}
             hour={`${dataTripId.getTrip.hour_departure.split(":")[0]}h${dataTripId.getTrip.hour_departure.split(":")[1]}`}
             date={moment(dataTripId.getTrip.date_departure).format(
               "DD/MM/YYYY"
