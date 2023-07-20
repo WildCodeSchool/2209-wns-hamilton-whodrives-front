@@ -77,6 +77,19 @@ export const GET_CAR_MODELS = gql`
     }
   }
 `;
+export const GET_CAR_USER_LOGGED  = gql`
+query GetCarUserLogged {
+  userLogged {
+    cars {
+      id
+      model {
+        id
+        name
+      }
+      seat
+    }
+  }
+}`;
 
 export const GET_USERINFO_LOGGED = gql`
   query UserLogged {
