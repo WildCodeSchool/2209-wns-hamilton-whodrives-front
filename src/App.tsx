@@ -14,7 +14,6 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import AddCarPage from "./pages/car/CarAddPage";
 import AddCarPicturePage from "./pages/car/carPicturePage";
 import CreateTripPage from "./pages/createTrip/createTripPage";
-import Dashboard from "./pages/dashboard/dashboard";
 import AboutUsPage from "./pages/footerPages/aboutUs";
 import ContactUsPage from "./pages/footerPages/contactUs";
 import FaqPage from "./pages/footerPages/faq";
@@ -22,6 +21,7 @@ import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/searchTripPage";
 import UserInfoPage from "./pages/userInfo/userInfoPage";
+import DashboardPage from "./pages/dashboard/dashboardPage";
 
 function App() {
   return (
@@ -41,7 +41,7 @@ function App() {
           path="dashboard"
           element={
             <ProtectedArea>
-              <Dashboard />
+              <DashboardPage />
             </ProtectedArea>
           }
         />
