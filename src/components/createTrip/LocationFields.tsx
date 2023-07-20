@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "../../styles/createTrip.css";
 
 function LocationFields({ handleLocationFieldData, trip }: any) {
   const [departure, setDeparture] = useState("");
@@ -50,16 +49,14 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
     }
   };
 
-  const handleDepartureChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleDepartureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setDeparture(value);
     setShowDepartureOptions(value !== ""); // Affiche la liste uniquement si l'input n'est pas vide
   };
 
   const handleArrivalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const { value } = e.target;
     setArrival(value);
     setShowArrivalOptions(value !== ""); // Affiche la liste uniquement si l'input n'est pas vide
   };
@@ -90,15 +87,14 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
     setShowArrivalOptions(false);
   };
 
+  const isDisabled = !departure || !arrival || !date || !time || !passengers;
+
   return (
-    <div className="h-screen flex flex-col justify-center items-center my-custom-class">
-      <h2 className="text-lg font-semibold text-center mb-4">
-        Je publie un trajet
-      </h2>
-      <div className="bg-lightBlue p-8 mx-auto w-full sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
-        <div className="flex flex-col space-y-2">
+    <div className="flex flex-col items-center justify-center py-5">
+      <div className="w-full p-8 bg-lightBlue sm:w-4/5 md:w-3/5 lg:w-2/5 xl:w-1/5">
+        <div className="flex flex-col pb-4">
           <label className="text-center" htmlFor="depart">
-            Départ
+            Ville de départ
           </label>
           <div className="relative">
             <input
@@ -106,14 +102,14 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
               id="depart"
               value={departure}
               onChange={handleDepartureChange}
-              className="w-full border border-gray-300 p-2"
+              className="w-full p-2 border border-gray-300"
             />
             {showDepartureOptions && departureOptions.length > 0 && (
-              <ul className="absolute z-10 bg-white border border-gray-300 p-4 mt-2 w-full">
+              <ul className="absolute z-10 w-full p-4 mt-2 bg-white border border-gray-300">
                 {departureOptions.map((option, index) => (
                   <li key={index}>
                     <button
-                      className="text-left w-full"
+                      className="w-full text-left"
                       onClick={() => handleDepartureOptionClick(option)}
                     >
                       {option}
@@ -124,9 +120,9 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             )}
           </div>
         </div>
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col pb-4">
           <label className="text-center" htmlFor="arrivee">
-            Arrivée
+            Ville d'arrivée
           </label>
           <div className="relative">
             <input
@@ -134,14 +130,14 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
               id="arrivee"
               value={arrival}
               onChange={handleArrivalChange}
-              className="w-full border border-gray-300 p-2"
+              className="w-full p-2 border border-gray-300"
             />
             {showArrivalOptions && arrivalOptions.length > 0 && (
-              <ul className="absolute z-10 bg-white border border-gray-300 p-4 mt-2 w-full">
+              <ul className="absolute z-10 w-full p-4 mt-2 bg-white border border-gray-300">
                 {arrivalOptions.map((option, index) => (
                   <li key={index}>
                     <button
-                      className="text-left w-full"
+                      className="w-full text-left"
                       onClick={() => handleArrivalOptionClick(option)}
                     >
                       {option}
@@ -152,21 +148,21 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             )}
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row sm:space-x-4">
-          <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
+        <div className="flex flex-col md:flex-row md:gap-4">
+          <div className="flex flex-col pb-4 sm:w-1/2 sm:flex-1">
             <label className="text-center" htmlFor="date">
               Date
             </label>
             <input
               type="date"
               id="date"
-              // afficher la date de aujourd'hui par defaut
+              //afficher la date de aujourdui par defaut
               value={date || trip.date}
               onChange={(e) => setDate(e.target.value)}
-              className="border border-gray-300 p-2"
+              className="p-2 border border-gray-300"
             />
           </div>
-          <div className="flex flex-col space-y-2 sm:w-1/2 sm:flex-1">
+          <div className="flex flex-col sm:w-1/2 sm:flex-1">
             <label className="text-center" htmlFor="heure">
               Heure
             </label>
@@ -175,34 +171,62 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
               id="heure"
               value={time}
               onChange={(e) => setTime(e.target.value)}
-              className="border border-gray-300 p-2"
+              className="p-2 border border-gray-300"
             />
           </div>
         </div>
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col ">
           <label className="text-center" htmlFor="nombrePersonnes">
-            Nombre de personnes
+            Nombre de places disponibles
           </label>
-          <input
-            type="number"
-            id="nombrePersonnes"
-            value={passengers || trip.passengers}
-            onChange={(e) => setPassengers(parseInt(e.target.value))}
-            className="w-1/6 border border-gray-300 p-2 justify-center mx-auto"
-          />
+          <div className="flex flex-row items-center justify-center">
+            <button
+              className="px-4"
+              onClick={() => setPassengers(Math.max(1, passengers - 1))}
+            >
+              <img src="/assets/icons/minus.svg" alt="minus icon" />
+            </button>
+            <input
+              type="number"
+              id="nombrePersonnes"
+              value={passengers || trip.passengers}
+              onChange={(e) => setPassengers(parseInt(e.target.value))}
+              className="flex w-6 font-bold text-center"
+            />
+            <button
+              className="px-4"
+              onClick={() => setPassengers(passengers + 1)}
+            >
+              <img src="/assets/icons/plus.svg" alt="minus icon" />
+            </button>
+          </div>
         </div>
       </div>
       <div className="flex justify-center">
         <button
           type="submit"
-          className="bg-whodrivesGrey text-white py-2 px-4 mt-6"
-          // le bouton est disabled si les champs ne sont pas remplis
-          disabled={!departure || !arrival || !date || !time || !passengers}
+          className="p-4"
+          // The button is disabled if the fields are not filled
+          disabled={isDisabled}
           onClick={() =>
-            handleLocationFieldData({ departure, arrival, date, time, passengers })
+            handleLocationFieldData({
+              departure,
+              arrival,
+              date,
+              time,
+              passengers,
+            })
           }
         >
-          Suivant
+          <p
+            className={
+              isDisabled
+                ? "grey-button p-2 text-xs"
+                : "green-button p-2 text-xs"
+            }
+          >
+            Suivant
+          </p>
         </button>
       </div>
     </div>
