@@ -9,6 +9,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import moment from "moment";
 import CongratulationsPage from "../../components/shared/CongratulationsPage";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const hoursRange = [
   {
@@ -57,6 +58,8 @@ export default function SearchTripPage(): JSX.Element {
   const [sortOrder, setSortOrder] = useState("asc");
   const { userInfos } = useContext(AuthContext);
   const [placeAvailableTrip, setPlaceAvailableTrip] = useState(1);
+
+  const navigate = useNavigate();
 
   //Query gql
 
@@ -293,7 +296,7 @@ export default function SearchTripPage(): JSX.Element {
         }),
       ])
         .then((responses) => {
-          setActiveStep(3);
+          navigate("/dashboard");
         })
         .catch((errors) => {});
     } else {

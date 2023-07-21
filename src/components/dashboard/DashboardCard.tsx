@@ -154,7 +154,17 @@ export default function DashboardCard() {
             }`}
           >
             <div className="flex flex-col">
-              <h3 className="mb-4 text-center">Votre trajet</h3>
+              <h3 className="mb-4 text-center">
+                {trip.users.find(
+                  (user) => user.username === userLogged.username
+                )
+                  ? "Vous êtes le conducteur"
+                  : trip.passengers.find(
+                      (passenger) => passenger.username === userLogged.username
+                    )
+                  ? "Vous êtes un passager"
+                  : ""}
+              </h3>
               <div className="flex flex-col md:flex-row">
                 <div className="flex flex-col items-center justify-center w-full gap-2 mb-4 font-bold md:mb-0 md:gap-4 md:w-1/5">
                   <div className="flex flex-col font-bold">
