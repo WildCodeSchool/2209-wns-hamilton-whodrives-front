@@ -15,16 +15,5 @@ export default function HomeImageFormComponent(): JSX.Element {
         className="w-full h-full md:hidden"
       />
     </div>
-    //   <img
-    //     src="/assets/images/whod.gif"
-    //     alt="background"
-    //     className="hidden w-full h-full m-auto md:block"
-    //   />
-    //   <img
-    //     src="/assets/images/wd-sm.gif"
-    //     alt="background"
-    //     className="w-full h-full md:hidden"
-    //   />
-    // </div>
   );
 }
