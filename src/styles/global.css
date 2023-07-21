@@ -57,6 +57,17 @@
         }    
       }
 
+
+.section-title {
+  text-shadow:
+  0 0 7px #fff,
+  0 0 10px #fff,
+  0 0 19px #0075FF,
+  0 0 34px #0075FF,
+  0 0 50px #0075FF;
+animation: flicker 5s infinite alternate;
+}
+
 html,
 body {
     padding: 0;
@@ -115,13 +126,19 @@ p, label {
     font-family: "pressStart2p";
   }
 
-/* SECTION TITLE WITH BLUE NEON EFFECT */
-.section-title {
-    text-shadow:
-    0 0 7px #fff,
-    0 0 10px #fff,
-    0 0 19px #0075FF,
-    0 0 34px #0075FF,
-    0 0 50px #0075FF;
-  animation: flicker 5s infinite alternate;
-}
+  .red-button {
+    background-color: white;
+    color: #CF142B;
+    cursor: pointer;
+    border: 2px solid black;
+    font-family: "pressStart2p";
+  }
+
+  .red-button:hover {
+    background-color: #CF142B;
+    color: white;
+    cursor: pointer;
+    border: 2px solid black;
+    font-family: "pressStart2p";
+  }
+

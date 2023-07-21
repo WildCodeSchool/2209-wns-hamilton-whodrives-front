@@ -10,7 +10,7 @@ export default function HomeImageFormComponent(): JSX.Element {
         </div>
       </div>
       <img
-        src="/assets/images/wd-sm.gif"
+        src="/assets/images/whodrives-sm.gif"
         alt="background"
         className="w-full h-full md:hidden"
       />

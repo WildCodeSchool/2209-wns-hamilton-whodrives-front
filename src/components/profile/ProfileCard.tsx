@@ -50,15 +50,15 @@ const ProfileCardComponent = () => {
       </div>
       <div className="w-full md:w-3/4">
         <h3 className="px-2 py-1 text-white bg-layoutBlue">A propos de moi</h3>
-        
+
         {user.userInfo !== null && (
           <div>
             <img
-                className="w-4"
-                src="assets/icons/edit-box.svg"
-                alt="arrow icon"
-                onClick={handleClickUserInfos}
-              />
+              className="w-4"
+              src="assets/icons/edit-box.svg"
+              alt="arrow icon"
+              onClick={handleClickUserInfos}
+            />
             <div className="mb-2">
               <p>
                 Salut, je m’appelle
@@ -69,12 +69,12 @@ const ProfileCardComponent = () => {
             </div>
             {user.userInfo.about !== null ? (
               <>
-               <img
-                className="w-4"
-                src="assets/icons/edit-box.svg"
-                alt="arrow icon"
-                onClick={handleClickAbout}
-              />
+                <img
+                  className="w-4"
+                  src="assets/icons/edit-box.svg"
+                  alt="arrow icon"
+                  onClick={handleClickAbout}
+                />
                 <div className="mb-2">
                   <p className="font-bold">Description</p>
                   <p>{user.userInfo.about.description}</p>
@@ -143,10 +143,10 @@ const ProfileCardComponent = () => {
         )}
         <h3 className="px-2 py-1 text-white bg-layoutBlue">Ma Voiture</h3>
         <img
-                className="w-4"
-                src="assets/icons/edit-box.svg"
-                alt="arrow icon"
-                onClick={handleClickCar}
+          className="w-4"
+          src="assets/icons/edit-box.svg"
+          alt="arrow icon"
+          onClick={handleClickCar}
         />
         {user.cars.length === 0 ? (
           <button className="p-4" onClick={handleClickCar}>
@@ -156,22 +156,22 @@ const ProfileCardComponent = () => {
           </button>
         ) : (
           user.cars.map((car: any) => (
-            <div className="flex Cars" key={car.id}>
+            <div className="flex-col md:flex" key={car.id}>
               {car.carPictures ? (
                 car.carPictures.map((picture: any) => (
-                  <div className="w-12" key={picture.id}>
+                  <div key={picture.id}>
                     {picture.path !== null ? (
                       <img
                         src={backendUrl + picture.path}
                         alt=""
-                        className="w-48 "
+                        className="w-full md:w-48"
                         onClick={() => handleClickAddPicture(car.id)}
                       />
                     ) : (
                       <img
                         src="/assets/images/yellow-car.png"
                         alt=""
-                        className="w-48"
+                        className="w-full md:w-48"
                         onClick={() => handleClickAddPicture(car.id)}
                       />
                     )}
@@ -181,11 +181,11 @@ const ProfileCardComponent = () => {
                 <img
                   src="/assets/images/yellow-car.png"
                   alt=""
-                  className="w-48"
+                  className="w-full md:w-48"
                   onClick={() => handleClickAddPicture(car.id)}
                 />
               )}
-              <p>
+              <p className="w-full">
                 Ma voiture est une{" "}
                 <span className="text-validBlue">{car.model?.name}</span> qui
                 possède <span className="text-validBlue">{car.seat}</span>{" "}
