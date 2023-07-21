@@ -33,8 +33,8 @@ interface FormState {
   departure: string;
   arrival: string;
   date: string;
-  passenger: number;
 }
+
 interface ITrip {
   id: number;
   users: User[];
@@ -154,10 +154,9 @@ export default function SearchTripPage(): JSX.Element {
   // form search trip
   const today = new Date().toLocaleDateString("en-us");
   const [form, setForm] = useState<FormState>({
-    departure: "départ",
-    arrival: "destination",
+    departure: "Départ",
+    arrival: "Destination",
     date: today,
-    passenger: 0,
   });
   let [errorMessage, setErrorMessage] = useState("");
   const [errorForm, setErrorForm] = useState(false);
@@ -209,14 +208,14 @@ export default function SearchTripPage(): JSX.Element {
   //event to retrieve trips
 
   const handleclick = () => {
-    if (form.departure === "départ") {
-      setErrorMessage("merci de selectionner une ville de départ");
+    if (form.departure === "Départ") {
+      setErrorMessage("Veuillez selectionner une ville de départ");
       setErrorForm(true);
-    } else if (form.arrival === "destination") {
-      setErrorMessage("merci de selectionner une ville d'arrivée");
+    } else if (form.arrival === "Destination") {
+      setErrorMessage("Veuillez selectionner une destination");
       setErrorForm(true);
     } else if (form.date === today) {
-      setErrorMessage("merci de selectionner une date de départ");
+      setErrorMessage("Veuillez selectionner une date de départ");
       setErrorForm(true);
     } else {
       setErrorForm(false);
@@ -238,10 +237,10 @@ export default function SearchTripPage(): JSX.Element {
     setResultat(sortedResultat);
   };
   //filter by date
-  const filterByDate =()=>{
+  const filterByDate = () => {
     const sortedResultat = [...resultat];
-    const convertToMinutes = (timeString :any) => {
-      const [hours, minutes] = timeString.split(':');
+    const convertToMinutes = (timeString: any) => {
+      const [hours, minutes] = timeString.split(":");
       const hoursInt = parseInt(hours, 10);
       const minutesInt = parseInt(minutes, 10);
       return hoursInt * 60 + minutesInt;
@@ -249,7 +248,7 @@ export default function SearchTripPage(): JSX.Element {
     sortedResultat.sort((a, b) => {
       const aTime = convertToMinutes(a.hour_departure);
       const bTime = convertToMinutes(b.hour_departure);
-      
+
       if (sortOrder === "asc") {
         return aTime - bTime;
       } else {
@@ -257,9 +256,9 @@ export default function SearchTripPage(): JSX.Element {
       }
     });
     setResultat(sortedResultat);
-  }
+  };
   //filter reset
-  const filterReset = ()=>{
+  const filterReset = () => {
     const sortedResultat = [...resultat];
     sortedResultat.sort((a, b) => {
       if (sortOrder === "asc") {
@@ -270,7 +269,7 @@ export default function SearchTripPage(): JSX.Element {
     });
 
     setResultat(sortedResultat);
-  }
+  };
   //event to choose one trip
   const submitTrip = () => {
     setActiveStep(2);
@@ -307,8 +306,10 @@ export default function SearchTripPage(): JSX.Element {
 
   useEffect(() => {}, [rangeSelected]);
   return (
-    <div className="flex flex-col items-center w-screen h-screen">
-      <h1 className="mt-10 mb-8 text-whodrivesPink">JE CHERCHE UN TRAJET</h1>
+    <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">
+      <h1 className="mb-4 text-center text-whodrivesPink">
+        Je cherche un trajet
+      </h1>
       {activeStep !== 3 ? (
         <Stepper activeStep={activeStep} className="mb-12">
           {steps.map((step) => (
@@ -349,14 +350,16 @@ export default function SearchTripPage(): JSX.Element {
                     date={moment(el.date_departure).format("DD/MM/YYYY")}
                     seats={el.place_available}
                     price={el.price}
-                    hour={`${el.hour_departure.split(":")[0]}h${el.hour_departure.split(":")[1]}`}
+                    hour={`${el.hour_departure.split(":")[0]}h${
+                      el.hour_departure.split(":")[1]
+                    }`}
                     departure={el.departure_places}
                     arrival={el.destination}
                     submitTrip={submitTrip}
                   />
                 ) : (
-                    <div>Aucun trajet ne correspond à votre recherche</div>
-                  )
+                  <div>Aucun trajet ne correspond à votre recherche</div>
+                )
               )
             ) : (
               <div>Aucun trajet ne correspond à votre recherche</div>
@@ -373,7 +376,9 @@ export default function SearchTripPage(): JSX.Element {
             arrival={dataTripId.getTrip.destination}
             seats={dataTripId.getTrip.place_available}
             price={dataTripId.getTrip.price}
-            hour={`${dataTripId.getTrip.hour_departure.split(":")[0]}h${dataTripId.getTrip.hour_departure.split(":")[1]}`}
+            hour={`${dataTripId.getTrip.hour_departure.split(":")[0]}h${
+              dataTripId.getTrip.hour_departure.split(":")[1]
+            }`}
             date={moment(dataTripId.getTrip.date_departure).format(
               "DD/MM/YYYY"
             )}

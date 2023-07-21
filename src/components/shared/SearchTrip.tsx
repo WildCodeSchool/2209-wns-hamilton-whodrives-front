@@ -149,23 +149,6 @@ export default function SearchTripComponent({
         value={form.date}
         placeholder={today}
       />
-      <div className="flex flex-row ml-2 mr-2 sm:w-1/1">
-        <img src="/assets/icons/user-plus-grey.svg" alt="" />
-        <select
-          name="passenger"
-          placeholder="personne"
-          style={{ height: "100%" }}
-          className="w-10 ml-5 "
-          onChange={(e) => setForm({ ...form, passenger: e.target.value })}
-        >
-          <option value="0"></option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-        </select>
-      </div>
-
       <button
         onClick={onclick}
         className="min-h-full p-2 pl-4 pr-4 text-white border-l-2 border-black bg-whodrivesGreen searchTripButton sm:w-1/1"
