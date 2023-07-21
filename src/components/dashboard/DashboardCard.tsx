@@ -139,11 +139,11 @@ export default function DashboardCard() {
   };
   return (
     <div className="flex flex-col w-5/6 p-8 m-auto my-4 border-2 md:flex-row md:w-1/2 border-validBlue">
-      <div className="flex flex-col flex-grow">
+      <div className="w-full">
         {trips.map((trip: ITrip) => (
           <div
             key={trip.id}
-            className={`border border-black p-8 flex justify-center m-3 ${
+            className={`border border-black p-4 md:p-8 flex flex-col md:flex-row justify-center mb-6 md:m-3 ${
               trip.users.find((user) => user.username === userLogged.username)
                 ? "bg-whodrivesGreen text-white"
                 : trip.passengers.find(
@@ -153,59 +153,77 @@ export default function DashboardCard() {
                 : ""
             }`}
           >
-            <div className="flex flex-col justify-center w-1/3 gap-4 font-bold">
-              <div className="flex flex-col font-bold">
-                <p>Conducteur :</p>
-                {trip.users.map((user) => (
-                  <p key={user.username} className="ml-1">
-                    {user.username}
-                  </p>
-                ))}
-              </div>
-              {trip.users.find(
-                (user) => user.username === userLogged.username
-              ) ? (
-                <div className="flex flex-col font-bold">
-                  <p>Passagers :</p>
-                  {trip.passengers.map((passenger) => (
-                    <p key={passenger.username} className="ml-1 mr-2">
-                      {passenger.username}
-                    </p>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-            <div className="flex flex-col justify-center w-2/3 gap-3 font-bold">
-              <div className="flex">
-                <p className="mr-2">{trip.departure_places}</p>
-                <img src="assets/icons/arrow-right-white.svg" alt="" />
-                <p className="ml-2">{trip.destination}</p>
-              </div>
-              <p>
-                {moment(trip.date_departure).format("DD/MM/YYYY")} -{" "}
-                {trip.hour_departure.split(":00")}
-              </p>
-              <p>Prix : {trip.price} €</p>
-            </div>
-            <div className="w-1/5">
-              <button
-                type="submit"
-                className="p-4"
-                onClick={() => handleDeleteTrip(trip.id)}
-              >
-                <p className="p-2 text-xs red-button">
+            <div className="flex flex-col">
+              <h3 className="mb-4 text-center">Votre trajet</h3>
+              <div className="flex flex-col md:flex-row">
+                <div className="flex flex-col items-center justify-center w-full gap-2 mb-4 font-bold md:mb-0 md:gap-4 md:w-1/5">
+                  <div className="flex flex-col font-bold">
+                    <p>Conducteur :</p>
+                    {trip.users.map((user) => (
+                      <p key={user.username} className="ml-2">
+                        {user.username}
+                      </p>
+                    ))}
+                  </div>
                   {trip.users.find(
                     (user) => user.username === userLogged.username
-                  )
-                    ? "Supprimer ce trajet"
-                    : trip.passengers.find(
-                        (passenger) =>
-                          passenger.username === userLogged.username
+                  ) ? (
+                    <div className="flex flex-col font-bold">
+                      <p>Passagers :</p>
+                      {trip.passengers.map((passenger) => (
+                        <p key={passenger.username} className="ml-2">
+                          {passenger.username}
+                        </p>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+                <div className="flex flex-col items-center justify-center w-full gap-3 font-bold md:w-3/5">
+                  <div className="hidden md:flex">
+                    <p>{trip.departure_places}</p>
+                    <img
+                      src="assets/icons/arrow-right-white.svg"
+                      alt=""
+                      className="mx-2"
+                    />
+                    <p>{trip.destination}</p>
+                  </div>
+                  <div className="flex flex-col text-center md:hidden">
+                    <p>{trip.departure_places}</p>
+                    <img
+                      src="assets/icons/arrow-down-white.svg"
+                      alt=""
+                      className="my-2"
+                    />
+                    <p>{trip.destination}</p>
+                  </div>
+                  <p>
+                    {moment(trip.date_departure).format("DD/MM/YYYY")} -{" "}
+                    {trip.hour_departure.split(":00")}
+                  </p>
+                  <p>Prix : {trip.price} €</p>
+                </div>
+                <div className="w-full md:w-1/5">
+                  <button
+                    type="submit"
+                    className="p-4"
+                    onClick={() => handleDeleteTrip(trip.id)}
+                  >
+                    <p className="p-2 text-xs red-button">
+                      {trip.users.find(
+                        (user) => user.username === userLogged.username
                       )
-                    ? "Quitter ce trajet"
-                    : ""}
-                </p>
-              </button>
+                        ? "Supprimer ce trajet"
+                        : trip.passengers.find(
+                            (passenger) =>
+                              passenger.username === userLogged.username
+                          )
+                        ? "Quitter ce trajet"
+                        : ""}
+                    </p>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         ))}
