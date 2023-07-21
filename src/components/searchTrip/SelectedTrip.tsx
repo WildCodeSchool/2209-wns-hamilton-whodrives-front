@@ -11,7 +11,6 @@ interface IPropsSelectedTrip {
   nameProfil: string;
   stepBack: React.MouseEventHandler<HTMLDivElement>;
   joinTrip: React.MouseEventHandler<HTMLButtonElement>;
-  passenger: number;
   hour: string;
 }
 
@@ -22,7 +21,6 @@ export default function SelectedTrip({
   price,
   date,
   stepBack,
-  passenger,
   nameProfil,
   joinTrip,
   hour,
