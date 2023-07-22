@@ -69,6 +69,55 @@ export const GET_USER_LOGGED = gql`
   }
 `;
 
+export const GET_PROFILE_USER = gql`query UserLogged {
+  userLogged {
+    id
+    username
+    firstname
+    lastname
+    date_of_birth
+    password
+    email
+    phone
+    cars {
+      id
+      seat
+      model {
+        id
+        name
+      }
+      carPictures {
+        id
+        path
+      }
+    }
+    userInfo {
+      id
+      city
+      country
+      address
+      about {
+        id
+        animal
+        description
+        smoke
+        chatOption {
+          id
+          content
+        }
+        musicOption {
+          id
+          content
+        }
+      }
+      profilPictureId {
+        id
+        path
+      }
+    }
+  }
+}`;
+
 export const GET_CAR_MODELS = gql`
   query Models {
     Models {

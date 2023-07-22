@@ -25,6 +25,7 @@ const ProfileCardComponent = () => {
   };
 
   const { loading, error, data, refetch } = useQuery(GET_USER_LOGGED);
+  console.log(data);
 
   useEffect(() => {
     refetch();
@@ -155,37 +156,27 @@ const ProfileCardComponent = () => {
             </p>
           </button>
         ) : (
-          user.cars.map((car: any) => (
-            <div className="flex-col md:flex" key={car.id}>
-              {car.carPictures ? (
-                car.carPictures.map((picture: any) => (
-                  <div key={picture.id}>
-                    {picture.path !== null ? (
-                      <img
-                        src={backendUrl + picture.path}
-                        alt=""
-                        className="w-full md:w-48"
-                        onClick={() => handleClickAddPicture(car.id)}
-                      />
-                    ) : (
-                      <img
-                        src="/assets/images/yellow-car.png"
-                        alt=""
-                        className="w-full md:w-48"
-                        onClick={() => handleClickAddPicture(car.id)}
-                      />
-                    )}
-                  </div>
-                ))
-              ) : (
-                <img
-                  src="/assets/images/yellow-car.png"
-                  alt=""
-                  className="w-full md:w-48"
-                  onClick={() => handleClickAddPicture(car.id)}
-                />
-              )}
-              <p className="w-full">
+            user.cars.map((car: any) => (
+              <div className="flex-col md:flex" key={car.id}>
+                {car.carPictures && car.carPictures.length > 0 ? (
+                  car.carPictures.map((carPicture: any) => (
+                    <img
+                      key={carPicture.id}
+                      src={backendUrl + carPicture.path}
+                      alt=""
+                      className="w-full md:w-48"
+                      onClick={() => handleClickAddPicture(car.id)}
+                    />
+                  ))
+                ) : (
+                  <img
+                    src="/assets/images/yellow-car.png"
+                    alt=""
+                    className="w-full md:w-48"
+                    onClick={() => handleClickAddPicture(car.id)}
+                  />
+                )}
+                <p className="w-full">
                 Ma voiture est une{" "}
                 <span className="text-validBlue">{car.model?.name}</span> qui
                 possède <span className="text-validBlue">{car.seat}</span>{" "}
