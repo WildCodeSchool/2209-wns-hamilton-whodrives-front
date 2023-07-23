@@ -74,10 +74,10 @@ export default function SearchTripComponent({
 
   //submit form trip
   return (
-    <div className="flex flex-row justify-center py-5 align-middle">
-      <div className="flex flex-row items-center bg-white border border-black ">
-        <div className="flex flex-col border-r-2 border-whodrivesGrey">
-          <div className="flex flex-row ">
+    <div className="flex flex-col md:flex-row justify-center py-5 align-middle mx-4 md:mx-0">
+      <div className="flex flex-col md:flex-row items-center bg-white border border-black ">
+        <div className="flex flex-col md:border-r-2 md:border-whodrivesGrey">
+          <div className="flex flex-row">
             <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
             <input
               className=""
@@ -112,7 +112,7 @@ export default function SearchTripComponent({
             )}
           </div>
         </div>
-        <div className="flex flex-col border-r-2 border-whodrivesGrey">
+        <div className="flex flex-col md:border-r-2 md:order-whodrivesGrey">
           <div className="flex flex-row">
             <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
             <input

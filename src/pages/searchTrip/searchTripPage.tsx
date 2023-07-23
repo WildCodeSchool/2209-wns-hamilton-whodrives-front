@@ -212,19 +212,6 @@ export default function SearchTripPage(): JSX.Element {
 
   //event to retrieve trips
   const handleclick = () => {
-    // if (form.departure === "") {
-    //   setErrorMessage("Veuillez selectionner une ville de départ");
-    //   setErrorForm(true);
-    // } else if (form.arrival === "") {
-    //   setErrorMessage("Veuillez selectionner une destination");
-    //   setErrorForm(true);
-    // } else if (form.date === today) {
-    //   setErrorMessage("Veuillez selectionner une date de départ");
-    //   setErrorForm(true);
-    // } else {
-    //   setErrorForm(false);
-    //   setActiveStep(1);
-    // }
     setActiveStep(1);
   };
 
@@ -339,7 +326,6 @@ export default function SearchTripPage(): JSX.Element {
           today={today}
         />
       ) : null}
-      {/* {errorForm && <p className="text-red-600">{errorMessage}</p>} */}
       {activeStep === 1 ? (
         <div className="flex flex-row w-2/3 pt-5 mx-auto justify-center border-t-2 border-black">
           <FilterSearchComponent
