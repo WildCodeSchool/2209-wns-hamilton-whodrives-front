@@ -343,7 +343,7 @@ export default function SearchTripPage(): JSX.Element {
       ) : null}
       {/* {errorForm && <p className="text-red-600">{errorMessage}</p>} */}
       {activeStep === 1 ? (
-        <div className="flex flex-row w-3/4 pt-5 mx-auto border-t-2 border-black">
+        <div className="flex flex-row w-2/3 pt-5 mx-auto justify-center border-t-2 border-black">
           <FilterSearchComponent
             filterByPrice={filterByPrice}
             changeHourRange={changeHourRange}
@@ -352,7 +352,7 @@ export default function SearchTripPage(): JSX.Element {
             filterByDate={filterByDate}
             filterReset={filterReset}
           />
-          <div className="flex flex-col pt-0 pl-5 pr-5 w-1/1 h-5/6">
+          <div className="flex flex-col px-5 w-1/1 h-5/6">
             {resultat && resultat.length > 0 ? (
               resultat.map((el: ITrip, index) =>
                 el.place_available !== 0 ? (

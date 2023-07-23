@@ -23,23 +23,18 @@ export default function CardSearchTripResult({
 }: IPropsResult): JSX.Element {
   return (
     <>
-      <div className="flex flex-col justify-between pl-2 pr-2 mr-8 w-1/1 ">
+      <div className="flex flex-col justify-between px-2 mx-8 w-1/1 ">
         <p>{date}</p>
         <div className="flex flex-row">
-          <div className="flex flex-col">
-            <p>{departure}</p>
-            <p>{hour}</p>
-          </div>
-
+          <p>{departure}</p>
           <img
             src="assets/icons/arrow-right-black.svg"
             alt=""
             className="ml-3 mr-3 "
           />
-          <div className="flex flex-col">
-            <p>{arrival}</p>
-          </div>
+          <p>{arrival}</p>
         </div>
+        <p>Heure de départ : {hour}</p>
         <p>Prix du trajet : {price}€</p>
       </div>
 
