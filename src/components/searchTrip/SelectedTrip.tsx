@@ -76,7 +76,7 @@ export default function SelectedTrip({
         <h3 className="mb-4 text-center text-validBlue">Détails du trajet</h3>
         <div className="space-y-4">
           <div className="p-4 bg-gray-100">
-            <div className="flex flex-col items-center justify-center mb-2">
+            <div className="flex flex-col items-center">
               <p>Votre conducteur : </p>
               <ProfileSearchComponent nameProfil={nameProfil} />
             </div>
@@ -86,13 +86,16 @@ export default function SelectedTrip({
             </div>
             <div className="flex justify-center mb-2">
               <p>Ville de départ : {departure}</p>
-            </div>
-            <div className="flex justify-center mb-2">
+              <img
+                src="assets/icons/arrow-right-black.svg"
+                alt=""
+                className="mx-2"
+              />
               <p>Ville d'arrivée : {arrival}</p>
             </div>
-            <div className="flex justify-center mb-2">
+            {/* <div className="flex justify-center mb-2">
               <p>Places disponibles : {seats}</p>
-            </div>
+            </div> */}
             <div className="flex justify-center">
               <p>Prix du trajet par passager : {price} €</p>
             </div>

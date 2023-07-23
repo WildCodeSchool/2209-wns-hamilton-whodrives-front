@@ -28,7 +28,9 @@ export default function SearchTripResult({
 }: IPropsResult): JSX.Element {
   return (
     <div className="flex flex-row justify-between p-5 mb-10 overflow-auto border-2 w-full hover:border-validBlue">
-      <ProfileSearchComponent nameProfil={nameProfil} />
+      <div className="ml-10">
+        <ProfileSearchComponent nameProfil={nameProfil} />
+      </div>
       <CardSearchTripResult
         date={date}
         departure={departure}
