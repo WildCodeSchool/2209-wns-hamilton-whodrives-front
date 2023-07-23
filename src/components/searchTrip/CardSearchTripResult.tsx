@@ -37,17 +37,8 @@ export default function CardSearchTripResult({
         <p>Heure de départ : {hour}</p>
         <p>Prix du trajet : {price}€</p>
       </div>
-
       <div className="flex flex-col mr-10 my-auto gap-2 w-1/1">
         <p>Places Disponibles : {seats}</p>
-        {/* <button
-          onClick={submitTrip}
-          onMouseEnter={hoverSetId}
-          className="border border-black"
-          value={value}
-        >
-          J'y vais
-        </button> */}
         <button
           className="p-4"
           onMouseEnter={hoverSetId}

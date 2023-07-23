@@ -1,5 +1,3 @@
-import "../../styles/searchTrip.css";
-
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Step, StepLabel, Stepper } from "@mui/material";
 import moment from "moment";
