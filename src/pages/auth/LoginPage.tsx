@@ -60,29 +60,37 @@ const LoginForm = () => {
       <h1 className="mb-4 text-center text-layoutBlue">Connexion</h1>
       <form
         onSubmit={handleLogin}
-        className="grid w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue"
+        className="flex flex-col w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue"
       >
-        <div className="flex flex-col items-center pb-4">
-          <input
-            id="email"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-5/6 px-4 py-2 border border-gray-300 focus:ring focus:ring-validBlue"
-          />
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+            <label className="mb-2 font-semibold" htmlFor="city">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+            />
+          </div>
+          <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+            <label className="mb-2 font-semibold" htmlFor="city">
+              Mot de passe
+            </label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Mot de passe"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 focus:ring focus:ring-validBlue"
+            />
+          </div>
+          {error && <p>Une erreur s'est produite lors de la connexion.</p>}
         </div>
-        <div className="flex flex-col items-center">
-          <input
-            id="password"
-            type="password"
-            placeholder="Mot de passe"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-5/6 px-4 py-2 border border-gray-300 focus:ring focus:ring-validBlue"
-          />
-        </div>
-        {error && <p>Une erreur s'est produite lors de la connexion.</p>}
       </form>
       <div className="flex justify-center">
         <button

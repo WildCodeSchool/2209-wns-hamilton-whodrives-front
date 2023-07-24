@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery, gql } from "@apollo/client";
 import { GET_CAR_MODELS, GET_CAR_USER_LOGGED } from "../../queryMutation/query";
-import { CREATE_CAR_MUTATION, UPDATE_CAR_MUTATION } from "../../queryMutation/mutations";
+import {
+  CREATE_CAR_MUTATION,
+  UPDATE_CAR_MUTATION,
+} from "../../queryMutation/mutations";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
-
 
 interface Car {
   id: number;
@@ -32,9 +33,14 @@ export default function AddCarPage() {
 
   const navigate = useNavigate();
 
-  const { loading, error, data } = useQuery<{ Models: Model[] }>(GET_CAR_MODELS);
-  const { loading: carLoading, error: carError, data: carData } =
-    useQuery<{ userLogged: { cars: Car[] } }>(GET_CAR_USER_LOGGED);
+  const { loading, error, data } = useQuery<{ Models: Model[] }>(
+    GET_CAR_MODELS
+  );
+  const {
+    loading: carLoading,
+    error: carError,
+    data: carData,
+  } = useQuery<{ userLogged: { cars: Car[] } }>(GET_CAR_USER_LOGGED);
 
   const updateCarId = carData?.userLogged.cars[0]?.id;
 
@@ -57,7 +63,9 @@ export default function AddCarPage() {
       navigate("/profile");
     },
     onError: (error) => {
-      toast.error(`Erreur lors de la mise à jour de votre voiture : ${error.message}`);
+      toast.error(
+        `Erreur lors de la mise à jour de votre voiture : ${error.message}`
+      );
     },
   });
 
@@ -89,7 +97,11 @@ export default function AddCarPage() {
 
       if (updateCarId) {
         updateCar({
-          variables: { updateCarId, seat, modelId: parseInt(modelId.toString()) },
+          variables: {
+            updateCarId,
+            seat,
+            modelId: parseInt(modelId.toString()),
+          },
         });
       } else {
         createCar({
@@ -102,7 +114,6 @@ export default function AddCarPage() {
       }
     }
   };
-
 
   const BackToProfile = () => {
     window.history.back();
@@ -117,17 +128,21 @@ export default function AddCarPage() {
       )}
       {carLoading && <p>Loading car data...</p>}
       {carError && (
-        <p className="text-red-500">Error loading car data: {carError.message}</p>
+        <p className="text-red-500">
+          Error loading car data: {carError.message}
+        </p>
       )}
       {mutationLoading && <p>Creating car...</p>}
       {mutationError && (
-        <p className="text-red-500">Error creating car: {mutationError.message}</p>
+        <p className="text-red-500">
+          Error creating car: {mutationError.message}
+        </p>
       )}
       {data && (
         <div className="grid w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue">
           <div className="flex flex-col items-center justify-center">
             <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-              <label className="mb-2 font-bold">
+              <label className="mb-2 font-semibold">
                 Quelle est la marque de votre voiture ?
               </label>
               <select
@@ -144,7 +159,7 @@ export default function AddCarPage() {
               </select>
             </div>
             <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-              <label className="mb-2 font-bold">Nombre de places</label>
+              <label className="mb-2 font-semibold">Nombre de places</label>
               <input
                 type="number"
                 className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
