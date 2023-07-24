@@ -1,4 +1,8 @@
-import { GET_MUSIC_OPTIONS, GET_CHAT_OPTIONS, GET_ABOUT } from "../../queryMutation/query";
+import {
+  GET_MUSIC_OPTIONS,
+  GET_CHAT_OPTIONS,
+  GET_ABOUT,
+} from "../../queryMutation/query";
 import { CREATE_ABOUT, UPDATE_ABOUT } from "../../queryMutation/mutations";
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
@@ -29,13 +33,16 @@ export default function AboutPage(): JSX.Element {
     data: chatData,
   } = useQuery(GET_CHAT_OPTIONS);
 
-  const [createAbout, { loading: createLoading, error: createError }] = useMutation(CREATE_ABOUT);
-  const [updateAbout, { loading: updateLoading, error: updateError }] = useMutation(UPDATE_ABOUT);
+  const [createAbout, { loading: createLoading, error: createError }] =
+    useMutation(CREATE_ABOUT);
+  const [updateAbout, { loading: updateLoading, error: updateError }] =
+    useMutation(UPDATE_ABOUT);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!aboutLoading && aboutData && aboutData.userLogged.userInfo.about) {
-      const { animal, description, smoke, chatOption, musicOption } = aboutData.userLogged.userInfo.about;
+      const { animal, description, smoke, chatOption, musicOption } =
+        aboutData.userLogged.userInfo.about;
       setAnimal(animal || false);
       setDescription(description || "");
       setSmoke(smoke || false);
@@ -73,7 +80,9 @@ export default function AboutPage(): JSX.Element {
           navigate("/profile");
         })
         .catch((error) => {
-          toast.error(`Erreur lors de la mise à jour de vos préférences : ${error.message}`);
+          toast.error(
+            `Erreur lors de la mise à jour de vos préférences : ${error.message}`
+          );
         });
     } else {
       createAbout({ variables })
@@ -82,7 +91,9 @@ export default function AboutPage(): JSX.Element {
           navigate("/profile");
         })
         .catch((error) => {
-          toast.error(`Erreur lors de l'ajout de vos préférences : ${error.message}`);
+          toast.error(
+            `Erreur lors de l'ajout de vos préférences : ${error.message}`
+          );
         });
     }
   };
@@ -104,7 +115,7 @@ export default function AboutPage(): JSX.Element {
       <div className="grid w-5/6 p-8 m-auto my-4 border-2 md:w-1/2 border-validBlue">
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold">
+            <label className="mb-2 font-semibold">
               Acceptez-vous les animaux ?
             </label>
             <div className="flex gap-4">
@@ -121,7 +132,7 @@ export default function AboutPage(): JSX.Element {
             </div>
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold">
+            <label className="mb-2 font-semibold">
               Acceptez-vous les fumeurs ?
             </label>
             <div className="flex gap-4">
@@ -138,7 +149,7 @@ export default function AboutPage(): JSX.Element {
             </div>
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold">
+            <label className="mb-2 font-semibold">
               Etes-vous bavard en voiture ?
             </label>
             <select
@@ -155,7 +166,7 @@ export default function AboutPage(): JSX.Element {
             </select>
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold">
+            <label className="mb-2 font-semibold">
               Quel genre de musique écoutez-vous ?
             </label>
             <select
@@ -172,7 +183,7 @@ export default function AboutPage(): JSX.Element {
             </select>
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold">Description</label>
+            <label className="mb-2 font-semibold">Description</label>
             <textarea
               value={description}
               placeholder="150 caractères maximum"

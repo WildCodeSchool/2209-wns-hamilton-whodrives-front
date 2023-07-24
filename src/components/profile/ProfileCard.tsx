@@ -53,12 +53,14 @@ const ProfileCardComponent = () => {
 
         {user.userInfo !== null && (
           <div>
-            <img
-              className="w-4"
-              src="assets/icons/edit-box.svg"
-              alt="arrow icon"
-              onClick={handleClickUserInfos}
-            />
+            <div className="flex justify-end">
+              <img
+                className="w-4"
+                src="assets/icons/edit-box.svg"
+                alt="arrow icon"
+                onClick={handleClickUserInfos}
+              />
+            </div>
             <div className="mb-2">
               <p>
                 Salut, je m’appelle
@@ -68,13 +70,15 @@ const ProfileCardComponent = () => {
               </p>
             </div>
             {user.userInfo.about !== null ? (
-              <>
-                <img
-                  className="w-4"
-                  src="assets/icons/edit-box.svg"
-                  alt="arrow icon"
-                  onClick={handleClickAbout}
-                />
+              <div>
+                <div className="flex justify-end">
+                  <img
+                    className="w-4"
+                    src="assets/icons/edit-box.svg"
+                    alt="arrow icon"
+                    onClick={handleClickAbout}
+                  />
+                </div>
                 <div className="mb-2">
                   <p className="font-bold">Description</p>
                   <p>{user.userInfo.about.description}</p>
@@ -122,7 +126,7 @@ const ProfileCardComponent = () => {
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             ) : (
               <button className="p-4" onClick={handleClickAbout}>
                 <p className="font-bold text-whodrivesGrey hover:text-validBlue">
@@ -142,7 +146,6 @@ const ProfileCardComponent = () => {
           </>
         )}
         <h3 className="px-2 py-1 text-white bg-layoutBlue">Ma Voiture</h3>
-
         {user.cars.length === 0 ? (
           <button className="p-4" onClick={handleClickCar}>
             <p className="font-bold text-whodrivesGrey hover:text-validBlue">
