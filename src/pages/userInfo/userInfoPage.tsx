@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
-import { CREATE_USER_INFO, UPDATE_USER_INFO } from "../../queryMutation/mutations";
+import {
+  CREATE_USER_INFO,
+  UPDATE_USER_INFO,
+} from "../../queryMutation/mutations";
 import { GET_USERINFO_LOGGED } from "../../queryMutation/query";
 
 export default function UserInfoPage(): JSX.Element {
@@ -20,20 +23,30 @@ export default function UserInfoPage(): JSX.Element {
 
     if (!city || !country || !address) {
       if (!userInfoData.userLogged.userInfo) {
-
-        toast.error("Veuillez remplir tous les champs pour ajouter vos informations.");
+        toast.error(
+          "Veuillez remplir tous les champs pour ajouter vos informations."
+        );
         return;
       }
 
-      toast.success("Vos informations n'ont pas été modifiées car les champs sont vides.");
+      toast.success(
+        "Vos informations n'ont pas été modifiées car les champs sont vides."
+      );
       navigate("/profile");
       return;
     }
 
-    const mutation = userInfoData.userLogged.userInfo ? updateUserInfo : createUserInfo;
+    const mutation = userInfoData.userLogged.userInfo
+      ? updateUserInfo
+      : createUserInfo;
 
     mutation({
-      variables: { city, country, address, updateUserInfoId: userInfoData.userLogged.userInfo?.id },
+      variables: {
+        city,
+        country,
+        address,
+        updateUserInfoId: userInfoData.userLogged.userInfo?.id,
+      },
     })
       .then(() => {
         toast.success(
@@ -57,9 +70,10 @@ export default function UserInfoPage(): JSX.Element {
     window.history.back();
   };
 
-  const { loading: userInfoLoading, data: userInfoData } = useQuery(GET_USERINFO_LOGGED);
+  const { loading: userInfoLoading, data: userInfoData } =
+    useQuery(GET_USERINFO_LOGGED);
 
-useEffect(() => {
+  useEffect(() => {
     if (!userInfoLoading && userInfoData && userInfoData.userLogged) {
       const { city, country, address } = userInfoData.userLogged.userInfo || {};
       setCity(city || "");
@@ -77,7 +91,7 @@ useEffect(() => {
       >
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold" htmlFor="city">
+            <label className="mb-2 font-semibold" htmlFor="city">
               Ville
             </label>
             <input
@@ -90,7 +104,7 @@ useEffect(() => {
             />
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold" htmlFor="country">
+            <label className="mb-2 font-semibold" htmlFor="country">
               Pays
             </label>
             <input
@@ -103,7 +117,7 @@ useEffect(() => {
             />
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold" htmlFor="address">
+            <label className="mb-2 font-semibold" htmlFor="address">
               Adresse
             </label>
             <input
@@ -116,11 +130,23 @@ useEffect(() => {
             />
           </div>
           <div className="flex justify-center">
-            <button type="button" className="p-4" onClick={() => BackToProfile()}>
-              <p className="font-bold text-whodrivesGrey hover:text-validBlue">Retour</p>
+            <button
+              type="button"
+              className="p-4"
+              onClick={() => BackToProfile()}
+            >
+              <p className="font-bold text-whodrivesGrey hover:text-validBlue">
+                Retour
+              </p>
             </button>
             <button type="submit" disabled={isDisabled} className="p-4">
-              <p className={isDisabled ? "grey-button p-2 text-xs" : "green-button p-2 text-xs"}>
+              <p
+                className={
+                  isDisabled
+                    ? "grey-button p-2 text-xs"
+                    : "green-button p-2 text-xs"
+                }
+              >
                 Valider
               </p>
             </button>

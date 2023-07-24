@@ -64,7 +64,7 @@ const LoginForm = () => {
       >
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold" htmlFor="city">
+            <label className="mb-2 font-semibold" htmlFor="city">
               Email
             </label>
             <input
@@ -77,7 +77,7 @@ const LoginForm = () => {
             />
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
-            <label className="mb-2 font-bold" htmlFor="city">
+            <label className="mb-2 font-semibold" htmlFor="city">
               Mot de passe
             </label>
             <input

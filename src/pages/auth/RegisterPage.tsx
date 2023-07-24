@@ -129,51 +129,88 @@ const RegisterPage = () => {
       return (
         <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">
           <h1 className="mb-4 text-center text-layoutBlue">Inscription</h1>
-          <div className="w-5/6 px-8 py-4 mx-auto my-4 border-2 border-validBlue sm:w-2/4">
-            <p className="mb-4 font-bold">Étape 1: Informations personnelles</p>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
-            />
-            <input
-              type="text"
-              placeholder="Nom"
-              value={firstname}
-              onChange={(e) => setFirstname(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
-            />
-            <input
-              type="text"
-              placeholder="Prénom"
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
-            />
-            <input
-              type="text"
-              placeholder="Téléphone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
-            />
-            <input
-              type="text"
-              placeholder="Adresse email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
-            />
-            <input
-              type="date"
-              placeholder="Date de naissance"
-              value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
-            />
-          </div>
+          <form
+            onSubmit={handleNext}
+            className="flex flex-col w-5/6 p-4 m-auto my-4 border-2 md:w-1/2 border-validBlue"
+          >
+            <div className="flex flex-col items-center justify-center">
+              <p className="mb-4 font-semibold text-validBlue">
+                Étape 1: Informations personnelles
+              </p>
+              <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+                <label className="mb-2 font-semibold" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  placeholder="Adresse email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                />
+              </div>
+              <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+                <label className="mb-2 font-semibold" htmlFor="username">
+                  Nom d'utilisateur
+                </label>
+                <input
+                  type="text"
+                  placeholder="Nom d'utilisateur"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                />
+              </div>
+              <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+                <label className="mb-2 font-semibold" htmlFor="lastname">
+                  Nom
+                </label>
+                <input
+                  type="text"
+                  placeholder="Nom"
+                  value={lastname}
+                  onChange={(e) => setLastname(e.target.value)}
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                />
+              </div>
+              <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+                <label className="mb-2 font-semibold" htmlFor="firstname">
+                  Prénom
+                </label>
+                <input
+                  type="text"
+                  placeholder="Prénom"
+                  value={firstname}
+                  onChange={(e) => setFirstname(e.target.value)}
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                />
+              </div>
+              <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+                <label className="mb-2 font-semibold" htmlFor="dateofbirth">
+                  Date de naissance
+                </label>
+                <input
+                  type="date"
+                  placeholder="Date de naissance"
+                  value={dateOfBirth}
+                  onChange={(e) => setDateOfBirth(e.target.value)}
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                />
+              </div>
+              <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+                <label className="mb-2 font-semibold" htmlFor="phone">
+                  Téléphone
+                </label>
+                <input
+                  type="text"
+                  placeholder="Téléphone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                />
+              </div>
+            </div>
+          </form>
           <div className="flex justify-center">
             <button
               type="button"
@@ -196,25 +233,42 @@ const RegisterPage = () => {
       );
     } else if (step === 2) {
       return (
-        <div className="w-full h-[calc(100vh-10rem)] pt-6">
+        <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">
           <h1 className="mb-4 text-center text-layoutBlue">Inscription</h1>
-          <div className="w-5/6 px-8 py-4 mx-auto my-4 border-2 border-validBlue sm:w-2/4">
-            <p className="mb-4 font-bold">Étape 2: Mot de passe</p>
-            <input
-              type="password"
-              placeholder="Mot de passe"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
-            />
-            <input
-              type="password"
-              placeholder="Confirmez le mot de passe"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
-            />
-          </div>
+          <form
+            onSubmit={handleRegister}
+            className="flex flex-col w-5/6 p-4 m-auto my-4 border-2 md:w-1/2 border-validBlue"
+          >
+            <div className="flex flex-col items-center justify-center">
+              <p className="mb-4 font-semibold text-validBlue">
+                Étape 2: Mot de passe
+              </p>
+              <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+                <label className="mb-2 font-semibold" htmlFor="password">
+                  Mot de passe
+                </label>
+                <input
+                  type="password"
+                  placeholder="Mot de passe"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                />
+              </div>
+              <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
+                <label className="mb-2 font-semibold" htmlFor="confirmpassword">
+                  Confirmez le mot de passe
+                </label>
+                <input
+                  type="password"
+                  placeholder="Confirmez le mot de passe"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                />
+              </div>
+            </div>
+          </form>
           <div className="flex justify-center">
             <button className="p-4" onClick={() => BackToPreviousStage()}>
               <p className="font-bold text-whodrivesGrey hover:text-validBlue">
