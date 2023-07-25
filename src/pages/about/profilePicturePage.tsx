@@ -45,6 +45,7 @@ export default function AddUserPicturePage() {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
+    console.log("selectedFile", selectedFile);
     if (selectedFile) {
       setFile(selectedFile);
     }
