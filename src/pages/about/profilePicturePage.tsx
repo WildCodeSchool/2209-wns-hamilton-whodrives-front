@@ -1,47 +1,30 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { gql } from "@apollo/client/core";
-import { useState } from "react";
+import React, { useState } from "react";
 
-const ADD_CAR_PICTURE = gql`
-  mutation AddPicture($carId: ID!, $file: Upload!) {
-    addPicture(carId: $carId, file: $file) {
-      id
-      path
-    }
-  }
-`;
+import { ADD_PROFILE_PICTURE } from "../../queryMutation/mutations";
+import { GET_ID_USERINFO } from "../../queryMutation/query";
 
-const GET_ID_CAR = gql`
-  query UserLogged {
-    userLogged {
-      cars {
-        id
-      }
-    }
-  }
-`;
-
-export default function AddCarPicturePage() {
+export default function AddUserPicturePage() {
   const [file, setFile] = useState<File | null>(null);
-  const { data } = useQuery(GET_ID_CAR); // Fetching the car ID
+  const { data } = useQuery(GET_ID_USERINFO); // Récupérer l'ID userInfoId
 
-  const [addCarPicture] = useMutation(ADD_CAR_PICTURE);
+  const [addProfilePicture] = useMutation(ADD_PROFILE_PICTURE);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!file || !data || !data.userLogged?.cars?.[0]?.id) return;
+    if (!file || !data || !data.userLogged?.userInfo?.id) return;
     try {
       const formData = new FormData();
-      formData.append("carId", data.userLogged.cars[0].id);
+      formData.append("userInfoId", data.userLogged.userInfo.id);
       formData.append("file", file);
-      await addCarPicture({
+      await addProfilePicture({
         variables: {
-          carId: data.userLogged.cars[0].id,
+          userInfoId: data.userLogged.userInfo.id,
           file: formData.get("file")!,
         },
       });
       setFile(null);
-      alert("Car picture added successfully");
+      alert("User picture added successfully");
     } catch (error: any) {
       alert(error.message);
     }
@@ -49,6 +32,7 @@ export default function AddCarPicturePage() {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
+    console.log("selectedFile", selectedFile);
     if (selectedFile) {
       setFile(selectedFile);
     }
@@ -64,6 +48,7 @@ export default function AddCarPicturePage() {
       }}
     >
       <form onSubmit={handleSubmit}>
+        {/* Le champ ID utilisateur est supprimé, il sera récupéré automatiquement */}
         <label>
           Picture:
           <input type="file" onChange={handleFileChange} />

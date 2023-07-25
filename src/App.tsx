@@ -22,6 +22,7 @@ import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/searchTripPage";
 import UserInfoPage from "./pages/userInfo/userInfoPage";
 import DashboardPage from "./pages/dashboard/dashboardPage";
+import ProfilePictureUploadComponent from "./pages/about/profilePicturePage";
 
 function App() {
   return (
@@ -91,8 +92,16 @@ function App() {
             </ProtectedArea>
           }
         />
-        <Route path="*" element={<h1>404</h1>} />
+        <Route
+          path="user-infos/user-picture"
+          element={
+            <ProtectedArea>
+              <ProfilePictureUploadComponent />
+            </ProtectedArea>
+          }
+        />
         <Route path="confirm-trip" element={<ConfirmTrip />} />
+        <Route path="*" element={<h1>404</h1>} />
       </Routes>
       <ToastContainer />
       <FooterComponent />
