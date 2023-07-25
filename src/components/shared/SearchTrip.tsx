@@ -1,5 +1,3 @@
-import "../../styles/global.css";
-
 import React from "react";
 import { useEffect, useState } from "react";
 
@@ -75,12 +73,19 @@ export default function SearchTripComponent({
   //submit form trip
   return (
     <div className="flex flex-col justify-center py-5 mx-4 align-middle md:flex-row md:mx-0">
-      <div className="flex flex-col items-center bg-white border border-black md:flex-row ">
-        <div className="flex flex-col md:border-r-2 md:border-whodrivesGrey">
-          <div className="flex flex-row">
-            <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
+      <div className="flex flex-col items-center p-8 mb-4 md:mb-0 md:p-0 md:border md:border-black md:bg-white bg-lightBlue md:flex-row ">
+        <div className="flex flex-col md:border-r-2 md:border-gray-300">
+          <div className="flex flex-col pb-4 md:flex-row md:pb-0">
+            <img
+              src="/assets/icons/map-grey.svg"
+              alt=""
+              className="hidden m-1 md:flex"
+            />
+            <label className="text-center md:hidden" htmlFor="depart">
+              Ville de départ
+            </label>
             <input
-              className="focus:outline-none"
+              className="p-2 border md:p-0 border-whodrivesGrey md:focus:outline-none md:border-none"
               type="text"
               name="departure"
               onChange={handleChange}
@@ -112,11 +117,18 @@ export default function SearchTripComponent({
             )}
           </div>
         </div>
-        <div className="flex flex-col md:border-r-2 md:order-whodrivesGrey">
-          <div className="flex flex-row">
-            <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
+        <div className="flex flex-col md:border-r-2 md:border-whodrivesGrey">
+          <div className="flex flex-col pb-4 md:flex-row md:pb-0">
+            <img
+              src="/assets/icons/map-grey.svg"
+              alt=""
+              className="hidden m-1 md:flex"
+            />
+            <label className="text-center md:hidden" htmlFor="depart">
+              Ville d'arrivée
+            </label>
             <input
-              className="focus:outline-none"
+              className="p-2 border md:p-0 border-whodrivesGrey md:focus:outline-none md:border-none"
               type="text"
               name="arrival"
               onChange={handleChange}
@@ -147,8 +159,11 @@ export default function SearchTripComponent({
           </div>
         </div>
 
+        <label className="text-center md:hidden" htmlFor="depart">
+          Date
+        </label>
         <input
-          className="pr-5 ml-5 border-whodrivesGrey focus:outline-none"
+          className="p-2 border md:pr-5 md:ml-5 md:p-0 border-whodrivesGrey md:focus:outline-none md:border-none"
           type="date"
           onChange={(e) => setForm({ ...form, date: e.target.value })}
           value={form.date}
