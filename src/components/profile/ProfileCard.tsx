@@ -1,10 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { GET_USER_LOGGED,GET_USER_PICTURES} from "../../queryMutation/query";
-
-
+import { GET_USER_LOGGED, GET_USER_PICTURES } from "../../queryMutation/query";
 
 const ProfileCardComponent = () => {
   const navigate = useNavigate();
@@ -26,11 +24,14 @@ const ProfileCardComponent = () => {
     navigate("/user-infos/car-picture");
   };
   const handleClickAddProfilPicture = () => {
-    navigate("/user-infos/user-picture");
+    if (!data?.userLogged?.userInfo?.id) {
+      alert("Vous devez d'abord ajouter vos informations");
+    } else {
+      navigate("/user-infos/user-picture");
+    }
   };
 
   const { loading, error, data, refetch } = useQuery(GET_USER_LOGGED);
-
 
   useEffect(() => {
     refetch();
@@ -38,10 +39,12 @@ const ProfileCardComponent = () => {
 
   const backendUrl = "http://localhost:4000/cars-images/";
   const backendUrlPicture = "http://localhost:4000/profiles-images/";
-  const { data: dataPictures, loading: loadingPictures, error: errorPictures } = useQuery(GET_USER_PICTURES);
+  const {
+    data: dataPictures,
+    loading: loadingPictures,
+    error: errorPictures,
+  } = useQuery(GET_USER_PICTURES);
   const pictures = dataPictures?.profilePicturePath;
-
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -56,13 +59,21 @@ const ProfileCardComponent = () => {
   return (
     <div className="flex flex-col w-5/6 p-8 m-auto my-4 border-2 md:flex-row md:w-1/2 border-validBlue">
       <div className="w-full mr-5 md:w-1/4">
-        {pictures ? (<img src={backendUrlPicture + pictures} alt="profile pic"  onClick={handleClickAddProfilPicture} />):(<img
+        {pictures ? (
+          <img
+            src={backendUrlPicture + pictures}
+            alt="profile pic"
+            onClick={handleClickAddProfilPicture}
+          />
+        ) : (
+          <img
             src="/assets/images/blue.png"
             alt="profile pic"
             className="w-full"
             onClick={handleClickAddProfilPicture}
-          />)}
-        
+          />
+        )}
+
         <p className="font-bold text-center">{user.username}</p>
       </div>
       <div className="w-full md:w-3/4">
@@ -172,27 +183,27 @@ const ProfileCardComponent = () => {
             </p>
           </button>
         ) : (
-            user.cars.map((car: any) => (
-              <div className="flex-col md:flex" key={car.id}>
-                {car.carPictures && car.carPictures.length > 0 ? (
-                  car.carPictures.map((carPicture: any) => (
-                    <img
-                      key={carPicture.id}
-                      src={backendUrl + carPicture.path}
-                      alt=""
-                      className="w-full md:w-48"
-                      onClick={() => handleClickAddPicture(car.id)}
-                    />
-                  ))
-                ) : (
+          user.cars.map((car: any) => (
+            <div className="flex-col md:flex" key={car.id}>
+              {car.carPictures && car.carPictures.length > 0 ? (
+                car.carPictures.map((carPicture: any) => (
                   <img
-                    src="/assets/images/yellow-car.png"
+                    key={carPicture.id}
+                    src={backendUrl + carPicture.path}
                     alt=""
                     className="w-full md:w-48"
                     onClick={() => handleClickAddPicture(car.id)}
                   />
-                )}
-                <p className="w-full">
+                ))
+              ) : (
+                <img
+                  src="/assets/images/yellow-car.png"
+                  alt=""
+                  className="w-full md:w-48"
+                  onClick={() => handleClickAddPicture(car.id)}
+                />
+              )}
+              <p className="w-full">
                 Ma voiture est une{" "}
                 <span className="text-validBlue">{car.model?.name}</span> qui
                 possède <span className="text-validBlue">{car.seat}</span>{" "}

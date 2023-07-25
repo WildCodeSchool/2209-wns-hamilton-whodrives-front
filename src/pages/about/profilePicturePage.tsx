@@ -1,11 +1,8 @@
-import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { gql } from "@apollo/client/core";
-import { GET_ID_USERINFO } from "../../queryMutation/query";
+import React, { useState } from "react";
+
 import { ADD_PROFILE_PICTURE } from "../../queryMutation/mutations";
-
-
-
+import { GET_ID_USERINFO } from "../../queryMutation/query";
 
 export default function AddUserPicturePage() {
   const [file, setFile] = useState<File | null>(null);
@@ -18,7 +15,7 @@ export default function AddUserPicturePage() {
     if (!file || !data || !data.userLogged?.userInfo?.id) return;
     try {
       const formData = new FormData();
-      formData.append("userInfoId", data.userLogged.userInfo.id); 
+      formData.append("userInfoId", data.userLogged.userInfo.id);
       formData.append("file", file);
       await addProfilePicture({
         variables: {
@@ -42,7 +39,14 @@ export default function AddUserPicturePage() {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
       <form onSubmit={handleSubmit}>
         {/* Le champ ID utilisateur est supprimé, il sera récupéré automatiquement */}
         <label>
