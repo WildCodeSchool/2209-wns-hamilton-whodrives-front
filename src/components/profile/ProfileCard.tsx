@@ -1,8 +1,14 @@
-import { useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { GET_USER_LOGGED } from "../../queryMutation/query";
+import { GET_USER_LOGGED} from "../../queryMutation/query";
+
+export const GET_USER_PICTURES = gql`
+query Query {
+  profilePicturePath
+}
+  `;
 
 const ProfileCardComponent = () => {
   const navigate = useNavigate();
@@ -23,6 +29,9 @@ const ProfileCardComponent = () => {
     localStorage.setItem("selectedCarId", carId);
     navigate("/user-infos/car-picture");
   };
+  const handleClickAddProfilPicture = () => {
+    navigate("/user-infos/user-picture");
+  };
 
   const { loading, error, data, refetch } = useQuery(GET_USER_LOGGED);
   console.log(data);
@@ -32,6 +41,11 @@ const ProfileCardComponent = () => {
   }, []);
 
   const backendUrl = "http://localhost:4000/cars-images/";
+  const backendUrlPicture = "http://localhost:4000/profiles-images/";
+  const { data: dataPictures, loading: loadingPictures, error: errorPictures } = useQuery(GET_USER_PICTURES);
+  const pictures = dataPictures?.profilePicturePath;
+  console.log(pictures);
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -46,7 +60,13 @@ const ProfileCardComponent = () => {
   return (
     <div className="flex flex-col w-5/6 p-8 m-auto my-4 border-2 md:flex-row md:w-1/2 border-validBlue">
       <div className="w-full mr-5 md:w-1/4">
-        <img src="/assets/images/blue.png" alt="profile pic" />
+        {pictures ? (<img src={backendUrlPicture + pictures} alt="profile pic"  onClick={handleClickAddProfilPicture} />):(<img
+            src="/assets/images/blue.png"
+            alt="profile pic"
+            className="w-full"
+            onClick={handleClickAddProfilPicture}
+          />)}
+        
         <p className="font-bold text-center">{user.username}</p>
       </div>
       <div className="w-full md:w-3/4">

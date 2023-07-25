@@ -1,7 +1,5 @@
-
-
 import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { gql } from "@apollo/client/core";
 
 const ADD_PROFILE_PICTURE = gql`
@@ -13,29 +11,35 @@ const ADD_PROFILE_PICTURE = gql`
   }
 `;
 
-
-
+const GET_ID_USERINFO = gql`
+  query UserLogged {
+    userLogged {
+      userInfo {
+        id
+      }
+    }
+  }
+`;
 
 export default function AddUserPicturePage() {
-  const [userInfoId, setUserInfoId] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
+  const { data } = useQuery(GET_ID_USERINFO); // Récupérer l'ID userInfoId
 
-  const [addCarPicture] = useMutation(ADD_PROFILE_PICTURE);
+  const [addProfilePicture] = useMutation(ADD_PROFILE_PICTURE);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!file) return;
+    if (!file || !data || !data.userLogged?.userInfo?.id) return;
     try {
       const formData = new FormData();
-      formData.append("user", userInfoId);
+      formData.append("userInfoId", data.userLogged.userInfo.id); 
       formData.append("file", file);
-      await addCarPicture({
+      await addProfilePicture({
         variables: {
-          userInfoId,
+          userInfoId: data.userLogged.userInfo.id,
           file: formData.get("file")!,
         },
       });
-      setUserInfoId("");
       setFile(null);
       alert("User picture added successfully");
     } catch (error: any) {
@@ -52,22 +56,16 @@ export default function AddUserPicturePage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        User ID:
-        <input
-          type="text"
-          value={userInfoId}
-          onChange={(event) => setUserInfoId(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Picture:
-        <input type="file" onChange={handleFileChange} />
-      </label>
-      <br />
-      <button type="submit">Add Picture</button>
-    </form>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <form onSubmit={handleSubmit}>
+        {/* Le champ ID utilisateur est supprimé, il sera récupéré automatiquement */}
+        <label>
+          Picture:
+          <input type="file" onChange={handleFileChange} />
+        </label>
+        <br />
+        <button type="submit">Add Picture</button>
+      </form>
+    </div>
   );
 }
