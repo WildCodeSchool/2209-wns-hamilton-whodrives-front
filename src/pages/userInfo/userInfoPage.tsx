@@ -1,7 +1,8 @@
+import { useMutation, useQuery } from "@apollo/client";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuery, useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
+
 import {
   CREATE_USER_INFO,
   UPDATE_USER_INFO,
@@ -24,13 +25,15 @@ export default function UserInfoPage(): JSX.Element {
     if (!city || !country || !address) {
       if (!userInfoData.userLogged.userInfo) {
         toast.error(
-          "Veuillez remplir tous les champs pour ajouter vos informations."
+          "Veuillez remplir tous les champs pour ajouter vos informations.",
+          { autoClose: 2000 }
         );
         return;
       }
 
       toast.success(
-        "Vos informations n'ont pas été modifiées car les champs sont vides."
+        "Vos informations n'ont pas été modifiées car les champs sont vides.",
+        { autoClose: 1000 }
       );
       navigate("/profile");
       return;
@@ -100,7 +103,7 @@ export default function UserInfoPage(): JSX.Element {
               placeholder="Ville"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
             />
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
@@ -113,7 +116,7 @@ export default function UserInfoPage(): JSX.Element {
               placeholder="Pays"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
             />
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
@@ -126,7 +129,7 @@ export default function UserInfoPage(): JSX.Element {
               placeholder="Adresse"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
             />
           </div>
           <div className="flex justify-center">

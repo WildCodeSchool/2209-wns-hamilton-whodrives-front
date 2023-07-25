@@ -74,13 +74,13 @@ export default function SearchTripComponent({
 
   //submit form trip
   return (
-    <div className="flex flex-col md:flex-row justify-center py-5 align-middle mx-4 md:mx-0">
-      <div className="flex flex-col md:flex-row items-center bg-white border border-black ">
+    <div className="flex flex-col justify-center py-5 mx-4 align-middle md:flex-row md:mx-0">
+      <div className="flex flex-col items-center bg-white border border-black md:flex-row ">
         <div className="flex flex-col md:border-r-2 md:border-whodrivesGrey">
           <div className="flex flex-row">
             <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
             <input
-              className=""
+              className="focus:outline-none"
               type="text"
               name="departure"
               onChange={handleChange}
@@ -116,7 +116,7 @@ export default function SearchTripComponent({
           <div className="flex flex-row">
             <img src="/assets/icons/map-grey.svg" alt="" className="m-1" />
             <input
-              className=""
+              className="focus:outline-none"
               type="text"
               name="arrival"
               onChange={handleChange}
@@ -148,7 +148,7 @@ export default function SearchTripComponent({
         </div>
 
         <input
-          className="pr-5 ml-5 border-whodrivesGrey"
+          className="pr-5 ml-5 border-whodrivesGrey focus:outline-none"
           type="date"
           onChange={(e) => setForm({ ...form, date: e.target.value })}
           value={form.date}

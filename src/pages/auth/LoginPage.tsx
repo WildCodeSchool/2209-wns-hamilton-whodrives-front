@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { gql } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { gql, useMutation } from "@apollo/client";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+
 import useAuth from "../../hooks/useAuth";
 
 const LOGIN = gql`
@@ -73,7 +74,7 @@ const LoginForm = () => {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring-validBlue"
             />
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
@@ -86,7 +87,7 @@ const LoginForm = () => {
               placeholder="Mot de passe"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 focus:ring focus:ring-validBlue"
+              className="w-full px-4 py-2 border border-gray-300 focus:ring-validBlue"
             />
           </div>
           {error && <p>Une erreur s'est produite lors de la connexion.</p>}

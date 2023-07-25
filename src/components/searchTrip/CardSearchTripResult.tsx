@@ -37,7 +37,7 @@ export default function CardSearchTripResult({
         <p>Heure de départ : {hour}</p>
         <p>Prix du trajet : {price}€</p>
       </div>
-      <div className="flex flex-col mr-10 my-auto gap-2 w-1/1">
+      <div className="flex flex-col gap-2 my-auto mr-10 w-1/1">
         <p>Places Disponibles : {seats}</p>
         <button
           className="p-4"

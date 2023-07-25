@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useMutation, useQuery, gql } from "@apollo/client";
-import { GET_CAR_MODELS, GET_CAR_USER_LOGGED } from "../../queryMutation/query";
+import { useMutation, useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import {
   CREATE_CAR_MUTATION,
   UPDATE_CAR_MUTATION,
 } from "../../queryMutation/mutations";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { GET_CAR_MODELS, GET_CAR_USER_LOGGED } from "../../queryMutation/query";
 
 interface Car {
   id: number;
@@ -47,7 +48,9 @@ export default function AddCarPage() {
   const [createCar, { loading: mutationLoading, error: mutationError }] =
     useMutation<{ createCar: Car }>(CREATE_CAR_MUTATION, {
       onCompleted: (data) => {
-        toast.success("Votre voiture a été ajoutée avec succès !");
+        toast.success("Votre voiture a été ajoutée avec succès !", {
+          autoClose: 1000,
+        });
         navigate("/profile");
       },
       onError: (error) => {
@@ -59,7 +62,9 @@ export default function AddCarPage() {
 
   const [updateCar] = useMutation<{ updateCar: Car }>(UPDATE_CAR_MUTATION, {
     onCompleted: (data) => {
-      toast.success("Votre voiture a été mise à jour avec succès !");
+      toast.success("Votre voiture a été mise à jour avec succès !", {
+        autoClose: 1000,
+      });
       navigate("/profile");
     },
     onError: (error) => {
@@ -162,7 +167,7 @@ export default function AddCarPage() {
               <label className="mb-2 font-semibold">Nombre de places</label>
               <input
                 type="number"
-                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
                 value={seat}
                 onChange={(e) => setSeat(parseInt(e.target.value))}
               />
