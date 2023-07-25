@@ -1,25 +1,11 @@
 import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { gql } from "@apollo/client/core";
+import { GET_ID_USERINFO } from "../../queryMutation/query";
+import { ADD_PROFILE_PICTURE } from "../../queryMutation/mutations";
 
-const ADD_PROFILE_PICTURE = gql`
-  mutation AddProfilePicture($userInfoId: ID!, $file: Upload!) {
-    addProfilePicture(userInfoId: $userInfoId, file: $file) {
-      id
-      path
-    }
-  }
-`;
 
-const GET_ID_USERINFO = gql`
-  query UserLogged {
-    userLogged {
-      userInfo {
-        id
-      }
-    }
-  }
-`;
+
 
 export default function AddUserPicturePage() {
   const [file, setFile] = useState<File | null>(null);

@@ -40,6 +40,14 @@ export const CREATE_ABOUT = gql`
     }
   }
 `;
+export const ADD_PROFILE_PICTURE = gql`
+  mutation AddProfilePicture($userInfoId: ID!, $file: Upload!) {
+    addProfilePicture(userInfoId: $userInfoId, file: $file) {
+      id
+      path
+    }
+  }
+`;
 export const UPDATE_ABOUT = gql`mutation UpdateAbout($updateAboutId: ID!, $animal: Boolean, $description: String, $chatOptionId: Int, $musicOptionId: Int, $smoke: Boolean) {
   updateAbout(id: $updateAboutId, animal: $animal, description: $description, chatOptionId: $chatOptionId, musicOptionId: $musicOptionId, smoke: $smoke) {
     id

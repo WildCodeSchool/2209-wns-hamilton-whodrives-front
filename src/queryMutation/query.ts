@@ -17,11 +17,7 @@ export const GET_CHAT_OPTIONS = gql`
     }
   }
 `;
-export const GET_USER_PICTURES = gql`
-query Query {
-  profilePicturePath
-}
-  `;
+
 export const GET_USER_LOGGED = gql`
   query UserLogged {
     userLogged {
@@ -72,7 +68,21 @@ export const GET_USER_LOGGED = gql`
     }
   }
 `;
+export const GET_USER_PICTURES = gql`
+query Query {
+  profilePicturePath 
+}
+  `;
 
+export  const GET_ID_USERINFO = gql`
+  query UserLogged {
+    userLogged {
+      userInfo {
+        id
+      }
+    }
+  }
+`;
 export const GET_PROFILE_USER = gql`query UserLogged {
   userLogged {
     id

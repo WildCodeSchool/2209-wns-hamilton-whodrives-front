@@ -2,13 +2,9 @@ import { gql, useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { GET_USER_LOGGED} from "../../queryMutation/query";
+import { GET_USER_LOGGED,GET_USER_PICTURES} from "../../queryMutation/query";
 
-export const GET_USER_PICTURES = gql`
-query Query {
-  profilePicturePath
-}
-  `;
+
 
 const ProfileCardComponent = () => {
   const navigate = useNavigate();
@@ -34,7 +30,7 @@ const ProfileCardComponent = () => {
   };
 
   const { loading, error, data, refetch } = useQuery(GET_USER_LOGGED);
-  console.log(data);
+
 
   useEffect(() => {
     refetch();
@@ -44,7 +40,7 @@ const ProfileCardComponent = () => {
   const backendUrlPicture = "http://localhost:4000/profiles-images/";
   const { data: dataPictures, loading: loadingPictures, error: errorPictures } = useQuery(GET_USER_PICTURES);
   const pictures = dataPictures?.profilePicturePath;
-  console.log(pictures);
+
 
 
   if (loading) {
