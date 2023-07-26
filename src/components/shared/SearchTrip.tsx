@@ -85,7 +85,7 @@ export default function SearchTripComponent({
               Ville de départ
             </label>
             <input
-              className="p-2 border md:p-0 border-whodrivesGrey md:focus:outline-none md:border-none"
+              className="p-2 border md:p-0 border-whodrivesGrey md:focus:outline-none md:border-none focus:outline-validBlue"
               type="text"
               name="departure"
               onChange={handleChange}
@@ -99,11 +99,12 @@ export default function SearchTripComponent({
               }}
             />
           </div>
-          <div className="absolute z-10 mt-10 bg-white">
+          <div className="absolute z-10 mt-16 bg-white md:mt-10">
             {data.map(
               (el: DataState, index) =>
                 display.departure && (
                   <option
+                    className="md:cursor-pointer"
                     key={index}
                     value={el.nom}
                     onClick={(e: React.MouseEvent<HTMLOptionElement>) => {
@@ -125,10 +126,10 @@ export default function SearchTripComponent({
               className="hidden m-1 md:flex"
             />
             <label className="text-center md:hidden" htmlFor="depart">
-              Ville d'arrivée
+              Destination
             </label>
             <input
-              className="p-2 border md:p-0 border-whodrivesGrey md:focus:outline-none md:border-none"
+              className="p-2 border md:p-0 border-whodrivesGrey md:focus:outline-none md:border-none focus:outline-validBlue"
               type="text"
               name="arrival"
               onChange={handleChange}
@@ -142,10 +143,11 @@ export default function SearchTripComponent({
               }}
             />
           </div>
-          <div className="absolute z-10 mt-10 bg-white ">
+          <div className="absolute z-10 mt-16 bg-white md:mt-10 ">
             {display.arrival &&
               data.map((el: DataState, index) => (
                 <option
+                  className="md:cursor-pointer"
                   key={index}
                   value={el.nom}
                   onClick={(e: any) => {
@@ -163,7 +165,7 @@ export default function SearchTripComponent({
           Date
         </label>
         <input
-          className="p-2 border md:pr-5 md:ml-5 md:p-0 border-whodrivesGrey md:focus:outline-none md:border-none"
+          className="p-2 border md:pr-5 md:ml-5 md:p-0 border-whodrivesGrey md:focus:outline-none md:border-none focus:outline-validBlue"
           type="date"
           onChange={(e) => setForm({ ...form, date: e.target.value })}
           value={form.date}

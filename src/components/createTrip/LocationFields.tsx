@@ -100,9 +100,10 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
             <input
               type="text"
               id="depart"
+              placeholder="Départ"
               value={departure}
               onChange={handleDepartureChange}
-              className="w-full p-2 border border-gray-300"
+              className="w-full p-2 border border-whodrivesGrey focus:outline-validBlue"
             />
             {showDepartureOptions && departureOptions.length > 0 && (
               <ul className="absolute z-10 w-full p-4 mt-2 bg-white border border-gray-300">
@@ -122,15 +123,16 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
         </div>
         <div className="flex flex-col pb-4">
           <label className="text-center" htmlFor="arrivee">
-            Ville d'arrivée
+            Destination
           </label>
           <div className="relative">
             <input
               type="text"
               id="arrivee"
+              placeholder="Destination"
               value={arrival}
               onChange={handleArrivalChange}
-              className="w-full p-2 border border-gray-300"
+              className="w-full p-2 border border-whodrivesGrey focus:outline-validBlue"
             />
             {showArrivalOptions && arrivalOptions.length > 0 && (
               <ul className="absolute z-10 w-full p-4 mt-2 bg-white border border-gray-300">
@@ -149,7 +151,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
           </div>
         </div>
         <div className="flex flex-col md:flex-row md:gap-4">
-          <div className="flex flex-col pb-4 sm:w-1/2 sm:flex-1">
+          <div className="flex flex-col pb-4 mx-auto sm:w-1/2 sm:flex-1">
             <label className="text-center" htmlFor="date">
               Date
             </label>
@@ -159,10 +161,10 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
               //afficher la date de aujourdui par defaut
               value={date || trip.date}
               onChange={(e) => setDate(e.target.value)}
-              className="p-2 border border-gray-300"
+              className="p-2 border border-whodrivesGrey focus:outline-validBlue"
             />
           </div>
-          <div className="flex flex-col sm:w-1/2 sm:flex-1">
+          <div className="flex flex-col pb-4 mx-auto sm:w-1/2 sm:flex-1">
             <label className="text-center" htmlFor="heure">
               Heure
             </label>
@@ -171,7 +173,7 @@ function LocationFields({ handleLocationFieldData, trip }: any) {
               id="heure"
               value={time}
               onChange={(e) => setTime(e.target.value)}
-              className="p-2 border border-gray-300"
+              className="p-2 border border-whodrivesGrey focus:outline-validBlue"
             />
           </div>
         </div>

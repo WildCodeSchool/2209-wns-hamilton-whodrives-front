@@ -74,7 +74,7 @@ const LoginForm = () => {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring-validBlue"
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
             />
           </div>
           <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
@@ -87,7 +87,7 @@ const LoginForm = () => {
               placeholder="Mot de passe"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 focus:ring-validBlue"
+              className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
             />
           </div>
           {error && <p>Une erreur s'est produite lors de la connexion.</p>}
