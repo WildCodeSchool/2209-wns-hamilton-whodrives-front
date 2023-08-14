@@ -15,11 +15,9 @@ interface Trip {
     username: string;
   }[];
 }
-
 interface UserTripsData {
   UserTripsLoggedUser: Trip[];
 }
-
 const GET_USER_TRIPS = gql`
   query UserTripsLoggedUser {
     UserTripsLoggedUser {
@@ -38,7 +36,6 @@ const GET_USER_TRIPS = gql`
     }
   }
 `;
-
 const DELETE_TRIP = gql`
   mutation DeleteTrip($deleteTripId: ID!) {
     deleteTrip(id: $deleteTripId) {
@@ -47,7 +44,6 @@ const DELETE_TRIP = gql`
     }
   }
 `;
-
 const GET_USER_LOGGED = gql`
   query getUserLogged {
     userLogged {
@@ -55,10 +51,8 @@ const GET_USER_LOGGED = gql`
     }
   }
 `;
-
 const UserTripsComponent: React.FC = () => {
   const token = localStorage.getItem("token");
-
   const {
     loading: tripsLoading,
     error: tripsError,
@@ -75,9 +69,7 @@ const UserTripsComponent: React.FC = () => {
     error: userError,
     data: userData,
   } = useQuery(GET_USER_LOGGED);
-
   const [deleteTripMutation] = useMutation(DELETE_TRIP);
-
   useEffect(() => {
     if (tripsError) {
       console.error(
@@ -103,10 +95,8 @@ const UserTripsComponent: React.FC = () => {
       </p>
     );
   }
-
   const trips = tripsData?.UserTripsLoggedUser || [];
   const userLogged = userData?.userLogged || { username: "" };
-
   const handleDeleteTrip = (tripId: string) => {
     deleteTripMutation({
       variables: { deleteTripId: tripId },
@@ -114,12 +104,10 @@ const UserTripsComponent: React.FC = () => {
         const existingTrips = cache.readQuery<UserTripsData>({
           query: GET_USER_TRIPS,
         });
-
         if (existingTrips) {
           const updatedTrips = existingTrips.UserTripsLoggedUser.filter(
             (trip) => trip.id !== tripId
           );
-
           cache.writeQuery<UserTripsData>({
             query: GET_USER_TRIPS,
             data: { UserTripsLoggedUser: updatedTrips },
@@ -135,7 +123,6 @@ const UserTripsComponent: React.FC = () => {
         console.error("An error occurred during trip deletion:", error);
       });
   };
-
   return (
     <div className="flex flex-col flex-grow">
       {trips.map((trip: Trip) => (
@@ -174,7 +161,6 @@ const UserTripsComponent: React.FC = () => {
                 </p>
               ))}
           </div>
-
           {trip.users.find((user) => user.username === userLogged.username) ? (
             <p className="flex m-3 font-bold">
               Passagers:
@@ -191,5 +177,4 @@ const UserTripsComponent: React.FC = () => {
     </div>
   );
 };
-
 export default UserTripsComponent;

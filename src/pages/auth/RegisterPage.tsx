@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 const REGISTER = gql`
   mutation CreateUser(
@@ -88,15 +89,15 @@ const RegisterPage = () => {
     e.preventDefault();
 
     if (password === "" || confirmPassword === "") {
-      toast.error("Veuillez saisir un mot de passe et le confirmer!", {
-        autoClose: 2000,
+      toast.error("Veuillez saisir un mot de passe et le confirmer !", {
+        autoClose: 1000,
       });
       return;
     }
 
     if (password !== confirmPassword) {
-      toast.error("Les mots de passe ne correspondent pas!", {
-        autoClose: 2000,
+      toast.error("Les mots de passe ne correspondent pas !", {
+        autoClose: 1000,
       });
       return;
     }
@@ -116,10 +117,10 @@ const RegisterPage = () => {
       toast.success("Vous êtes inscrit !", { autoClose: 1000 });
       setTimeout(() => {
         navigate("/auth");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       toast.error("Une erreur s'est produite lors de l'inscription  ", {
-        autoClose: 2000,
+        autoClose: 1000,
       });
     }
   };
@@ -146,7 +147,7 @@ const RegisterPage = () => {
                   placeholder="Adresse email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
                 />
               </div>
               <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
@@ -158,7 +159,7 @@ const RegisterPage = () => {
                   placeholder="Nom d'utilisateur"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
                 />
               </div>
               <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
@@ -170,7 +171,7 @@ const RegisterPage = () => {
                   placeholder="Nom"
                   value={lastname}
                   onChange={(e) => setLastname(e.target.value)}
-                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
                 />
               </div>
               <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
@@ -182,7 +183,7 @@ const RegisterPage = () => {
                   placeholder="Prénom"
                   value={firstname}
                   onChange={(e) => setFirstname(e.target.value)}
-                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
                 />
               </div>
               <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
@@ -194,7 +195,7 @@ const RegisterPage = () => {
                   placeholder="Date de naissance"
                   value={dateOfBirth}
                   onChange={(e) => setDateOfBirth(e.target.value)}
-                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
                 />
               </div>
               <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
@@ -206,7 +207,7 @@ const RegisterPage = () => {
                   placeholder="Téléphone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
                 />
               </div>
             </div>
@@ -252,7 +253,7 @@ const RegisterPage = () => {
                   placeholder="Mot de passe"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
                 />
               </div>
               <div className="flex flex-col w-5/6 mb-4 md:w-1/2">
@@ -264,7 +265,7 @@ const RegisterPage = () => {
                   placeholder="Confirmez le mot de passe"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
+                  className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
                 />
               </div>
             </div>

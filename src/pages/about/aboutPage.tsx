@@ -1,13 +1,14 @@
-import {
-  GET_MUSIC_OPTIONS,
-  GET_CHAT_OPTIONS,
-  GET_ABOUT,
-} from "../../queryMutation/query";
-import { CREATE_ABOUT, UPDATE_ABOUT } from "../../queryMutation/mutations";
-import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { CREATE_ABOUT, UPDATE_ABOUT } from "../../queryMutation/mutations";
+import {
+  GET_ABOUT,
+  GET_CHAT_OPTIONS,
+  GET_MUSIC_OPTIONS,
+} from "../../queryMutation/query";
 
 export default function AboutPage(): JSX.Element {
   const [animal, setAnimal] = useState<boolean>(false);
@@ -76,7 +77,9 @@ export default function AboutPage(): JSX.Element {
         },
       })
         .then(() => {
-          toast.success("Vos préférences ont été mises à jour avec succès !");
+          toast.success("Vos préférences ont été mises à jour avec succès !", {
+            autoClose: 1000,
+          });
           navigate("/profile");
         })
         .catch((error) => {
@@ -87,7 +90,9 @@ export default function AboutPage(): JSX.Element {
     } else {
       createAbout({ variables })
         .then(() => {
-          toast.success("Vos préférences ont été ajoutées avec succès !");
+          toast.success("Vos préférences ont été ajoutées avec succès !", {
+            autoClose: 1000,
+          });
           navigate("/profile");
         })
         .catch((error) => {

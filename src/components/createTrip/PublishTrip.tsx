@@ -13,7 +13,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
       $price: Int
       $description: String
       $hourDeparture: String
-      $placeAvailable: Int
+      $availableSeat: Int
     ) {
       createTrip(
         departure_place: $departurePlace
@@ -23,7 +23,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
         price: $price
         description: $description
         hour_departure: $hourDeparture
-        place_available: $placeAvailable
+        available_seat: $availableSeat
       ) {
         id
         departure_place
@@ -33,7 +33,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
         price
         description
         hour_departure
-        place_available
+        available_seat
       }
     }
   `;
@@ -80,7 +80,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
           hourDeparture: formattedTime.isValid()
             ? formattedTime.format("HH:mm:ss")
             : null,
-          placeAvailable: locationField.passengers,
+          availableSeat: locationField.passengers,
         },
       });
       navigate("/dashboard");

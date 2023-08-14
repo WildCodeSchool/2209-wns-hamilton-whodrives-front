@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_MUSIC_OPTIONS = gql`
   query GetMusicOptions {
-    musicOptions {
+    getMusicOptions {
       id
       content
     }
@@ -11,7 +11,7 @@ export const GET_MUSIC_OPTIONS = gql`
 
 export const GET_CHAT_OPTIONS = gql`
   query GetChatOptions {
-    chatOptions {
+    getChatOptions {
       id
       content
     }
@@ -20,7 +20,7 @@ export const GET_CHAT_OPTIONS = gql`
 
 export const GET_USER_LOGGED = gql`
   query UserLogged {
-    userLogged {
+    getUserLogged {
       id
       username
       firstname
@@ -69,14 +69,14 @@ export const GET_USER_LOGGED = gql`
   }
 `;
 export const GET_USER_PICTURES = gql`
-  query Query {
-    profilePicturePath
+  query getProfilePicturePath {
+    getProfilePicturePath
   }
 `;
 
 export const GET_ID_USERINFO = gql`
   query UserLogged {
-    userLogged {
+    getUserLogged {
       userInfo {
         id
       }
@@ -136,7 +136,7 @@ export const GET_PROFILE_USER = gql`
 
 export const GET_CAR_BRANDS = gql`
   query GetBrands {
-    Brands {
+    getBrands {
       id
       name
     }
@@ -144,7 +144,7 @@ export const GET_CAR_BRANDS = gql`
 `;
 export const GET_CAR_USER_LOGGED = gql`
   query GetCarUserLogged {
-    userLogged {
+    getUserLogged {
       cars {
         id
         brand {
@@ -159,7 +159,7 @@ export const GET_CAR_USER_LOGGED = gql`
 
 export const GET_USERINFO_LOGGED = gql`
   query UserLogged {
-    userLogged {
+    getUserLogged {
       id
       username
       firstname
@@ -180,7 +180,7 @@ export const GET_USERINFO_LOGGED = gql`
 
 export const GET_ABOUT = gql`
   query GetAboutById {
-    userLogged {
+    getUserLogged {
       userInfo {
         about {
           id
