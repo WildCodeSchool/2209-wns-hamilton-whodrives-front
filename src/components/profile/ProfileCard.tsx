@@ -138,7 +138,7 @@ const ProfileCardComponent = () => {
                       )}
                     </div>
                     <div>
-                      {user.userInfo.about.smoke === true ? (
+                      {user.userInfo.about.cigarette === true ? (
                         <img
                           src="/assets/icons/wind-blue.svg"
                           alt=""
@@ -211,7 +211,7 @@ const ProfileCardComponent = () => {
               )}
               <p className="w-full">
                 Ma voiture est une{" "}
-                <span className="text-validBlue">{car.model?.name}</span> qui
+                <span className="text-validBlue">{car.brand?.name}</span> qui
                 possède <span className="text-validBlue">{car.seat}</span>{" "}
                 places.
               </p>

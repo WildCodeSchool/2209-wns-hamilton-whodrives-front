@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_MUSIC_OPTIONS = gql`
-  query MusicOptions {
+  query GetMusicOptions {
     musicOptions {
       id
       content
@@ -10,7 +10,7 @@ export const GET_MUSIC_OPTIONS = gql`
 `;
 
 export const GET_CHAT_OPTIONS = gql`
-  query ChatOptions {
+  query GetChatOptions {
     chatOptions {
       id
       content
@@ -32,7 +32,7 @@ export const GET_USER_LOGGED = gql`
       cars {
         id
         seat
-        model {
+        brand {
           id
           name
         }
@@ -50,7 +50,7 @@ export const GET_USER_LOGGED = gql`
           id
           animal
           description
-          smoke
+          cigarette
           chatOption {
             id
             content
@@ -69,12 +69,12 @@ export const GET_USER_LOGGED = gql`
   }
 `;
 export const GET_USER_PICTURES = gql`
-query Query {
-  profilePicturePath 
-}
-  `;
+  query Query {
+    profilePicturePath
+  }
+`;
 
-export  const GET_ID_USERINFO = gql`
+export const GET_ID_USERINFO = gql`
   query UserLogged {
     userLogged {
       userInfo {
@@ -83,115 +83,120 @@ export  const GET_ID_USERINFO = gql`
     }
   }
 `;
-export const GET_PROFILE_USER = gql`query UserLogged {
-  userLogged {
-    id
-    username
-    firstname
-    lastname
-    date_of_birth
-    password
-    email
-    phone
-    cars {
+export const GET_PROFILE_USER = gql`
+  query UserLogged {
+    userLogged {
       id
-      seat
-      model {
+      username
+      firstname
+      lastname
+      date_of_birth
+      password
+      email
+      phone
+      cars {
         id
-        name
-      }
-      carPictures {
-        id
-        path
-      }
-    }
-    userInfo {
-      id
-      city
-      country
-      address
-      about {
-        id
-        animal
-        description
-        smoke
-        chatOption {
+        seat
+        brand {
           id
-          content
+          name
         }
-        musicOption {
+        carPictures {
           id
-          content
+          path
         }
       }
-      profilPictureId {
+      userInfo {
         id
-        path
+        city
+        country
+        address
+        about {
+          id
+          animal
+          description
+          cigarette
+          chatOption {
+            id
+            content
+          }
+          musicOption {
+            id
+            content
+          }
+        }
+        profilPictureId {
+          id
+          path
+        }
       }
     }
   }
-}`;
+`;
 
-export const GET_CAR_MODELS = gql`
-  query Models {
-    Models {
+export const GET_CAR_BRANDS = gql`
+  query GetBrands {
+    Brands {
       id
       name
     }
   }
 `;
-export const GET_CAR_USER_LOGGED  = gql`
-query GetCarUserLogged {
-  userLogged {
-    cars {
-      id
-      model {
+export const GET_CAR_USER_LOGGED = gql`
+  query GetCarUserLogged {
+    userLogged {
+      cars {
         id
-        name
+        brand {
+          id
+          name
+        }
+        seat
       }
-      seat
     }
   }
-}`;
+`;
 
 export const GET_USERINFO_LOGGED = gql`
-query UserLogged {
-  userLogged {
-    id
-    username
-    firstname
-    lastname
-    date_of_birth
-    password
-    email
-    phone
-    userInfo {
+  query UserLogged {
+    userLogged {
       id
-      city
-      country
-      address
+      username
+      firstname
+      lastname
+      date_of_birth
+      password
+      email
+      phone
+      userInfo {
+        id
+        city
+        country
+        address
+      }
     }
   }
-}`;
+`;
 
 export const GET_ABOUT = gql`
-query About {
-  userLogged {
-    userInfo {
-      about {
-        id
-        animal
-        description
-        smoke
-        chatOption {
+  query GetAboutById {
+    userLogged {
+      userInfo {
+        about {
           id
-          content
-        }
-        musicOption {
-          id
-          content
+          animal
+          description
+          cigarette
+          chatOption {
+            id
+            content
+          }
+          musicOption {
+            id
+            content
+          }
         }
       }
     }
   }
-}`;
+`;

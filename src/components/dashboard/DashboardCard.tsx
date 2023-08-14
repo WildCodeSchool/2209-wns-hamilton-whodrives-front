@@ -4,7 +4,7 @@ import moment from "moment";
 
 interface ITrip {
   id: string;
-  departure_places: string;
+  departure_place: string;
   destination: string;
   date_departure: string;
   arrival_date: string;
@@ -26,7 +26,7 @@ const GET_USER_TRIPS = gql`
   query UserTripsLoggedUser {
     UserTripsLoggedUser {
       id
-      departure_places
+      departure_place
       destination
       date_departure
       arrival_date
@@ -180,7 +180,7 @@ export default function DashboardCard() {
                 </div>
                 <div className="flex flex-col items-center justify-center w-full gap-3 font-bold md:w-3/5">
                   <div className="hidden md:flex">
-                    <p>{trip.departure_places}</p>
+                    <p>{trip.departure_place}</p>
                     <img
                       src="assets/icons/arrow-right-white.svg"
                       alt=""
@@ -189,7 +189,7 @@ export default function DashboardCard() {
                     <p>{trip.destination}</p>
                   </div>
                   <div className="flex flex-col text-center md:hidden">
-                    <p>{trip.departure_places}</p>
+                    <p>{trip.departure_place}</p>
                     <img
                       src="assets/icons/arrow-down-white.svg"
                       alt=""

@@ -6,7 +6,7 @@ import moment from "moment";
 function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
   const CREATE_TRIP_MUTATION = gql`
     mutation CreateTrip(
-      $departurePlaces: String
+      $departurePlace: String
       $destination: String
       $dateDeparture: Date
       $arrivalDate: Date
@@ -16,7 +16,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
       $placeAvailable: Int
     ) {
       createTrip(
-        departure_places: $departurePlaces
+        departure_place: $departurePlace
         destination: $destination
         date_departure: $dateDeparture
         arrival_date: $arrivalDate
@@ -26,7 +26,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
         place_available: $placeAvailable
       ) {
         id
-        departure_places
+        departure_place
         destination
         date_departure
         arrival_date
@@ -67,7 +67,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
 
       const { data } = await createTrip({
         variables: {
-          departurePlaces: locationField.departure,
+          departurePlace: locationField.departure,
           destination: locationField.arrival,
           dateDeparture: formattedDate.isValid()
             ? formattedDate.format("YYYY-MM-DD")

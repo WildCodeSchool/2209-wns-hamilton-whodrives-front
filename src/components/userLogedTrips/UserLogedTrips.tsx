@@ -3,7 +3,7 @@ import { useQuery, useMutation, gql } from "@apollo/client";
 
 interface Trip {
   id: string;
-  departure_places: string;
+  departure_place: string;
   destination: string;
   date_departure: string;
   arrival_date: string;
@@ -24,7 +24,7 @@ const GET_USER_TRIPS = gql`
   query UserTripsLoggedUser {
     UserTripsLoggedUser {
       id
-      departure_places
+      departure_place
       destination
       date_departure
       arrival_date
@@ -154,7 +154,7 @@ const UserTripsComponent: React.FC = () => {
           <div className="flex items-center">
             <p className="m-3 font-bold">{trip.date_departure}</p>
             <p className="m-3 font-bold">{trip.hour_departure.split(":00")}</p>
-            <p className="m-3 font-bold">{trip.departure_places}</p>
+            <p className="m-3 font-bold">{trip.departure_place}</p>
             <img src="assets/icons/arrow-right-white.svg" alt="" />
           </div>
           <p className="m-3 font-bold text-center">{trip.destination}</p>

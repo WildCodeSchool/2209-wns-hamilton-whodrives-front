@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery, gql } from "@apollo/client";
-import { GET_CAR_MODELS, GET_CAR_USER_LOGGED } from "../../queryMutation/query";
+import { GET_CAR_BRANDS, GET_CAR_USER_LOGGED } from "../../queryMutation/query";
 import {
   CREATE_CAR_MUTATION,
   UPDATE_CAR_MUTATION,
@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 interface Car {
   id: number;
   seat: number;
-  model: {
+  brand: {
     id: number;
     name: string;
   };
@@ -21,20 +21,20 @@ interface Car {
   }[];
 }
 
-interface Model {
+interface Brand {
   id: number;
   name: string;
 }
 
 export default function AddCarPage() {
   const [seat, setSeat] = useState<number>(0);
-  const [modelId, setModelId] = useState<number | string>("0");
+  const [brandId, setBrandId] = useState<number | string>("0");
   const [carPictures, setCarPictures] = useState<File[]>([]);
 
   const navigate = useNavigate();
 
-  const { loading, error, data } = useQuery<{ Models: Model[] }>(
-    GET_CAR_MODELS
+  const { loading, error, data } = useQuery<{ Brands: Brand[] }>(
+    GET_CAR_BRANDS
   );
   const {
     loading: carLoading,
@@ -73,14 +73,14 @@ export default function AddCarPage() {
     if (!carLoading && carData && carData.userLogged.cars.length > 0) {
       const carInfo = carData.userLogged.cars[0];
       setSeat(carInfo.seat);
-      setModelId(carInfo.model.id);
+      setBrandId(carInfo.brand.id);
     }
   }, [carLoading, carData]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (seat > 0 && parseInt(modelId.toString()) > 0) {
+    if (seat > 0 && parseInt(brandId.toString()) > 0) {
       const pictures = await Promise.all(
         carPictures.map(
           (file) =>
@@ -100,14 +100,14 @@ export default function AddCarPage() {
           variables: {
             updateCarId,
             seat,
-            modelId: parseInt(modelId.toString()),
+            brandId: parseInt(brandId.toString()),
           },
         });
       } else {
         createCar({
           variables: {
             seat: parseInt(seat.toString()),
-            modelId: parseInt(modelId.toString()),
+            brandId: parseInt(brandId.toString()),
             pictures,
           },
         });
@@ -122,9 +122,9 @@ export default function AddCarPage() {
   return (
     <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">
       <h1 className="mb-4 text-center text-layoutBlue">Ma voiture</h1>
-      {loading && <p>Loading models...</p>}
+      {loading && <p>Loading brands...</p>}
       {error && (
-        <p className="text-red-500">Error loading models: {error.message}</p>
+        <p className="text-red-500">Error loading brands: {error.message}</p>
       )}
       {carLoading && <p>Loading car data...</p>}
       {carError && (
@@ -147,13 +147,13 @@ export default function AddCarPage() {
               </label>
               <select
                 className="px-4 py-2 border"
-                value={modelId}
-                onChange={(e) => setModelId(parseInt(e.target.value))}
+                value={brandId}
+                onChange={(e) => setBrandId(parseInt(e.target.value))}
               >
                 <option value={0}></option>
-                {data.Models.map((model) => (
-                  <option key={model.id} value={model.id}>
-                    {model.name}
+                {data.Brands.map((brand) => (
+                  <option key={brand.id} value={brand.id}>
+                    {brand.name}
                   </option>
                 ))}
               </select>

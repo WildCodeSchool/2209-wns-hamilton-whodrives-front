@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 export default function AboutPage(): JSX.Element {
   const [animal, setAnimal] = useState<boolean>(false);
   const [description, setDescription] = useState<string>("");
-  const [smoke, setSmoke] = useState<boolean>(false);
+  const [cigarette, setCigarette] = useState<boolean>(false);
   const [chatOptionId, setChatOptionId] = useState<number | string>("");
   const [musicOptionId, setMusicOptionId] = useState<number | string>("");
   const {
@@ -41,11 +41,11 @@ export default function AboutPage(): JSX.Element {
 
   useEffect(() => {
     if (!aboutLoading && aboutData && aboutData.userLogged.userInfo.about) {
-      const { animal, description, smoke, chatOption, musicOption } =
+      const { animal, description, cigarette, chatOption, musicOption } =
         aboutData.userLogged.userInfo.about;
       setAnimal(animal || false);
       setDescription(description || "");
-      setSmoke(smoke || false);
+      setCigarette(cigarette || false);
       setChatOptionId(chatOption?.id ? parseInt(chatOption.id) : ""); // Convert the id to an integer if provided
       setMusicOptionId(musicOption?.id ? parseInt(musicOption.id) : ""); // Convert the id to an integer if provided
     }
@@ -61,7 +61,7 @@ export default function AboutPage(): JSX.Element {
     const variables = {
       animal,
       description,
-      smoke,
+      cigarette,
       chatOptionId,
       musicOptionId,
     };
@@ -138,12 +138,12 @@ export default function AboutPage(): JSX.Element {
             <div className="flex gap-4">
               <img
                 src={
-                  smoke
+                  cigarette
                     ? "/assets/icons/wind-blue.svg"
                     : "/assets/icons/wind-grey.svg"
                 }
                 alt=""
-                onClick={() => setSmoke(!smoke)}
+                onClick={() => setCigarette(!cigarette)}
                 style={{ cursor: "pointer" }}
               />
             </div>
