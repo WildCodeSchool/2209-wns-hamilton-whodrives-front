@@ -41,9 +41,9 @@ export default function AboutPage(): JSX.Element {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!aboutLoading && aboutData && aboutData.userLogged.userInfo.about) {
+    if (!aboutLoading && aboutData && aboutData.getUserLogged.userInfo.about) {
       const { animal, description, cigarette, chatOption, musicOption } =
-        aboutData.userLogged.userInfo.about;
+        aboutData.getUserLogged.userInfo.about;
       setAnimal(animal || false);
       setDescription(description || "");
       setCigarette(cigarette || false);
@@ -111,8 +111,8 @@ export default function AboutPage(): JSX.Element {
     return <div>Error loading options.</div>;
   }
 
-  const musicOptions = musicData.musicOptions;
-  const chatOptions = chatData.chatOptions;
+  const musicOptions = musicData.getMusicOptions;
+  const chatOptions = chatData.getChatOptions;
 
   return (
     <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">

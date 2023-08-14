@@ -23,7 +23,7 @@ export default function UserInfoPage(): JSX.Element {
     e.preventDefault();
 
     if (!city || !country || !address) {
-      if (!userInfoData.userLogged.userInfo) {
+      if (!userInfoData.getUserLogged.userInfo) {
         toast.error(
           "Veuillez remplir tous les champs pour ajouter vos informations.",
           { autoClose: 2000 }
@@ -39,7 +39,7 @@ export default function UserInfoPage(): JSX.Element {
       return;
     }
 
-    const mutation = userInfoData.userLogged.userInfo
+    const mutation = userInfoData.getUserLogged.userInfo
       ? updateUserInfo
       : createUserInfo;
 
@@ -48,13 +48,13 @@ export default function UserInfoPage(): JSX.Element {
         city,
         country,
         address,
-        updateUserInfoId: userInfoData.userLogged.userInfo?.id,
+        updateUserInfoId: userInfoData.getUserLogged.userInfo?.id,
       },
     })
       .then(() => {
         toast.success(
           `Vos informations ont été ${
-            userInfoData.userLogged.userInfo ? "mises à jour" : "ajoutées"
+            userInfoData.getUsserLogged.userInfo ? "mises à jour" : "ajoutées"
           } avec succès !`
         );
         navigate("/profile");
@@ -62,7 +62,7 @@ export default function UserInfoPage(): JSX.Element {
       .catch((error) => {
         toast.error(
           `Erreur lors de ${
-            userInfoData.userLogged.userInfo ? "la mise à jour" : "l'ajout"
+            userInfoData.getUsserLogged.userInfo ? "la mise à jour" : "l'ajout"
           } de vos informations : ${error.message}`
         );
       });
@@ -77,8 +77,8 @@ export default function UserInfoPage(): JSX.Element {
     useQuery(GET_USERINFO_LOGGED);
 
   useEffect(() => {
-    if (!userInfoLoading && userInfoData && userInfoData.userLogged) {
-      const { city, country, address } = userInfoData.userLogged.userInfo || {};
+    if (!userInfoLoading && userInfoData && userInfoData.getUserLogged) {
+      const { city, country, address } = userInfoData.getUserLogged.userInfo || {};
       setCity(city || "");
       setCountry(country || "");
       setAddress(address || "");

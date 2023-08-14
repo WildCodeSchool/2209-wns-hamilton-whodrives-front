@@ -32,9 +32,13 @@ export default function AddCarPage() {
 
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const { loading, error, data } = useQuery<{ getBrands: Brand[] }>(
     GET_CAR_BRANDS
   );
+=======
+  const { loading, error, data } = useQuery<{ getBrands: Brand[] }>(GET_CAR_BRANDS);
+>>>>>>> 3db90319991719b55f9be2eadb084f338dce1363
   console.log(data);
   const {
     loading: carLoading,

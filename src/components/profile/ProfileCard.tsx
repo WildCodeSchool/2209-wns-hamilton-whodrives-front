@@ -24,7 +24,7 @@ const ProfileCardComponent = () => {
     navigate("/user-infos/car-picture");
   };
   const handleClickAddProfilPicture = () => {
-    if (!data?.userLogged?.userInfo?.id) {
+    if (!data?.getUserLogged?.userInfo?.id) {
       alert("Vous devez d'abord ajouter vos informations");
     } else {
       navigate("/user-infos/user-picture");
@@ -44,7 +44,7 @@ const ProfileCardComponent = () => {
     loading: loadingPictures,
     error: errorPictures,
   } = useQuery(GET_USER_PICTURES);
-  const pictures = dataPictures?.profilePicturePath;
+  const pictures = dataPictures?.getProfilePicturePath;
 
   if (loading) {
     return <div>Loading...</div>;
@@ -54,7 +54,7 @@ const ProfileCardComponent = () => {
     return <div>Error retrieving user information.</div>;
   }
 
-  const user = data.userLogged;
+  const user = data.getUserLogged;
 
   return (
     <div className="flex flex-col w-5/6 p-8 m-auto my-4 border-2 md:flex-row md:w-1/2 border-validBlue">
