@@ -23,35 +23,29 @@ export default function CardSearchTripResult({
 }: IPropsResult): JSX.Element {
   return (
     <>
-      <div className="flex flex-col justify-between pl-2 pr-2 mr-8 w-1/1 ">
+      <div className="flex flex-col justify-between px-2 mx-8 w-1/1 ">
         <p>{date}</p>
         <div className="flex flex-row">
-          <div className="flex flex-col">
-            <p>{departure}</p>
-            <p>{hour}</p>
-          </div>
-
+          <p>{departure}</p>
           <img
             src="assets/icons/arrow-right-black.svg"
             alt=""
             className="ml-3 mr-3 "
           />
-          <div className="flex flex-col">
-            <p>{arrival}</p>
-          </div>
+          <p>{arrival}</p>
         </div>
+        <p>Heure de départ : {hour}</p>
         <p>Prix du trajet : {price}€</p>
       </div>
-
-      <div className="flex flex-col mr-10 w-1/1">
-        <p className="text-#1195C3">Places Disponibles : {seats}</p>
+      <div className="flex flex-col gap-2 my-auto mr-10 w-1/1">
+        <p>Places Disponibles : {seats}</p>
         <button
-          onClick={submitTrip}
+          className="p-4"
           onMouseEnter={hoverSetId}
-          className="border border-black"
+          onClick={submitTrip}
           value={value}
         >
-          J'y vais
+          <p className="p-2 text-xs green-button">J'y vais</p>
         </button>
       </div>
     </>

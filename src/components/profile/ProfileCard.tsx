@@ -174,14 +174,6 @@ const ProfileCardComponent = () => {
           </>
         )}
         <h3 className="px-2 py-1 text-white bg-layoutBlue">Ma Voiture</h3>
-        <div className="flex justify-end">
-          <img
-            className="w-4"
-            src="assets/icons/edit-box.svg"
-            alt="arrow icon"
-            onClick={handleClickCar}
-          />
-        </div>
         {user.cars.length === 0 ? (
           <button className="p-4" onClick={handleClickCar}>
             <p className="font-bold text-whodrivesGrey hover:text-validBlue">
