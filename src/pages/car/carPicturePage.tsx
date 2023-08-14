@@ -1,25 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { GET_ID_CAR , ADD_CAR_PICTURE} from "../../queryMutation/mutations";
 import { gql } from "@apollo/client/core";
 import { useState } from "react";
 
-const ADD_CAR_PICTURE = gql`
-  mutation AddPicture($carId: ID!, $file: Upload!) {
-    addPicture(carId: $carId, file: $file) {
-      id
-      path
-    }
-  }
-`;
 
-const GET_ID_CAR = gql`
-  query UserLogged {
-    userLogged {
-      cars {
-        id
-      }
-    }
-  }
-`;
+
 
 export default function AddCarPicturePage() {
   const [file, setFile] = useState<File | null>(null);
@@ -29,14 +14,14 @@ export default function AddCarPicturePage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!file || !data || !data.userLogged?.cars?.[0]?.id) return;
+    if (!file || !data || !data.getUserLogged?.cars?.[0]?.id) return;
     try {
       const formData = new FormData();
-      formData.append("carId", data.userLogged.cars[0].id);
+      formData.append("carId", data.getUserLogged.cars[0].id);
       formData.append("file", file);
       await addCarPicture({
         variables: {
-          carId: data.userLogged.cars[0].id,
+          carId: data.getUserLogged.cars[0].id,
           file: formData.get("file")!,
         },
       });
