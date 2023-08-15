@@ -54,7 +54,7 @@ export default function UserInfoPage(): JSX.Element {
       .then(() => {
         toast.success(
           `Vos informations ont été ${
-            userInfoData.getUsserLogged.userInfo ? "mises à jour" : "ajoutées"
+            userInfoData.getUserLogged.userInfo ? "mises à jour" : "ajoutées"
           } avec succès !`
         );
         navigate("/profile");
@@ -62,7 +62,7 @@ export default function UserInfoPage(): JSX.Element {
       .catch((error) => {
         toast.error(
           `Erreur lors de ${
-            userInfoData.getUsserLogged.userInfo ? "la mise à jour" : "l'ajout"
+            userInfoData.getUserLogged.userInfo ? "la mise à jour" : "l'ajout"
           } de vos informations : ${error.message}`
         );
       });

@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 interface Car {
   id: number;
   seat: number;
-  Brand: {
+  brand: {
     id: number;
     name: string;
   };
@@ -73,7 +73,7 @@ export default function AddCarPage() {
     if (!carLoading && carData && carData.getUserLogged.cars.length > 0) {
       const carInfo = carData.getUserLogged.cars[0];
       setSeat(carInfo.seat);
-      setBrandId(carInfo.Brand.id);
+      setBrandId(carInfo.brand.id);
     }
   }, [carLoading, carData]);
 
