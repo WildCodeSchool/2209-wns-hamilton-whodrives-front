@@ -67,7 +67,7 @@ export default function AboutPage(): JSX.Element {
       musicOptionId,
     };
 
-    const updateAboutId = aboutData?.userLogged?.userInfo?.about?.id;
+    const updateAboutId = aboutData?.getUserLogged?.userInfo?.about?.id;
 
     if (updateAboutId) {
       updateAbout({

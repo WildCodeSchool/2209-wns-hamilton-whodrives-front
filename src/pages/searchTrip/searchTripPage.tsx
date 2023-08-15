@@ -95,7 +95,7 @@ export default function SearchTripPage(): JSX.Element {
 
   const GET_TRIP = gql`
     query GetTrip($getTripId: ID!) {
-      getTrip(id: $getTripId) {
+      getTripById(id: $getTripId) {
         id
         departure_place
         destination
@@ -115,7 +115,7 @@ export default function SearchTripPage(): JSX.Element {
 
   const SELECT_TRIP = gql`
     mutation SelectTrip($tripId: ID!) {
-      selectTrip(tripId: $tripId) {
+      joinTrip(tripId: $tripId) {
         id
       }
     }
@@ -264,7 +264,7 @@ export default function SearchTripPage(): JSX.Element {
   //event to choose one trip
   const submitTrip = () => {
     setActiveStep(2);
-    setAvailableSeatTrip(dataTripId.getTrip.available_seat);
+    setAvailableSeatTrip(dataTripId.getTripById.available_seat);
   };
 
   const hoverSetId = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -276,7 +276,7 @@ export default function SearchTripPage(): JSX.Element {
   };
 
   const joinTrip = () => {
-    if (dataTripId.getTrip.users[0].email !== userInfos.email) {
+    if (dataTripId.getTripById.users[0].email !== userInfos.email) {
       Promise.all([
         selectTrip({ variables: { tripId } }),
         updateTripPlace({
@@ -366,15 +366,15 @@ export default function SearchTripPage(): JSX.Element {
       {activeStep === 2 ? (
         <div className="flex flex-row step-1">
           <SelectedTrip
-            nameProfil={dataTripId.getTrip.users[0].username}
-            departure={dataTripId.getTrip.departure_place}
-            arrival={dataTripId.getTrip.destination}
-            seats={dataTripId.getTrip.available_seat}
-            price={dataTripId.getTrip.price}
-            hour={`${dataTripId.getTrip.hour_departure.split(":")[0]}h${
-              dataTripId.getTrip.hour_departure.split(":")[1]
+            nameProfil={dataTripId.getTripById.users[0].username}
+            departure={dataTripId.getTripById.departure_place}
+            arrival={dataTripId.getTripById.destination}
+            seats={dataTripId.getTripById.available_seat}
+            price={dataTripId.getTripById.price}
+            hour={`${dataTripId.getTripById.hour_departure.split(":")[0]}h${
+              dataTripId.getTripById.hour_departure.split(":")[1]
             }`}
-            date={moment(dataTripId.getTrip.date_departure).format(
+            date={moment(dataTripId.getTripById.date_departure).format(
               "DD/MM/YYYY"
             )}
             stepBack={stepBack}

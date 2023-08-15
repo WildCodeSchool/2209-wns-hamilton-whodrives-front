@@ -1,24 +1,18 @@
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { GET_USER_LOGGED, GET_USER_PICTURES } from "../../queryMutation/query";
-
 const ProfileCardComponent = () => {
   const navigate = useNavigate();
-
   const handleClickUserInfos = () => {
     navigate("/user-infos");
   };
-
   const handleClickAbout = () => {
     navigate("/user-infos/about");
   };
-
   const handleClickCar = () => {
     navigate("/user-infos/car");
   };
-
   const handleClickAddPicture = (carId: string) => {
     localStorage.setItem("selectedCarId", carId);
     navigate("/user-infos/car-picture");
@@ -30,13 +24,10 @@ const ProfileCardComponent = () => {
       navigate("/user-infos/user-picture");
     }
   };
-
   const { loading, error, data, refetch } = useQuery(GET_USER_LOGGED);
-
   useEffect(() => {
     refetch();
   }, []);
-
   const backendUrl = "http://localhost:4000/cars-images/";
   const backendUrlPicture = "http://localhost:4000/profiles-images/";
   const {
@@ -49,7 +40,6 @@ const ProfileCardComponent = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (error) {
     return <div>Error retrieving user information.</div>;
   }
@@ -73,12 +63,10 @@ const ProfileCardComponent = () => {
             onClick={handleClickAddProfilPicture}
           />
         )}
-
         <p className="font-bold text-center">{user.username}</p>
       </div>
       <div className="w-full md:w-3/4">
         <h3 className="px-2 py-1 text-white bg-layoutBlue">A propos de moi</h3>
-
         {user.userInfo !== null && (
           <div>
             <div className="flex justify-end">
@@ -174,6 +162,16 @@ const ProfileCardComponent = () => {
           </>
         )}
         <h3 className="px-2 py-1 text-white bg-layoutBlue">Ma Voiture</h3>
+        {user.cars !== null ? (
+          <div className="flex justify-end">
+            <img
+              className="w-4"
+              src="assets/icons/edit-box.svg"
+              alt="arrow icon"
+              onClick={handleClickCar}
+            />
+          </div>
+        ) : null}
         {user.cars.length === 0 ? (
           <button className="p-4" onClick={handleClickCar}>
             <p className="font-bold text-whodrivesGrey hover:text-validBlue">

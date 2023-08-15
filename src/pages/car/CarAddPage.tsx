@@ -32,13 +32,9 @@ export default function AddCarPage() {
 
   const navigate = useNavigate();
 
-<<<<<<< HEAD
   const { loading, error, data } = useQuery<{ getBrands: Brand[] }>(
     GET_CAR_BRANDS
   );
-=======
-  const { loading, error, data } = useQuery<{ getBrands: Brand[] }>(GET_CAR_BRANDS);
->>>>>>> 3db90319991719b55f9be2eadb084f338dce1363
   console.log(data);
   const {
     loading: carLoading,
@@ -47,6 +43,7 @@ export default function AddCarPage() {
   } = useQuery<{ getUserLogged: { cars: Car[] } }>(GET_CAR_USER_LOGGED);
 
   const updateCarId = carData?.getUserLogged.cars[0]?.id;
+  console.log("id", updateCarId);
 
   const [createCar, { loading: mutationLoading, error: mutationError }] =
     useMutation<{ createCar: Car }>(CREATE_CAR_MUTATION, {

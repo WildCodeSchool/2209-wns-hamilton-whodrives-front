@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 import moment from "moment";
-
 function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
   const CREATE_TRIP_MUTATION = gql`
     mutation CreateTrip(
@@ -13,7 +12,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
       $price: Int
       $description: String
       $hourDeparture: String
-      $availableSeat: Int
+      $placeAvailable: Int
     ) {
       createTrip(
         departure_place: $departurePlace
@@ -23,7 +22,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
         price: $price
         description: $description
         hour_departure: $hourDeparture
-        available_seat: $availableSeat
+        available_seat: $placeAvailable
       ) {
         id
         departure_place
@@ -37,7 +36,6 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
       }
     }
   `;
-
   const locationField = {
     departure: trip.departure,
     arrival: trip.arrival,
@@ -47,19 +45,15 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
     price: trip.price,
     description: trip.description,
   };
-
   const trips = [locationField];
-
   const navigate = useNavigate();
   const [createTrip] = useMutation(CREATE_TRIP_MUTATION);
-
   const handlePublishTrip = async () => {
     try {
       const formattedDate = moment(locationField.date, "YYYY-MM-DD", true);
       if (!formattedDate.isValid()) {
         throw new Error("La valeur de date est invalide.");
       }
-
       const formattedTime = moment(locationField.time, "HH:mm", true);
       if (!formattedTime.isValid()) {
         throw new Error("La valeur de l'heure est invalide.");
@@ -80,7 +74,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
           hourDeparture: formattedTime.isValid()
             ? formattedTime.format("HH:mm:ss")
             : null,
-          availableSeat: locationField.passengers,
+          placeAvailable: locationField.passengers,
         },
       });
       navigate("/dashboard");
@@ -88,7 +82,6 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
       console.error("Erreur lors de la publication de l'annonce :", error);
     }
   };
-
   return (
     <div className="flex flex-col items-center justify-center py-5">
       <div className="w-3/5 p-4 mb-4 bg-white border-2 lg:w-2/5 border-validBlue">
@@ -145,5 +138,4 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
     </div>
   );
 }
-
 export default PublishTrip;

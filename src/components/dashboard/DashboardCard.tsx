@@ -17,14 +17,12 @@ interface ITrip {
     username: string;
   }[];
 }
-
 interface IUserTripsData {
-  UserTripsLoggedUser: ITrip[];
+  getUserTripsLoggedUser: ITrip[];
 }
-
 const GET_USER_TRIPS = gql`
-  query UserTripsLoggedUser {
-    UserTripsLoggedUser {
+  query getUserTripsLoggedUser {
+    getUserTripsLoggedUser {
       id
       departure_place
       destination
@@ -41,7 +39,6 @@ const GET_USER_TRIPS = gql`
     }
   }
 `;
-
 const DELETE_TRIP = gql`
   mutation DeleteTrip($deleteTripId: ID!) {
     deleteTrip(id: $deleteTripId) {
@@ -50,15 +47,13 @@ const DELETE_TRIP = gql`
     }
   }
 `;
-
 const GET_USER_LOGGED_USERNAME = gql`
   query getUserLogged {
-    userLogged {
+    getUserLogged {
       username
     }
   }
 `;
-
 export default function DashboardCard() {
   const {
     loading: tripsLoading,
@@ -71,9 +66,7 @@ export default function DashboardCard() {
     error: userError,
     data: userData,
   } = useQuery(GET_USER_LOGGED_USERNAME);
-
   const [deleteTripMutation] = useMutation(DELETE_TRIP);
-
   useEffect(() => {
     if (tripsError) {
       console.error(
@@ -88,15 +81,12 @@ export default function DashboardCard() {
       );
     }
   }, [tripsError, userError]);
-
   useEffect(() => {
     refetch();
   }, []);
-
   //   if (tripsLoading || userLoading) {
   //     return <p>Chargement en cours de chargement...</p>;
   //   }
-
   if (tripsError || userError) {
     return (
       <p>
@@ -105,10 +95,8 @@ export default function DashboardCard() {
       </p>
     );
   }
-
-  const trips = tripsData?.UserTripsLoggedUser || [];
-  const userLogged = userData?.userLogged || { username: "" };
-
+  const trips = tripsData?.getUserTripsLoggedUser || [];
+  const getUserLogged = userData?.getUserLogged || { username: "" };
   const handleDeleteTrip = (tripId: string) => {
     deleteTripMutation({
       variables: { deleteTripId: tripId },
@@ -116,15 +104,13 @@ export default function DashboardCard() {
         const existingTrips = cache.readQuery<IUserTripsData>({
           query: GET_USER_TRIPS,
         });
-
         if (existingTrips) {
-          const updatedTrips = existingTrips.UserTripsLoggedUser.filter(
+          const updatedTrips = existingTrips.getUserTripsLoggedUser.filter(
             (trip) => trip.id !== tripId
           );
-
           cache.writeQuery<IUserTripsData>({
             query: GET_USER_TRIPS,
-            data: { UserTripsLoggedUser: updatedTrips },
+            data: { getUserTripsLoggedUser: updatedTrips },
           });
         }
       },
@@ -144,41 +130,31 @@ export default function DashboardCard() {
           <div
             key={trip.id}
             className={`border border-black p-4 md:p-8 flex flex-col md:flex-row justify-center mb-6 md:m-3 ${
-              trip.users.find((user) => user.username === userLogged.username)
+              trip.users.find(
+                (user) => user.username === getUserLogged.username
+              )
                 ? "bg-whodrivesGreen text-white"
                 : trip.passengers.find(
-                    (passenger) => passenger.username === userLogged.username
+                    (passenger) => passenger.username === getUserLogged.username
                   )
                 ? "bg-whodrivesPink text-white"
                 : ""
             }`}
           >
             <div className="flex flex-col">
-              <h3 className="mb-4 text-center">
-                {trip.users.find(
-                  (user) => user.username === userLogged.username
-                )
-                  ? "Vous êtes le conducteur"
-                  : trip.passengers.find(
-                      (passenger) => passenger.username === userLogged.username
-                    )
-                  ? "Vous êtes un passager"
-                  : ""}
-              </h3>
+              <h3 className="mb-4 text-center">Votre trajet</h3>
               <div className="flex flex-col md:flex-row">
                 <div className="flex flex-col items-center justify-center w-full gap-2 mb-4 font-bold md:mb-0 md:gap-4 md:w-1/5">
-                  {trip.users
-                    .filter((user) => user.username !== userLogged.username)
-                    .map((user) => (
-                      <div className="flex flex-col font-bold">
-                        <p>Conducteur :</p>
-                        <p key={user.username} className="ml-2">
-                          {user.username}
-                        </p>
-                      </div>
+                  <div className="flex flex-col font-bold">
+                    <p>Conducteur :</p>
+                    {trip.users.map((user) => (
+                      <p key={user.username} className="ml-2">
+                        {user.username}
+                      </p>
                     ))}
+                  </div>
                   {trip.users.find(
-                    (user) => user.username === userLogged.username
+                    (user) => user.username === getUserLogged.username
                   ) ? (
                     <div className="flex flex-col font-bold">
                       <p>Passagers :</p>
@@ -223,12 +199,12 @@ export default function DashboardCard() {
                   >
                     <p className="p-2 text-xs red-button">
                       {trip.users.find(
-                        (user) => user.username === userLogged.username
+                        (user) => user.username === getUserLogged.username
                       )
                         ? "Supprimer ce trajet"
                         : trip.passengers.find(
                             (passenger) =>
-                              passenger.username === userLogged.username
+                              passenger.username === getUserLogged.username
                           )
                         ? "Quitter ce trajet"
                         : ""}

@@ -16,11 +16,11 @@ interface Trip {
   }[];
 }
 interface UserTripsData {
-  UserTripsLoggedUser: Trip[];
+  getUserTripsLoggedUser: Trip[];
 }
 const GET_USER_TRIPS = gql`
-  query UserTripsLoggedUser {
-    UserTripsLoggedUser {
+  query getUserTripsLoggedUser {
+    getUserTripsLoggedUser {
       id
       departure_place
       destination
@@ -95,8 +95,8 @@ const UserTripsComponent: React.FC = () => {
       </p>
     );
   }
-  const trips = tripsData?.UserTripsLoggedUser || [];
-  const userLogged = userData?.userLogged || { username: "" };
+  const trips = tripsData?.getUserTripsLoggedUser || [];
+  const getUserLogged = userData?.getUserLogged || { username: "" };
   const handleDeleteTrip = (tripId: string) => {
     deleteTripMutation({
       variables: { deleteTripId: tripId },
@@ -105,12 +105,12 @@ const UserTripsComponent: React.FC = () => {
           query: GET_USER_TRIPS,
         });
         if (existingTrips) {
-          const updatedTrips = existingTrips.UserTripsLoggedUser.filter(
+          const updatedTrips = existingTrips.getUserTripsLoggedUser.filter(
             (trip) => trip.id !== tripId
           );
           cache.writeQuery<UserTripsData>({
             query: GET_USER_TRIPS,
-            data: { UserTripsLoggedUser: updatedTrips },
+            data: { getUserTripsLoggedUser: updatedTrips },
           });
         }
       },
@@ -129,10 +129,10 @@ const UserTripsComponent: React.FC = () => {
         <div
           key={trip.id}
           className={`border border-gray-300 rounded p-4 flex flex-wrap justify-center m-3 ${
-            trip.users.find((user) => user.username === userLogged.username)
+            trip.users.find((user) => user.username === getUserLogged.username)
               ? "bg-green-400 text-white"
               : trip.passengers.find(
-                  (passenger) => passenger.username === userLogged.username
+                  (passenger) => passenger.username === getUserLogged.username
                 )
               ? "bg-red-400 text-white"
               : ""
@@ -147,21 +147,25 @@ const UserTripsComponent: React.FC = () => {
           <p className="m-3 font-bold text-center">{trip.destination}</p>
           <div className="flex flex-wrap justify-end">
             {trip.users
-              .filter((user) => user.username === userLogged.username)
+              .filter((user) => user.username === getUserLogged.username)
               .map((user) => (
                 <p key={user.username} className="m-3 mr-2 font-bold">
                   {user.username}
                 </p>
               ))}
             {trip.passengers
-              .filter((passenger) => passenger.username === userLogged.username)
+              .filter(
+                (passenger) => passenger.username === getUserLogged.username
+              )
               .map((passenger) => (
                 <p key={passenger.username} className="m-3 mr-2 font-bold">
                   {/* {passenger.username} */}
                 </p>
               ))}
           </div>
-          {trip.users.find((user) => user.username === userLogged.username) ? (
+          {trip.users.find(
+            (user) => user.username === getUserLogged.username
+          ) ? (
             <p className="flex m-3 font-bold">
               Passagers:
               {trip.passengers.map((passenger) => (

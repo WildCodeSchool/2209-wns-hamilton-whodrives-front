@@ -41,12 +41,12 @@ export const CREATE_ABOUT = gql`
   }
 `;
 export const ADD_PROFILE_PICTURE = gql`
-mutation CreateProfilePicture($userInfoId: ID!, $file: Upload!) {
-  createProfilePicture(userInfoId: $userInfoId, file: $file) {
-    id
-    path
+  mutation CreateProfilePicture($userInfoId: ID!, $file: Upload!) {
+    createProfilePicture(userInfoId: $userInfoId, file: $file) {
+      id
+      path
+    }
   }
-}
 `;
 export const UPDATE_ABOUT = gql`
   mutation UpdateAbout(
@@ -81,12 +81,12 @@ export const UPDATE_ABOUT = gql`
   }
 `;
 export const ADD_CAR_PICTURE = gql`
-mutation CreateCarPicture($carId: ID!, $file: Upload!) {
-  createCarPicture(carId: $carId, file: $file) {
-    id
-    path
+  mutation CreateCarPicture($carId: ID!, $file: Upload!) {
+    createCarPicture(carId: $carId, file: $file) {
+      id
+      path
+    }
   }
-}
 `;
 export const GET_ID_CAR = gql`
   query UserLogged {
@@ -97,7 +97,6 @@ export const GET_ID_CAR = gql`
     }
   }
 `;
-
 
 export const CREATE_CAR_MUTATION = gql`
   mutation CreateCar($seat: Int!, $brandId: Int!) {
@@ -130,21 +129,21 @@ export const UPDATE_CAR_MUTATION = gql`
 `;
 
 export const ADD_PICTURE_MUTATION = gql`
-mutation CreateCarPicture($carId: ID!, $file: Upload!) {
-  createCarPicture(carId: $carId, file: $file) {
-    id
-    path
+  mutation CreateCarPicture($carId: ID!, $file: Upload!) {
+    createCarPicture(carId: $carId, file: $file) {
+      id
+      path
+    }
   }
-}
 `;
 
 export const ADD_PROFILE_PICTURE_MUTATION = gql`
-mutation CreateProfilePicture($userInfoId: ID!, $file: Upload!) {
-  createProfilePicture(userInfoId: $userInfoId, file: $file) {
-    id
-    path
+  mutation CreateProfilePicture($userInfoId: ID!, $file: Upload!) {
+    createProfilePicture(userInfoId: $userInfoId, file: $file) {
+      id
+      path
+    }
   }
-}
 `;
 
 export const UPDATE_USER_INFO = gql`
