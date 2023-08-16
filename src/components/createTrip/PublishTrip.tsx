@@ -7,31 +7,31 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
     mutation CreateTrip(
       $departurePlace: String
       $destination: String
-      $dateDeparture: Date
+      $departureDate: Date
       $arrivalDate: Date
       $price: Int
       $description: String
-      $hourDeparture: String
+      $departureHour: String
       $availableSeat: Int
     ) {
       createTrip(
         departure_place: $departurePlace
         destination: $destination
-        date_departure: $dateDeparture
+        departure_date: $departureDate
         arrival_date: $arrivalDate
         price: $price
         description: $description
-        hour_departure: $hourDeparture
+        departure_hour: $departureHour
         available_seat: $availableSeat
       ) {
         id
         departure_place
         destination
-        date_departure
+        departure_date
         arrival_date
         price
         description
-        hour_departure
+        departure_hour
         available_seat
       }
     }
@@ -63,7 +63,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
         variables: {
           departurePlace: locationField.departure,
           destination: locationField.arrival,
-          dateDeparture: formattedDate.isValid()
+          departureDate: formattedDate.isValid()
             ? formattedDate.format("YYYY-MM-DD")
             : null,
           arrivalDate: formattedDate.isValid()
@@ -71,7 +71,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
             : null,
           price: locationField.price,
           description: locationField.description,
-          hourDeparture: formattedTime.isValid()
+          departureHour: formattedTime.isValid()
             ? formattedTime.format("HH:mm:ss")
             : null,
           availableSeat: locationField.passengers,

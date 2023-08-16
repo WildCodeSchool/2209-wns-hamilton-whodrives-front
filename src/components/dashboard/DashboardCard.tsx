@@ -6,9 +6,9 @@ interface ITrip {
   id: string;
   departure_place: string;
   destination: string;
-  date_departure: string;
+  departure_date: string;
   arrival_date: string;
-  hour_departure: string;
+  departure_hour: string;
   price: string;
   users: {
     username: string;
@@ -26,9 +26,9 @@ const GET_USER_TRIPS = gql`
       id
       departure_place
       destination
-      date_departure
+      departure_date
       arrival_date
-      hour_departure
+      departure_hour
       price
       users {
         username
@@ -186,8 +186,8 @@ export default function DashboardCard() {
                     <p>{trip.destination}</p>
                   </div>
                   <p>
-                    {moment(trip.date_departure).format("DD/MM/YYYY")} -{" "}
-                    {trip.hour_departure.split(":00")}
+                    {moment(trip.departure_date).format("DD/MM/YYYY")} -{" "}
+                    {trip.departure_hour.split(":00")}
                   </p>
                   <p>Prix : {trip.price} €</p>
                 </div>

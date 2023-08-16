@@ -40,8 +40,8 @@ interface ITrip {
   users: User[];
   available_seat: number;
   price: number;
-  date_departure: string;
-  hour_departure: string;
+  departure_date: string;
+  departure_hour: string;
   departure_place: string;
   destination: string;
 }
@@ -65,7 +65,7 @@ export default function SearchTripPage(): JSX.Element {
     query GetTrips(
       $departurePlace: String
       $destination: String
-      $dateDeparture: Date
+      $departureDate: Date
       $minHour: String
       $maxHour: String
     ) {
@@ -74,14 +74,14 @@ export default function SearchTripPage(): JSX.Element {
         destination: $destination
         minHour: $minHour
         maxHour: $maxHour
-        date_departure: $dateDeparture
+        departure_date: $departureDate
       ) {
         id
         departure_place
         destination
-        date_departure
+        departure_date
         available_seat
-        hour_departure
+        departure_hour
         arrival_date
         price
         description
@@ -99,9 +99,9 @@ export default function SearchTripPage(): JSX.Element {
         id
         departure_place
         destination
-        date_departure
+        departure_date
         available_seat
-        hour_departure
+        departure_hour
         arrival_date
         price
         description
@@ -127,11 +127,11 @@ export default function SearchTripPage(): JSX.Element {
         id
         departure_place
         destination
-        date_departure
+        departure_date
         arrival_date
         price
         description
-        hour_departure
+        departure_hour
         available_seat
       }
     }
@@ -169,7 +169,7 @@ export default function SearchTripPage(): JSX.Element {
     variables: {
       departurePlace: form.departure,
       destination: form.arrival,
-      dateDeparture: form.date,
+      departureDate: form.date,
       minHour: "",
       maxHour: "",
     },
@@ -186,7 +186,7 @@ export default function SearchTripPage(): JSX.Element {
       refetch({
         departurePlace: form.departure,
         destination: form.arrival,
-        dateDeparture: form.date,
+        departureDate: form.date,
         minHour: hoursRange[rangeSelected].min,
         maxHour: hoursRange[rangeSelected].max,
       });
@@ -194,7 +194,7 @@ export default function SearchTripPage(): JSX.Element {
       refetch({
         departurePlace: form.departure,
         destination: form.arrival,
-        dateDeparture: form.date,
+        departureDate: form.date,
         minHour: "",
         maxHour: "",
       });
@@ -238,8 +238,8 @@ export default function SearchTripPage(): JSX.Element {
       return hoursInt * 60 + minutesInt;
     };
     sortedResultat.sort((a, b) => {
-      const aTime = convertToMinutes(a.hour_departure);
-      const bTime = convertToMinutes(b.hour_departure);
+      const aTime = convertToMinutes(a.departure_hour);
+      const bTime = convertToMinutes(b.departure_hour);
 
       if (sortOrder === "asc") {
         return aTime - bTime;
@@ -343,11 +343,11 @@ export default function SearchTripPage(): JSX.Element {
                     value={el.id}
                     hoverSetId={hoverSetId}
                     nameProfil={el.users[0].username}
-                    date={moment(el.date_departure).format("DD/MM/YYYY")}
+                    date={moment(el.departure_date).format("DD/MM/YYYY")}
                     seats={el.available_seat}
                     price={el.price}
-                    hour={`${el.hour_departure.split(":")[0]}h${
-                      el.hour_departure.split(":")[1]
+                    hour={`${el.departure_hour.split(":")[0]}h${
+                      el.departure_hour.split(":")[1]
                     }`}
                     departure={el.departure_place}
                     arrival={el.destination}
@@ -371,10 +371,10 @@ export default function SearchTripPage(): JSX.Element {
             arrival={dataTripId.getTripById.destination}
             seats={dataTripId.getTripById.available_seat}
             price={dataTripId.getTripById.price}
-            hour={`${dataTripId.getTripById.hour_departure.split(":")[0]}h${
-              dataTripId.getTripById.hour_departure.split(":")[1]
+            hour={`${dataTripId.getTripById.departure_hour.split(":")[0]}h${
+              dataTripId.getTripById.departure_hour.split(":")[1]
             }`}
-            date={moment(dataTripId.getTripById.date_departure).format(
+            date={moment(dataTripId.getTripById.departure_date).format(
               "DD/MM/YYYY"
             )}
             stepBack={stepBack}

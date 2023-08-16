@@ -5,9 +5,9 @@ interface Trip {
   id: string;
   departure_place: string;
   destination: string;
-  date_departure: string;
+  departure_date: string;
   arrival_date: string;
-  hour_departure: string;
+  departure_hour: string;
   users: {
     username: string;
   }[];
@@ -24,9 +24,9 @@ const GET_USER_TRIPS = gql`
       id
       departure_place
       destination
-      date_departure
+      departure_date
       arrival_date
-      hour_departure
+      departure_hour
       users {
         username
       }
@@ -139,8 +139,8 @@ const UserTripsComponent: React.FC = () => {
           }`}
         >
           <div className="flex items-center">
-            <p className="m-3 font-bold">{trip.date_departure}</p>
-            <p className="m-3 font-bold">{trip.hour_departure.split(":00")}</p>
+            <p className="m-3 font-bold">{trip.departure_date}</p>
+            <p className="m-3 font-bold">{trip.departure_hour.split(":00")}</p>
             <p className="m-3 font-bold">{trip.departure_place}</p>
             <img src="assets/icons/arrow-right-white.svg" alt="" />
           </div>
