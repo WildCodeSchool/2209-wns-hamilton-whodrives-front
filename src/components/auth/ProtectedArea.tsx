@@ -1,8 +1,9 @@
-import { useEffect } from "react";
-import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
-import { CHECK_USER_LOGGED } from "../../context/AuthContext";
 import { useQuery } from "@apollo/client";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { CHECK_USER_LOGGED } from "../../context/AuthContext";
+import useAuth from "../../hooks/useAuth";
 
 function ProtectedArea({ children }: { children: JSX.Element }) {
   const { userInfos } = useAuth();

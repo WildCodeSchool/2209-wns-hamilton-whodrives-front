@@ -27,7 +27,7 @@ export default function SearchTripResult({
   submitTrip,
 }: IPropsResult): JSX.Element {
   return (
-    <div className="flex flex-row justify-between p-5 mb-10 overflow-auto border-2 w-full hover:border-validBlue">
+    <div className="flex flex-row justify-between w-full p-5 mb-10 overflow-auto border-2 hover:border-validBlue">
       <div className="ml-10">
         <ProfileSearchComponent nameProfil={nameProfil} />
       </div>

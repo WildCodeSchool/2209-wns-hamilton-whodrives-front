@@ -38,11 +38,11 @@ interface FormState {
 interface ITrip {
   id: number;
   users: User[];
-  place_available: number;
+  available_seat: number;
   price: number;
-  date_departure: string;
-  hour_departure: string;
-  departure_places: string;
+  departure_date: string;
+  departure_hour: string;
+  departure_place: string;
   destination: string;
 }
 
@@ -56,32 +56,32 @@ export default function SearchTripPage(): JSX.Element {
   const [tripId, setTripId] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const { userInfos } = useContext(AuthContext);
-  const [placeAvailableTrip, setPlaceAvailableTrip] = useState(1);
+  const [availableSeatTrip, setAvailableSeatTrip] = useState(1);
 
   const navigate = useNavigate();
 
   //Query gql
   const GET_TRIP_BY_HOUR = gql`
     query GetTrips(
-      $departurePlaces: String
+      $departurePlace: String
       $destination: String
-      $dateDeparture: Date
+      $departureDate: Date
       $minHour: String
       $maxHour: String
     ) {
       getTripSearchByHourRange(
-        departure_places: $departurePlaces
+        departure_place: $departurePlace
         destination: $destination
         minHour: $minHour
         maxHour: $maxHour
-        date_departure: $dateDeparture
+        departure_date: $departureDate
       ) {
         id
-        departure_places
+        departure_place
         destination
-        date_departure
-        place_available
-        hour_departure
+        departure_date
+        available_seat
+        departure_hour
         arrival_date
         price
         description
@@ -95,13 +95,13 @@ export default function SearchTripPage(): JSX.Element {
 
   const GET_TRIP = gql`
     query GetTrip($getTripId: ID!) {
-      getTrip(id: $getTripId) {
+      getTripById(id: $getTripId) {
         id
-        departure_places
+        departure_place
         destination
-        date_departure
-        place_available
-        hour_departure
+        departure_date
+        available_seat
+        departure_hour
         arrival_date
         price
         description
@@ -115,24 +115,24 @@ export default function SearchTripPage(): JSX.Element {
 
   const SELECT_TRIP = gql`
     mutation SelectTrip($tripId: ID!) {
-      selectTrip(tripId: $tripId) {
+      joinTrip(tripId: $tripId) {
         id
       }
     }
   `;
 
   const UPDATE_TRIP = gql`
-    mutation UpdateTripPlace($updateTripId: ID!, $placeAvailable: Int) {
-      updateTripPlace(id: $updateTripId, place_available: $placeAvailable) {
+    mutation UpdateTripPlace($updateTripId: ID!, $availableSeat: Int) {
+      updateTripPlace(id: $updateTripId, available_seat: $availableSeat) {
         id
-        departure_places
+        departure_place
         destination
-        date_departure
+        departure_date
         arrival_date
         price
         description
-        hour_departure
-        place_available
+        departure_hour
+        available_seat
       }
     }
   `;
@@ -142,7 +142,7 @@ export default function SearchTripPage(): JSX.Element {
   const [updateTripPlace] = useMutation(UPDATE_TRIP, {
     variables: {
       updateTripId: tripId,
-      placeAvailable: placeAvailableTrip,
+      availableSeat: availableSeatTrip,
     },
   });
 
@@ -167,9 +167,9 @@ export default function SearchTripPage(): JSX.Element {
   const [errorForm, setErrorForm] = useState(false);
   const { loading, error, data, refetch } = useQuery(GET_TRIP_BY_HOUR, {
     variables: {
-      departurePlaces: form.departure,
+      departurePlace: form.departure,
       destination: form.arrival,
-      dateDeparture: form.date,
+      departureDate: form.date,
       minHour: "",
       maxHour: "",
     },
@@ -184,17 +184,17 @@ export default function SearchTripPage(): JSX.Element {
   useEffect(() => {
     if (rangeSelected !== null) {
       refetch({
-        departurePlaces: form.departure,
+        departurePlace: form.departure,
         destination: form.arrival,
-        dateDeparture: form.date,
+        departureDate: form.date,
         minHour: hoursRange[rangeSelected].min,
         maxHour: hoursRange[rangeSelected].max,
       });
     } else {
       refetch({
-        departurePlaces: form.departure,
+        departurePlace: form.departure,
         destination: form.arrival,
-        dateDeparture: form.date,
+        departureDate: form.date,
         minHour: "",
         maxHour: "",
       });
@@ -238,8 +238,8 @@ export default function SearchTripPage(): JSX.Element {
       return hoursInt * 60 + minutesInt;
     };
     sortedResultat.sort((a, b) => {
-      const aTime = convertToMinutes(a.hour_departure);
-      const bTime = convertToMinutes(b.hour_departure);
+      const aTime = convertToMinutes(a.departure_hour);
+      const bTime = convertToMinutes(b.departure_hour);
 
       if (sortOrder === "asc") {
         return aTime - bTime;
@@ -249,7 +249,6 @@ export default function SearchTripPage(): JSX.Element {
     });
     setResultat(sortedResultat);
   };
-
   //filter reset
   const filterReset = () => {
     const sortedResultat = [...resultat];
@@ -262,11 +261,10 @@ export default function SearchTripPage(): JSX.Element {
     });
     setResultat(sortedResultat);
   };
-
   //event to choose one trip
   const submitTrip = () => {
     setActiveStep(2);
-    setPlaceAvailableTrip(dataTripId.getTrip.place_available);
+    setAvailableSeatTrip(dataTripId.getTripById.available_seat);
   };
 
   const hoverSetId = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -278,13 +276,13 @@ export default function SearchTripPage(): JSX.Element {
   };
 
   const joinTrip = () => {
-    if (dataTripId.getTrip.users[0].email !== userInfos.email) {
+    if (dataTripId.getTripById.users[0].email !== userInfos.email) {
       Promise.all([
         selectTrip({ variables: { tripId } }),
         updateTripPlace({
           variables: {
             updateTripId: tripId,
-            placeAvailable: placeAvailableTrip - 1,
+            availableSeat: availableSeatTrip - 1,
           },
         }),
       ])
@@ -327,7 +325,7 @@ export default function SearchTripPage(): JSX.Element {
         />
       ) : null}
       {activeStep === 1 ? (
-        <div className="flex flex-row w-2/3 pt-5 mx-auto justify-center border-t-2 border-black">
+        <div className="flex flex-row justify-center w-2/3 pt-5 mx-auto border-t-2 border-black">
           <FilterSearchComponent
             filterByPrice={filterByPrice}
             changeHourRange={changeHourRange}
@@ -339,19 +337,19 @@ export default function SearchTripPage(): JSX.Element {
           <div className="flex flex-col px-5 w-1/1 h-5/6">
             {resultat && resultat.length > 0 ? (
               resultat.map((el: ITrip, index) =>
-                el.place_available !== 0 ? (
+                el.available_seat !== 0 ? (
                   <SearchTripResult
                     key={index}
                     value={el.id}
                     hoverSetId={hoverSetId}
                     nameProfil={el.users[0].username}
-                    date={moment(el.date_departure).format("DD/MM/YYYY")}
-                    seats={el.place_available}
+                    date={moment(el.departure_date).format("DD/MM/YYYY")}
+                    seats={el.available_seat}
                     price={el.price}
-                    hour={`${el.hour_departure.split(":")[0]}h${
-                      el.hour_departure.split(":")[1]
+                    hour={`${el.departure_hour.split(":")[0]}h${
+                      el.departure_hour.split(":")[1]
                     }`}
-                    departure={el.departure_places}
+                    departure={el.departure_place}
                     arrival={el.destination}
                     submitTrip={submitTrip}
                   />
@@ -368,15 +366,15 @@ export default function SearchTripPage(): JSX.Element {
       {activeStep === 2 ? (
         <div className="flex flex-row step-1">
           <SelectedTrip
-            nameProfil={dataTripId.getTrip.users[0].username}
-            departure={dataTripId.getTrip.departure_places}
-            arrival={dataTripId.getTrip.destination}
-            seats={dataTripId.getTrip.place_available}
-            price={dataTripId.getTrip.price}
-            hour={`${dataTripId.getTrip.hour_departure.split(":")[0]}h${
-              dataTripId.getTrip.hour_departure.split(":")[1]
+            nameProfil={dataTripId.getTripById.users[0].username}
+            departure={dataTripId.getTripById.departure_place}
+            arrival={dataTripId.getTripById.destination}
+            seats={dataTripId.getTripById.available_seat}
+            price={dataTripId.getTripById.price}
+            hour={`${dataTripId.getTripById.departure_hour.split(":")[0]}h${
+              dataTripId.getTripById.departure_hour.split(":")[1]
             }`}
-            date={moment(dataTripId.getTrip.date_departure).format(
+            date={moment(dataTripId.getTripById.departure_date).format(
               "DD/MM/YYYY"
             )}
             stepBack={stepBack}

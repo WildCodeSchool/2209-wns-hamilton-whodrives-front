@@ -1,12 +1,13 @@
-import LocationField from "../../components/createTrip/LocationFields";
-import ConfirmTrip from "../../components/createTrip/ConfirmTrip";
-import * as React from "react";
-import { useState } from "react";
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
 import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { useState } from "react";
+
+import ConfirmTrip from "../../components/createTrip/ConfirmTrip";
+import LocationField from "../../components/createTrip/LocationFields";
 import PublishTrip from "../../components/createTrip/PublishTrip";
 
 interface TripData {

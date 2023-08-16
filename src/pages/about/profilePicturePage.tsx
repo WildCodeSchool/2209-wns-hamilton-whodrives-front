@@ -12,14 +12,14 @@ export default function AddUserPicturePage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!file || !data || !data.userLogged?.userInfo?.id) return;
+    if (!file || !data || !data.getUserLogged?.userInfo?.id) return;
     try {
       const formData = new FormData();
-      formData.append("userInfoId", data.userLogged.userInfo.id);
+      formData.append("userInfoId", data.getUserLogged.userInfo.id);
       formData.append("file", file);
       await addProfilePicture({
         variables: {
-          userInfoId: data.userLogged.userInfo.id,
+          userInfoId: data.getUserLogged.userInfo.id,
           file: formData.get("file")!,
         },
       });

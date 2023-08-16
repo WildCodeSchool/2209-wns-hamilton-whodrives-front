@@ -7,12 +7,12 @@ import {
   CREATE_CAR_MUTATION,
   UPDATE_CAR_MUTATION,
 } from "../../queryMutation/mutations";
-import { GET_CAR_MODELS, GET_CAR_USER_LOGGED } from "../../queryMutation/query";
+import { GET_CAR_BRANDS, GET_CAR_USER_LOGGED } from "../../queryMutation/query";
 
 interface Car {
   id: number;
   seat: number;
-  model: {
+  brand: {
     id: number;
     name: string;
   };
@@ -22,35 +22,35 @@ interface Car {
   }[];
 }
 
-interface Model {
+interface Brand {
   id: number;
   name: string;
 }
 
 export default function AddCarPage() {
   const [seat, setSeat] = useState<number>(0);
-  const [modelId, setModelId] = useState<number | string>("0");
+  const [brandId, setBrandId] = useState<number | string>("0");
   const [carPictures, setCarPictures] = useState<File[]>([]);
 
   const navigate = useNavigate();
 
-  const { loading, error, data } = useQuery<{ Models: Model[] }>(
-    GET_CAR_MODELS
+  const { loading, error, data } = useQuery<{ getBrands: Brand[] }>(
+    GET_CAR_BRANDS
   );
+  console.log(data);
   const {
     loading: carLoading,
     error: carError,
     data: carData,
-  } = useQuery<{ userLogged: { cars: Car[] } }>(GET_CAR_USER_LOGGED);
+  } = useQuery<{ getUserLogged: { cars: Car[] } }>(GET_CAR_USER_LOGGED);
 
-  const updateCarId = carData?.userLogged.cars[0]?.id;
+  const updateCarId = carData?.getUserLogged.cars[0]?.id;
+  console.log("id", updateCarId);
 
   const [createCar, { loading: mutationLoading, error: mutationError }] =
     useMutation<{ createCar: Car }>(CREATE_CAR_MUTATION, {
       onCompleted: (data) => {
-        toast.success("Votre voiture a été ajoutée avec succès !", {
-          autoClose: 1000,
-        });
+        toast.success("Votre voiture a été ajoutée avec succès !");
         navigate("/profile");
       },
       onError: (error) => {
@@ -59,12 +59,9 @@ export default function AddCarPage() {
         );
       },
     });
-
   const [updateCar] = useMutation<{ updateCar: Car }>(UPDATE_CAR_MUTATION, {
     onCompleted: (data) => {
-      toast.success("Votre voiture a été mise à jour avec succès !", {
-        autoClose: 1000,
-      });
+      toast.success("Votre voiture a été mise à jour avec succès !");
       navigate("/profile");
     },
     onError: (error) => {
@@ -75,17 +72,17 @@ export default function AddCarPage() {
   });
 
   useEffect(() => {
-    if (!carLoading && carData && carData.userLogged.cars.length > 0) {
-      const carInfo = carData.userLogged.cars[0];
+    if (!carLoading && carData && carData.getUserLogged.cars.length > 0) {
+      const carInfo = carData.getUserLogged.cars[0];
       setSeat(carInfo.seat);
-      setModelId(carInfo.model.id);
+      setBrandId(carInfo.brand.id);
     }
   }, [carLoading, carData]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (seat > 0 && parseInt(modelId.toString()) > 0) {
+    if (seat > 0 && parseInt(brandId.toString()) > 0) {
       const pictures = await Promise.all(
         carPictures.map(
           (file) =>
@@ -99,37 +96,34 @@ export default function AddCarPage() {
             })
         )
       );
-
       if (updateCarId) {
         updateCar({
           variables: {
             updateCarId,
             seat,
-            modelId: parseInt(modelId.toString()),
+            brandId: parseInt(brandId.toString()),
           },
         });
       } else {
         createCar({
           variables: {
             seat: parseInt(seat.toString()),
-            modelId: parseInt(modelId.toString()),
+            brandId: parseInt(brandId.toString()),
             pictures,
           },
         });
       }
     }
   };
-
   const BackToProfile = () => {
     window.history.back();
   };
-
   return (
     <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">
       <h1 className="mb-4 text-center text-layoutBlue">Ma voiture</h1>
-      {loading && <p>Loading models...</p>}
+      {loading && <p>Loading Brands...</p>}
       {error && (
-        <p className="text-red-500">Error loading models: {error.message}</p>
+        <p className="text-red-500">Error loading Brands: {error.message}</p>
       )}
       {carLoading && <p>Loading car data...</p>}
       {carError && (
@@ -152,13 +146,13 @@ export default function AddCarPage() {
               </label>
               <select
                 className="px-4 py-2 border"
-                value={modelId}
-                onChange={(e) => setModelId(parseInt(e.target.value))}
+                value={brandId}
+                onChange={(e) => setBrandId(parseInt(e.target.value))}
               >
                 <option value={0}></option>
-                {data.Models.map((model) => (
-                  <option key={model.id} value={model.id}>
-                    {model.name}
+                {data.getBrands.map((brand) => (
+                  <option key={brand.id} value={brand.id}>
+                    {brand.name}
                   </option>
                 ))}
               </select>
@@ -167,7 +161,7 @@ export default function AddCarPage() {
               <label className="mb-2 font-semibold">Nombre de places</label>
               <input
                 type="number"
-                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:outline-validBlue"
+                className="w-full px-4 py-2 mb-2 border border-gray-300 focus:ring focus:ring-validBlue"
                 value={seat}
                 onChange={(e) => setSeat(parseInt(e.target.value))}
               />

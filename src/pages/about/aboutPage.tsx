@@ -13,7 +13,7 @@ import {
 export default function AboutPage(): JSX.Element {
   const [animal, setAnimal] = useState<boolean>(false);
   const [description, setDescription] = useState<string>("");
-  const [smoke, setSmoke] = useState<boolean>(false);
+  const [cigarette, setCigarette] = useState<boolean>(false);
   const [chatOptionId, setChatOptionId] = useState<number | string>("");
   const [musicOptionId, setMusicOptionId] = useState<number | string>("");
   const {
@@ -41,12 +41,12 @@ export default function AboutPage(): JSX.Element {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!aboutLoading && aboutData && aboutData.userLogged.userInfo.about) {
-      const { animal, description, smoke, chatOption, musicOption } =
-        aboutData.userLogged.userInfo.about;
+    if (!aboutLoading && aboutData && aboutData.getUserLogged.userInfo.about) {
+      const { animal, description, cigarette, chatOption, musicOption } =
+        aboutData.getUserLogged.userInfo.about;
       setAnimal(animal || false);
       setDescription(description || "");
-      setSmoke(smoke || false);
+      setCigarette(cigarette || false);
       setChatOptionId(chatOption?.id ? parseInt(chatOption.id) : ""); // Convert the id to an integer if provided
       setMusicOptionId(musicOption?.id ? parseInt(musicOption.id) : ""); // Convert the id to an integer if provided
     }
@@ -62,12 +62,12 @@ export default function AboutPage(): JSX.Element {
     const variables = {
       animal,
       description,
-      smoke,
+      cigarette,
       chatOptionId,
       musicOptionId,
     };
 
-    const updateAboutId = aboutData?.userLogged?.userInfo?.about?.id;
+    const updateAboutId = aboutData?.getUserLogged?.userInfo?.about?.id;
 
     if (updateAboutId) {
       updateAbout({
@@ -111,8 +111,8 @@ export default function AboutPage(): JSX.Element {
     return <div>Error loading options.</div>;
   }
 
-  const musicOptions = musicData.musicOptions;
-  const chatOptions = chatData.chatOptions;
+  const musicOptions = musicData.getMusicOptions;
+  const chatOptions = chatData.getChatOptions;
 
   return (
     <div className="w-full flex-grow min-h-[calc(100vh-10rem)] pt-5">
@@ -143,12 +143,12 @@ export default function AboutPage(): JSX.Element {
             <div className="flex gap-4">
               <img
                 src={
-                  smoke
+                  cigarette
                     ? "/assets/icons/wind-blue.svg"
                     : "/assets/icons/wind-grey.svg"
                 }
                 alt=""
-                onClick={() => setSmoke(!smoke)}
+                onClick={() => setCigarette(!cigarette)}
                 style={{ cursor: "pointer" }}
               />
             </div>

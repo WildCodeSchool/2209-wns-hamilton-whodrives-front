@@ -6,37 +6,30 @@ import { GET_USER_LOGGED, GET_USER_PICTURES } from "../../queryMutation/query";
 
 const ProfileCardComponent = () => {
   const navigate = useNavigate();
-
   const handleClickUserInfos = () => {
     navigate("/user-infos");
   };
-
   const handleClickAbout = () => {
     navigate("/user-infos/about");
   };
-
   const handleClickCar = () => {
     navigate("/user-infos/car");
   };
-
   const handleClickAddPicture = (carId: string) => {
     localStorage.setItem("selectedCarId", carId);
     navigate("/user-infos/car-picture");
   };
   const handleClickAddProfilPicture = () => {
-    if (!data?.userLogged?.userInfo?.id) {
+    if (!data?.getUserLogged?.userInfo?.id) {
       alert("Vous devez d'abord ajouter vos informations");
     } else {
       navigate("/user-infos/user-picture");
     }
   };
-
   const { loading, error, data, refetch } = useQuery(GET_USER_LOGGED);
-
   useEffect(() => {
     refetch();
   }, []);
-
   const backendUrl = "http://localhost:4000/cars-images/";
   const backendUrlPicture = "http://localhost:4000/profiles-images/";
   const {
@@ -44,17 +37,16 @@ const ProfileCardComponent = () => {
     loading: loadingPictures,
     error: errorPictures,
   } = useQuery(GET_USER_PICTURES);
-  const pictures = dataPictures?.profilePicturePath;
+  const pictures = dataPictures?.getProfilePicturePath;
 
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (error) {
     return <div>Error retrieving user information.</div>;
   }
 
-  const user = data.userLogged;
+  const user = data.getUserLogged;
 
   return (
     <div className="flex flex-col w-5/6 p-8 m-auto my-4 border-2 md:flex-row md:w-1/2 border-validBlue">
@@ -73,12 +65,10 @@ const ProfileCardComponent = () => {
             onClick={handleClickAddProfilPicture}
           />
         )}
-
         <p className="font-bold text-center">{user.username}</p>
       </div>
       <div className="w-full md:w-3/4">
         <h3 className="px-2 py-1 text-white bg-layoutBlue">A propos de moi</h3>
-
         {user.userInfo !== null && (
           <div>
             <div className="flex justify-end">
@@ -138,7 +128,7 @@ const ProfileCardComponent = () => {
                       )}
                     </div>
                     <div>
-                      {user.userInfo.about.smoke === true ? (
+                      {user.userInfo.about.cigarette === true ? (
                         <img
                           src="/assets/icons/wind-blue.svg"
                           alt=""
@@ -174,6 +164,16 @@ const ProfileCardComponent = () => {
           </>
         )}
         <h3 className="px-2 py-1 text-white bg-layoutBlue">Ma Voiture</h3>
+        {user.cars.length > 0 && (
+          <div className="flex justify-end">
+            <img
+              className="w-4"
+              src="assets/icons/edit-box.svg"
+              alt="arrow icon"
+              onClick={handleClickCar}
+            />
+          </div>
+        )}
         {user.cars.length === 0 ? (
           <button className="p-4" onClick={handleClickCar}>
             <p className="font-bold text-whodrivesGrey hover:text-validBlue">
@@ -203,7 +203,7 @@ const ProfileCardComponent = () => {
               )}
               <p className="w-full">
                 Ma voiture est une{" "}
-                <span className="text-validBlue">{car.model?.name}</span> qui
+                <span className="text-validBlue">{car.brand?.name}</span> qui
                 possède <span className="text-validBlue">{car.seat}</span>{" "}
                 places.
               </p>

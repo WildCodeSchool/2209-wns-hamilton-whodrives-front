@@ -25,7 +25,7 @@ export default function SelectedTrip({
   hour,
 }: IPropsSelectedTrip): JSX.Element {
   return (
-    <div className="flex flex-col items-center w-full justify-center py-5">
+    <div className="flex flex-col items-center justify-center w-full py-5">
       <div className="w-3/5 p-4 mb-4 bg-white border-2 lg:w-2/5 border-validBlue">
         <h3 className="mb-4 text-center text-validBlue">Détails du trajet</h3>
         <div className="space-y-4">

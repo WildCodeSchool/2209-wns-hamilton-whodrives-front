@@ -1,7 +1,9 @@
 import "../../../styles/layout.css";
+
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
+
 import useAuth from "../../../hooks/useAuth";
 
 type MenuItems = {
