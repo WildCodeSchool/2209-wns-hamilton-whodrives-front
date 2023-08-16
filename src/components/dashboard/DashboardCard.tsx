@@ -129,28 +129,35 @@ export default function DashboardCard() {
         {trips.map((trip: ITrip) => (
           <div
             key={trip.id}
-            className={`border border-black p-4 md:p-8 flex flex-col md:flex-row justify-center mb-6 md:m-3 ${
-              trip.users.find(
-                (user) => user.username === getUserLogged.username
-              )
+            className={`border border-black p-4 md:p-8 flex flex-col md:flex-row justify-center mb-6 md:m-3 ${trip.users.find(
+              (user) => user.username === getUserLogged.username
+            )
                 ? "bg-whodrivesGreen text-white"
                 : trip.passengers.find(
-                    (passenger) => passenger.username === getUserLogged.username
-                  )
-                ? "bg-whodrivesPink text-white"
-                : ""
-            }`}
+                  (passenger) => passenger.username === getUserLogged.username
+                )
+                  ? "bg-whodrivesPink text-white"
+                  : ""
+              }`}
           >
             <div className="flex flex-col">
               <h3 className="mb-4 text-center">Votre trajet</h3>
               <div className="flex flex-col md:flex-row">
                 <div className="flex flex-col items-center justify-center w-full gap-2 mb-4 font-bold md:mb-0 md:gap-4 md:w-1/5">
                   <div className="flex flex-col font-bold">
-                    <p>Conducteur :</p>
                     {trip.users.map((user) => (
-                      <p key={user.username} className="ml-2">
-                        {user.username}
-                      </p>
+                      <div>
+                        {user.username === getUserLogged.username ?
+                          null
+                          : (<div>
+                            <p>Conducteur :</p>
+                            <p key={user.username} className="ml-2">
+                              {user.username}
+                            </p>
+                          </div>)}
+
+                      </div>
+
                     ))}
                   </div>
                   {trip.users.find(
@@ -203,11 +210,11 @@ export default function DashboardCard() {
                       )
                         ? "Supprimer ce trajet"
                         : trip.passengers.find(
-                            (passenger) =>
-                              passenger.username === getUserLogged.username
-                          )
-                        ? "Quitter ce trajet"
-                        : ""}
+                          (passenger) =>
+                            passenger.username === getUserLogged.username
+                        )
+                          ? "Quitter ce trajet"
+                          : ""}
                     </p>
                   </button>
                 </div>
