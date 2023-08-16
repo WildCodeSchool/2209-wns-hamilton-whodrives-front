@@ -1,7 +1,9 @@
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { GET_USER_LOGGED, GET_USER_PICTURES } from "../../queryMutation/query";
+
 const ProfileCardComponent = () => {
   const navigate = useNavigate();
   const handleClickUserInfos = () => {

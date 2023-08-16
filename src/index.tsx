@@ -1,20 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
-import { setContext } from "@apollo/client/link/context";
+
 import {
   ApolloClient,
-  InMemoryCache,
+  ApolloLink,
   ApolloProvider,
   createHttpLink,
-  ApolloLink
+  InMemoryCache,
 } from "@apollo/client";
-import { createUploadLink } from "apollo-upload-client";
-import { formDataAppendFile } from "apollo-upload-client";
+import { setContext } from "@apollo/client/link/context";
+import { createUploadLink, formDataAppendFile } from "apollo-upload-client";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+
+import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
+import reportWebVitals from "./reportWebVitals";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql/",
@@ -35,7 +36,7 @@ const uploadLink = createUploadLink({
   headers: { "Apollo-Require-Preflight": "true" },
   formDataAppendFile,
 });
-const link = ApolloLink.from([authLink, uploadLink])
+const link = ApolloLink.from([authLink, uploadLink]);
 
 const client = new ApolloClient({
   link,

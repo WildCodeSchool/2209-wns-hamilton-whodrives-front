@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useQuery, useMutation, gql } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import moment from "moment";
+import { useEffect } from "react";
 
 interface ITrip {
   id: string;

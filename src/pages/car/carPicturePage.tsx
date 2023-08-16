@@ -1,10 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_ID_CAR , ADD_CAR_PICTURE} from "../../queryMutation/mutations";
-import { gql } from "@apollo/client/core";
 import { useState } from "react";
 
-
-
+import { ADD_CAR_PICTURE, GET_ID_CAR } from "../../queryMutation/mutations";
 
 export default function AddCarPicturePage() {
   const [file, setFile] = useState<File | null>(null);

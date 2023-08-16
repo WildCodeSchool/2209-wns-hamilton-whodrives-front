@@ -1,5 +1,5 @@
+import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect } from "react";
-import { useQuery, useMutation, gql } from "@apollo/client";
 
 interface Trip {
   id: string;

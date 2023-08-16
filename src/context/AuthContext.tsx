@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import React, { createContext, ReactNode, useReducer } from "react";
+
 // import { toast } from "react-toastify";
 
 interface ISetUserInfos {
@@ -19,11 +20,11 @@ interface IAuthContext {
 export const AuthContext = createContext({} as IAuthContext);
 
 export const CHECK_USER_LOGGED = gql`
-query CheckUserLogged {
-  checkUserLogged {
-    msg
+  query CheckUserLogged {
+    checkUserLogged {
+      msg
+    }
   }
-}
 `;
 
 export const AuthProvider: React.FunctionComponent<{ children: ReactNode }> = ({
@@ -48,8 +49,6 @@ export const AuthProvider: React.FunctionComponent<{ children: ReactNode }> = ({
       userInfos: JSON.parse(`${localStorage.getItem("userInfos")}`) || {},
     }
   );
-
-
 
   const authContextValue = {
     setUserInfos: async (data: ISetUserInfos) => {

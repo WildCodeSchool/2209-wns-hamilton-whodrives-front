@@ -78,7 +78,8 @@ export default function UserInfoPage(): JSX.Element {
 
   useEffect(() => {
     if (!userInfoLoading && userInfoData && userInfoData.getUserLogged) {
-      const { city, country, address } = userInfoData.getUserLogged.userInfo || {};
+      const { city, country, address } =
+        userInfoData.getUserLogged.userInfo || {};
       setCity(city || "");
       setCountry(country || "");
       setAddress(address || "");

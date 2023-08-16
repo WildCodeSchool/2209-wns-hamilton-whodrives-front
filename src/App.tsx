@@ -9,11 +9,13 @@ import ConfirmTrip from "./components/createTrip/ConfirmTrip";
 import FooterComponent from "./components/layout/footer";
 import HeaderComponent from "./components/layout/header/header";
 import AboutPage from "./pages/about/aboutPage";
+import ProfilePictureUploadComponent from "./pages/about/profilePicturePage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import AddCarPage from "./pages/car/CarAddPage";
 import AddCarPicturePage from "./pages/car/carPicturePage";
 import CreateTripPage from "./pages/createTrip/createTripPage";
+import DashboardPage from "./pages/dashboard/dashboardPage";
 import AboutUsPage from "./pages/footerPages/aboutUs";
 import ContactUsPage from "./pages/footerPages/contactUs";
 import FaqPage from "./pages/footerPages/faq";
@@ -21,8 +23,6 @@ import HomePage from "./pages/home/homePage";
 import ProfilePage from "./pages/profile/profilePage";
 import SearchTripPage from "./pages/searchTrip/searchTripPage";
 import UserInfoPage from "./pages/userInfo/userInfoPage";
-import DashboardPage from "./pages/dashboard/dashboardPage";
-import ProfilePictureUploadComponent from "./pages/about/profilePicturePage";
 
 function App() {
   return (

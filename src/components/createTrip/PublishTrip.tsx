@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+
 function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
   const CREATE_TRIP_MUTATION = gql`
     mutation CreateTrip(
@@ -12,7 +12,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
       $price: Int
       $description: String
       $hourDeparture: String
-      $placeAvailable: Int
+      $availableSeat: Int
     ) {
       createTrip(
         departure_place: $departurePlace
@@ -22,7 +22,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
         price: $price
         description: $description
         hour_departure: $hourDeparture
-        available_seat: $placeAvailable
+        available_seat: $availableSeat
       ) {
         id
         departure_place
@@ -74,7 +74,7 @@ function PublishTrip({ trip, returnTrip, BackToPreviousStage }: any) {
           hourDeparture: formattedTime.isValid()
             ? formattedTime.format("HH:mm:ss")
             : null,
-          placeAvailable: locationField.passengers,
+          availableSeat: locationField.passengers,
         },
       });
       navigate("/dashboard");

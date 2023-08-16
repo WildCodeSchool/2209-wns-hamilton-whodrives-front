@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useMutation, useQuery, gql } from "@apollo/client";
-import { GET_CAR_BRANDS, GET_CAR_USER_LOGGED } from "../../queryMutation/query";
+import { useMutation, useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import {
   CREATE_CAR_MUTATION,
   UPDATE_CAR_MUTATION,
 } from "../../queryMutation/mutations";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { GET_CAR_BRANDS, GET_CAR_USER_LOGGED } from "../../queryMutation/query";
+
 interface Car {
   id: number;
   seat: number;
