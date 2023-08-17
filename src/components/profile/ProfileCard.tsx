@@ -19,7 +19,7 @@ const ProfileCardComponent = () => {
     localStorage.setItem("selectedCarId", carId);
     navigate("/user-infos/car-picture");
   };
-  const handleClickAddProfilPicture = () => {
+  const handleClickAddProfilePicture = () => {
     if (!data?.getUserLogged?.userInfo?.id) {
       alert("Vous devez d'abord ajouter vos informations");
     } else {
@@ -55,14 +55,14 @@ const ProfileCardComponent = () => {
           <img
             src={backendUrlPicture + pictures}
             alt="profile pic"
-            onClick={handleClickAddProfilPicture}
+            onClick={handleClickAddProfilePicture}
           />
         ) : (
           <img
             src="/assets/images/blue.png"
             alt="profile pic"
             className="w-full"
-            onClick={handleClickAddProfilPicture}
+            onClick={handleClickAddProfilePicture}
           />
         )}
         <p className="font-bold text-center">{user.username}</p>
