@@ -60,7 +60,7 @@ export const GET_USER_LOGGED = gql`
             content
           }
         }
-        profilPicture {
+        profilePicture {
           id
           path
         }
@@ -125,7 +125,7 @@ export const GET_PROFILE_USER = gql`
             content
           }
         }
-        profilPictureId {
+        profilePictureId {
           id
           path
         }
