@@ -1,0 +1,19 @@
+.icon {
+    color: white;
+}
+
+@font-face {
+    font-family: "pressStart2p";
+    src: url('../../public/assets/fonts/PressStart2P.ttf');
+}
+
+.header-text {
+    color: white;
+    font-family: "pressStart2p";
+}
+
+.header-profile-text {
+    color: #909090;
+    font-family: "pressStart2p";
+    font-size: 0.8rem;
+}
